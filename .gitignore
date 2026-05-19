@@ -10,6 +10,7 @@ __pycache__/
 .ruff_cache/
 venv/
 .venv/
+.venv
 env/
 ENV/
 
@@ -37,6 +38,9 @@ data/evidence/*.pdf
 runs/*/logs/
 runs/*/tmp/
 runs/*/.cache/
+# Transient config-builder / generator scripts (e.g. _build_config.py,
+# _gen_fingerprints.py) — scratch, regenerated per run, not committed.
+runs/*/_*.py
 
 # Secrets — never commit
 .env
