@@ -1,0 +1,17 @@
+{
+  "source_id": "tax_certificate_sale",
+  "source_type": "tax_certificates",
+  "portal_vendor": "LienHub / RealAuction",
+  "portal_family": "LienHub tax certificate sale portal",
+  "rendering_type": "SPA",
+  "access_pattern": "SPA_WITH_API",
+  "api_discovery_status": "NOT_FOUND",
+  "captcha_status": "UNKNOWN",
+  "session_status": "NO_SESSION_REQUIRED",
+  "pagination_model": "PAGE_NUMBER",
+  "record_detail_model": "DETAIL_PAGE",
+  "download_model": "BULK_FILE",
+  "source_priority": "P1",
+  "recommended_adapter": "scrapers/tax_certificate_sale_playwright.py",
+  "notes": "lienhub.com/county/duval. Annual delinquent-tax certificate auction; advertised list published ~3-4 weeks before the June sale. SEASONAL coverage."
+}

@@ -1,0 +1,17 @@
+{
+  "source_id": "foreclosure_auction",
+  "source_type": "sheriff_sales",
+  "portal_vendor": "RealAuction.com",
+  "portal_family": "RealAuction foreclosure auction portal",
+  "rendering_type": "SPA",
+  "access_pattern": "WAF",
+  "api_discovery_status": "BLOCKED",
+  "captcha_status": "UNKNOWN",
+  "session_status": "NO_SESSION_REQUIRED",
+  "pagination_model": "PAGE_NUMBER",
+  "record_detail_model": "MODAL",
+  "download_model": "NONE",
+  "source_priority": "P0",
+  "recommended_adapter": "scrapers/foreclosure_auction_playwright.py",
+  "notes": "duval.realforeclose.com. HTTP 403 to non-browser clients (RealAuction anti-bot/WAF). Calendar publicly viewable in a real browser without login. Build Mode: Playwright + inspect index.cfm?zaction= XHR endpoints. TECHNICAL blocker."
+}

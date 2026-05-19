@@ -1,0 +1,17 @@
+{
+  "source_id": "dor_parcel_bulk",
+  "source_type": "parcel_master",
+  "portal_vendor": "State of Florida \u2014 Dept. of Revenue",
+  "portal_family": "FL DOR property tax data portal",
+  "rendering_type": "STATIC_HTML",
+  "access_pattern": "STATIC_HTML",
+  "api_discovery_status": "NOT_FOUND",
+  "captcha_status": "NONE",
+  "session_status": "NO_SESSION_REQUIRED",
+  "pagination_model": "NONE",
+  "record_detail_model": "PDF",
+  "download_model": "BULK_FILE",
+  "source_priority": "P2",
+  "recommended_adapter": "scrapers/dor_parcel_bulk_html.py",
+  "notes": "floridarevenue.com property data portal. Per-county NAL assessment-roll + parcel GIS shapefiles. FULL_COUNTY_BULK enrichment path. Annual cadence (county delivers by Apr 1)."
+}

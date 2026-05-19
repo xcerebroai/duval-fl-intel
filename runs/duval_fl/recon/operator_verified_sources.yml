@@ -1,0 +1,21 @@
+# Operator-Verified Sources — Duval County, Florida (duval_fl)
+# Phase 0 recon supplement per MASTER_PROMPT 16.H / 01.25.
+#
+# This file captures direct source links the OPERATOR manually surfaces that
+# recon missed. It is a provenance record, not an override or exemption.
+#
+# As of this Phase 0 run, the operator has not surfaced any additional source
+# links. Recon discovered all primary, supporting, and enrichment sources
+# autonomously via web search. This file is intentionally empty of entries.
+#
+# If the operator later surfaces a source, append an entry of the form:
+#
+# - lead_type: <canonical lead type>
+#   discovered_by: operator
+#   official_url: <url>
+#   official_origin_evidence: <how the operator confirmed it is official>
+#   reason_added: <why recon missed it>
+#   review_status: pending        # accepted | rejected | pending
+#   notes: <free text>
+
+operator_verified_sources: []

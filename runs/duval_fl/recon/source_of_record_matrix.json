@@ -1,0 +1,1087 @@
+{
+  "county_slug": "duval_fl",
+  "county_name": "Duval County",
+  "state": "FL",
+  "framework_version": "v5.3.0",
+  "generated_at": "2026-05-19T14:30:00Z",
+  "county_build_status": "READY_TO_BUILD",
+  "lead_types": [
+    {
+      "lead_type": "Foreclosure",
+      "state_applicability": "APPLICABLE",
+      "expected_authorities": [
+        "County Clerk",
+        "Circuit Court",
+        "Clerk foreclosure auction"
+      ],
+      "candidate_sources": [
+        {
+          "source_id": "clerk_official_records",
+          "official_url": "https://or.duvalclerk.com/",
+          "authority_type": "County Clerk / Recorder",
+          "source_role": "PRIMARY_EVENT_SOURCE",
+          "access_status": "OPEN_PUBLIC",
+          "bulk_availability": "BATCH_QUERY",
+          "verification_layers": {
+            "authority": "PASS",
+            "lead_type_relevance": "PASS",
+            "access": "PASS",
+            "extractability": "PASS",
+            "refresh_provenance": "PASS"
+          },
+          "sample_record_path_confirmed": true,
+          "sample_document_view_possible": true,
+          "minimum_lead_fields_available": [
+            "property_address",
+            "party_name",
+            "event_date",
+            "instrument_or_case_number"
+          ],
+          "operator_verified": false,
+          "notes": "Lis pendens, notice of sale, final judgment, certificate of title recorded here."
+        },
+        {
+          "source_id": "clerk_core_court",
+          "official_url": "https://core.duvalclerk.com/",
+          "authority_type": "County Clerk / Circuit Court",
+          "source_role": "PRIMARY_EVENT_SOURCE",
+          "access_status": "OPEN_PUBLIC",
+          "bulk_availability": "BATCH_QUERY",
+          "verification_layers": {
+            "authority": "PASS",
+            "lead_type_relevance": "PASS",
+            "access": "PASS",
+            "extractability": "PASS",
+            "refresh_provenance": "PASS"
+          },
+          "sample_record_path_confirmed": true,
+          "sample_document_view_possible": true,
+          "minimum_lead_fields_available": [
+            "property_address",
+            "party_name",
+            "event_date",
+            "instrument_or_case_number"
+          ],
+          "operator_verified": false,
+          "notes": "Foreclosure case docket."
+        },
+        {
+          "source_id": "foreclosure_auction",
+          "official_url": "https://duval.realforeclose.com/",
+          "authority_type": "Clerk foreclosure auction",
+          "source_role": "BLOCKED_SOURCE",
+          "access_status": "BLOCKED",
+          "bulk_availability": "BATCH_QUERY",
+          "verification_layers": {
+            "authority": "PASS",
+            "lead_type_relevance": "PASS",
+            "access": "BLOCKED",
+            "extractability": "PASS",
+            "refresh_provenance": "PASS"
+          },
+          "sample_record_path_confirmed": true,
+          "sample_document_view_possible": false,
+          "minimum_lead_fields_available": [
+            "property_address",
+            "party_name",
+            "event_date",
+            "instrument_or_case_number"
+          ],
+          "operator_verified": false,
+          "notes": "RealAuction WAF; resolvable in Build Mode."
+        }
+      ],
+      "selected_source_id": "clerk_official_records",
+      "status": "LIVE_SOURCE_FOUND",
+      "coverage_notes": "LIVE via recorded lis pendens / final judgments on the open OR portal."
+    },
+    {
+      "lead_type": "Trustee Sale",
+      "state_applicability": "NOT_APPLICABLE_IN_STATE",
+      "expected_authorities": [
+        "n/a \u2014 judicial-foreclosure state"
+      ],
+      "candidate_sources": [],
+      "selected_source_id": "",
+      "status": "NOT_APPLICABLE_IN_STATE",
+      "coverage_notes": "Florida is a judicial-foreclosure state; no trustee sales."
+    },
+    {
+      "lead_type": "Notice of Trustee Sale",
+      "state_applicability": "NOT_APPLICABLE_IN_STATE",
+      "expected_authorities": [
+        "n/a \u2014 judicial-foreclosure state"
+      ],
+      "candidate_sources": [],
+      "selected_source_id": "",
+      "status": "NOT_APPLICABLE_IN_STATE",
+      "coverage_notes": "Non-judicial-state instrument; not applicable in Florida."
+    },
+    {
+      "lead_type": "Notice of Substitute Trustee Sale",
+      "state_applicability": "NOT_APPLICABLE_IN_STATE",
+      "expected_authorities": [
+        "n/a \u2014 judicial-foreclosure state"
+      ],
+      "candidate_sources": [],
+      "selected_source_id": "",
+      "status": "NOT_APPLICABLE_IN_STATE",
+      "coverage_notes": "Non-judicial-state instrument; not applicable in Florida."
+    },
+    {
+      "lead_type": "Sheriff Sale",
+      "state_applicability": "APPLICABLE",
+      "expected_authorities": [
+        "Clerk foreclosure auction",
+        "County Sheriff"
+      ],
+      "candidate_sources": [
+        {
+          "source_id": "foreclosure_auction",
+          "official_url": "https://duval.realforeclose.com/",
+          "authority_type": "Clerk foreclosure auction",
+          "source_role": "BLOCKED_SOURCE",
+          "access_status": "BLOCKED",
+          "bulk_availability": "BATCH_QUERY",
+          "verification_layers": {
+            "authority": "PASS",
+            "lead_type_relevance": "PASS",
+            "access": "BLOCKED",
+            "extractability": "PASS",
+            "refresh_provenance": "PASS"
+          },
+          "sample_record_path_confirmed": true,
+          "sample_document_view_possible": false,
+          "minimum_lead_fields_available": [
+            "property_address",
+            "party_name",
+            "event_date",
+            "instrument_or_case_number"
+          ],
+          "operator_verified": false,
+          "notes": "In FL the Clerk conducts foreclosure sales online."
+        }
+      ],
+      "selected_source_id": "foreclosure_auction",
+      "status": "SOURCE_FOUND_BLOCKED",
+      "coverage_notes": "In FL the Clerk \u2014 not the sheriff \u2014 conducts foreclosure sales. Auction calendar WAF-blocked; sheriff levy sales are rare with no public portal."
+    },
+    {
+      "lead_type": "Tax Lien Foreclosure",
+      "state_applicability": "APPLICABLE",
+      "expected_authorities": [
+        "Clerk tax deed auction",
+        "County Clerk"
+      ],
+      "candidate_sources": [
+        {
+          "source_id": "tax_deed_auction",
+          "official_url": "https://duval.realtaxdeed.com/",
+          "authority_type": "Clerk tax deed auction",
+          "source_role": "BLOCKED_SOURCE",
+          "access_status": "BLOCKED",
+          "bulk_availability": "BATCH_QUERY",
+          "verification_layers": {
+            "authority": "PASS",
+            "lead_type_relevance": "PASS",
+            "access": "BLOCKED",
+            "extractability": "PASS",
+            "refresh_provenance": "PASS"
+          },
+          "sample_record_path_confirmed": true,
+          "sample_document_view_possible": false,
+          "minimum_lead_fields_available": [
+            "property_address",
+            "party_name",
+            "event_date",
+            "instrument_or_case_number"
+          ],
+          "operator_verified": false,
+          "notes": "RealAuction WAF."
+        },
+        {
+          "source_id": "clerk_official_records",
+          "official_url": "https://or.duvalclerk.com/",
+          "authority_type": "County Clerk / Recorder",
+          "source_role": "PRIMARY_EVENT_SOURCE",
+          "access_status": "OPEN_PUBLIC",
+          "bulk_availability": "BATCH_QUERY",
+          "verification_layers": {
+            "authority": "PASS",
+            "lead_type_relevance": "PASS",
+            "access": "PASS",
+            "extractability": "PASS",
+            "refresh_provenance": "PASS"
+          },
+          "sample_record_path_confirmed": true,
+          "sample_document_view_possible": true,
+          "minimum_lead_fields_available": [
+            "property_address",
+            "party_name",
+            "event_date",
+            "instrument_or_case_number"
+          ],
+          "operator_verified": false,
+          "notes": "Recorded tax deeds (post-sale) are LIVE via OR."
+        }
+      ],
+      "selected_source_id": "tax_deed_auction",
+      "status": "SOURCE_FOUND_BLOCKED",
+      "coverage_notes": "Tax-deed process. Auction calendar WAF-blocked; recorded tax deeds LIVE via clerk_official_records."
+    },
+    {
+      "lead_type": "Tax Sale",
+      "state_applicability": "APPLICABLE",
+      "expected_authorities": [
+        "Clerk tax deed auction"
+      ],
+      "candidate_sources": [
+        {
+          "source_id": "tax_deed_auction",
+          "official_url": "https://duval.realtaxdeed.com/",
+          "authority_type": "Clerk tax deed auction",
+          "source_role": "BLOCKED_SOURCE",
+          "access_status": "BLOCKED",
+          "bulk_availability": "BATCH_QUERY",
+          "verification_layers": {
+            "authority": "PASS",
+            "lead_type_relevance": "PASS",
+            "access": "BLOCKED",
+            "extractability": "PASS",
+            "refresh_provenance": "PASS"
+          },
+          "sample_record_path_confirmed": true,
+          "sample_document_view_possible": false,
+          "minimum_lead_fields_available": [
+            "property_address",
+            "party_name",
+            "event_date",
+            "instrument_or_case_number"
+          ],
+          "operator_verified": false,
+          "notes": "RealAuction WAF."
+        }
+      ],
+      "selected_source_id": "tax_deed_auction",
+      "status": "SOURCE_FOUND_BLOCKED",
+      "coverage_notes": "FL tax deed sale. Auction calendar WAF-blocked; resolvable in Build Mode."
+    },
+    {
+      "lead_type": "Tax Sale Certificate",
+      "state_applicability": "APPLICABLE",
+      "expected_authorities": [
+        "Tax Collector"
+      ],
+      "candidate_sources": [
+        {
+          "source_id": "tax_certificate_sale",
+          "official_url": "https://lienhub.com/county/duval",
+          "authority_type": "Tax Collector certificate sale",
+          "source_role": "PRIMARY_EVENT_SOURCE",
+          "access_status": "SEARCH_ONLY_PUBLIC",
+          "bulk_availability": "FULL_COUNTY_BULK",
+          "verification_layers": {
+            "authority": "PASS",
+            "lead_type_relevance": "PASS",
+            "access": "PASS",
+            "extractability": "PASS",
+            "refresh_provenance": "PASS"
+          },
+          "sample_record_path_confirmed": true,
+          "sample_document_view_possible": true,
+          "minimum_lead_fields_available": [
+            "property_address",
+            "party_name",
+            "event_date",
+            "instrument_or_case_number"
+          ],
+          "operator_verified": false,
+          "notes": "Annual certificate sale; advertised list = full delinquent set."
+        }
+      ],
+      "selected_source_id": "tax_certificate_sale",
+      "status": "LIVE_SOURCE_FOUND_LIMITED_COVERAGE",
+      "coverage_notes": "LIVE but SEASONAL \u2014 advertised list publishes ~3-4 weeks before the annual June sale."
+    },
+    {
+      "lead_type": "Tax Delinquency",
+      "state_applicability": "APPLICABLE",
+      "expected_authorities": [
+        "Tax Collector"
+      ],
+      "candidate_sources": [
+        {
+          "source_id": "tax_collector",
+          "official_url": "https://fl-duval-taxcollector.publicaccessnow.com/PropertyTaxSearch.aspx",
+          "authority_type": "Tax Collector",
+          "source_role": "PRIMARY_EVENT_SOURCE",
+          "access_status": "OPEN_PUBLIC",
+          "bulk_availability": "PER_RECORD_ONLY",
+          "verification_layers": {
+            "authority": "PASS",
+            "lead_type_relevance": "PASS",
+            "access": "PASS",
+            "extractability": "PASS",
+            "refresh_provenance": "PASS"
+          },
+          "sample_record_path_confirmed": true,
+          "sample_document_view_possible": true,
+          "minimum_lead_fields_available": [
+            "property_address",
+            "party_name",
+            "event_date",
+            "instrument_or_case_number"
+          ],
+          "operator_verified": false,
+          "notes": "Per-account delinquency lookup."
+        }
+      ],
+      "selected_source_id": "tax_collector",
+      "status": "LIVE_SOURCE_FOUND_LIMITED_COVERAGE",
+      "coverage_notes": "LIVE but PER_RECORD_ONLY \u2014 coverage bounded by the resolved parcel set; the annual certificate sale supplies the bulk universe."
+    },
+    {
+      "lead_type": "Lis Pendens",
+      "state_applicability": "APPLICABLE",
+      "expected_authorities": [
+        "County Clerk / Recorder"
+      ],
+      "candidate_sources": [
+        {
+          "source_id": "clerk_official_records",
+          "official_url": "https://or.duvalclerk.com/",
+          "authority_type": "County Clerk / Recorder",
+          "source_role": "PRIMARY_EVENT_SOURCE",
+          "access_status": "OPEN_PUBLIC",
+          "bulk_availability": "BATCH_QUERY",
+          "verification_layers": {
+            "authority": "PASS",
+            "lead_type_relevance": "PASS",
+            "access": "PASS",
+            "extractability": "PASS",
+            "refresh_provenance": "PASS"
+          },
+          "sample_record_path_confirmed": true,
+          "sample_document_view_possible": true,
+          "minimum_lead_fields_available": [
+            "property_address",
+            "party_name",
+            "event_date",
+            "instrument_or_case_number"
+          ],
+          "operator_verified": false,
+          "notes": "Lis pendens recorded as official records."
+        }
+      ],
+      "selected_source_id": "clerk_official_records",
+      "status": "LIVE_SOURCE_FOUND",
+      "coverage_notes": "LIVE \u2014 searchable by document type on the open OR portal."
+    },
+    {
+      "lead_type": "Civil Judgment",
+      "state_applicability": "APPLICABLE",
+      "expected_authorities": [
+        "County Clerk",
+        "Circuit Court"
+      ],
+      "candidate_sources": [
+        {
+          "source_id": "clerk_official_records",
+          "official_url": "https://or.duvalclerk.com/",
+          "authority_type": "County Clerk / Recorder",
+          "source_role": "PRIMARY_EVENT_SOURCE",
+          "access_status": "OPEN_PUBLIC",
+          "bulk_availability": "BATCH_QUERY",
+          "verification_layers": {
+            "authority": "PASS",
+            "lead_type_relevance": "PASS",
+            "access": "PASS",
+            "extractability": "PASS",
+            "refresh_provenance": "PASS"
+          },
+          "sample_record_path_confirmed": true,
+          "sample_document_view_possible": true,
+          "minimum_lead_fields_available": [
+            "property_address",
+            "party_name",
+            "event_date",
+            "instrument_or_case_number"
+          ],
+          "operator_verified": false,
+          "notes": "Recorded final money judgments."
+        },
+        {
+          "source_id": "clerk_core_court",
+          "official_url": "https://core.duvalclerk.com/",
+          "authority_type": "County Clerk / Circuit Court",
+          "source_role": "PRIMARY_EVENT_SOURCE",
+          "access_status": "OPEN_PUBLIC",
+          "bulk_availability": "BATCH_QUERY",
+          "verification_layers": {
+            "authority": "PASS",
+            "lead_type_relevance": "PASS",
+            "access": "PASS",
+            "extractability": "PASS",
+            "refresh_provenance": "PASS"
+          },
+          "sample_record_path_confirmed": true,
+          "sample_document_view_possible": true,
+          "minimum_lead_fields_available": [
+            "property_address",
+            "party_name",
+            "event_date",
+            "instrument_or_case_number"
+          ],
+          "operator_verified": false,
+          "notes": ""
+        }
+      ],
+      "selected_source_id": "clerk_official_records",
+      "status": "LIVE_SOURCE_FOUND",
+      "coverage_notes": "LIVE \u2014 recorded judgments on the OR portal; CORE adds case detail."
+    },
+    {
+      "lead_type": "Abstract of Judgment",
+      "state_applicability": "APPLICABLE",
+      "expected_authorities": [
+        "County Clerk / Recorder"
+      ],
+      "candidate_sources": [
+        {
+          "source_id": "clerk_official_records",
+          "official_url": "https://or.duvalclerk.com/",
+          "authority_type": "County Clerk / Recorder",
+          "source_role": "PRIMARY_EVENT_SOURCE",
+          "access_status": "OPEN_PUBLIC",
+          "bulk_availability": "BATCH_QUERY",
+          "verification_layers": {
+            "authority": "PASS",
+            "lead_type_relevance": "PASS",
+            "access": "PASS",
+            "extractability": "PASS",
+            "refresh_provenance": "PASS"
+          },
+          "sample_record_path_confirmed": true,
+          "sample_document_view_possible": true,
+          "minimum_lead_fields_available": [
+            "property_address",
+            "party_name",
+            "event_date",
+            "instrument_or_case_number"
+          ],
+          "operator_verified": false,
+          "notes": "Recorded judgment liens / certified copies of judgment."
+        }
+      ],
+      "selected_source_id": "clerk_official_records",
+      "status": "LIVE_SOURCE_FOUND",
+      "coverage_notes": "LIVE \u2014 recorded judgment liens on the OR portal."
+    },
+    {
+      "lead_type": "Mechanic Lien",
+      "state_applicability": "APPLICABLE",
+      "expected_authorities": [
+        "County Clerk / Recorder"
+      ],
+      "candidate_sources": [
+        {
+          "source_id": "clerk_official_records",
+          "official_url": "https://or.duvalclerk.com/",
+          "authority_type": "County Clerk / Recorder",
+          "source_role": "PRIMARY_EVENT_SOURCE",
+          "access_status": "OPEN_PUBLIC",
+          "bulk_availability": "BATCH_QUERY",
+          "verification_layers": {
+            "authority": "PASS",
+            "lead_type_relevance": "PASS",
+            "access": "PASS",
+            "extractability": "PASS",
+            "refresh_provenance": "PASS"
+          },
+          "sample_record_path_confirmed": true,
+          "sample_document_view_possible": true,
+          "minimum_lead_fields_available": [
+            "property_address",
+            "party_name",
+            "event_date",
+            "instrument_or_case_number"
+          ],
+          "operator_verified": false,
+          "notes": "FL Claim of Lien (Ch. 713) recorded here."
+        }
+      ],
+      "selected_source_id": "clerk_official_records",
+      "status": "LIVE_SOURCE_FOUND",
+      "coverage_notes": "LIVE \u2014 FL records mechanic/construction liens as Claims of Lien."
+    },
+    {
+      "lead_type": "Construction Lien",
+      "state_applicability": "APPLICABLE",
+      "expected_authorities": [
+        "County Clerk / Recorder"
+      ],
+      "candidate_sources": [
+        {
+          "source_id": "clerk_official_records",
+          "official_url": "https://or.duvalclerk.com/",
+          "authority_type": "County Clerk / Recorder",
+          "source_role": "PRIMARY_EVENT_SOURCE",
+          "access_status": "OPEN_PUBLIC",
+          "bulk_availability": "BATCH_QUERY",
+          "verification_layers": {
+            "authority": "PASS",
+            "lead_type_relevance": "PASS",
+            "access": "PASS",
+            "extractability": "PASS",
+            "refresh_provenance": "PASS"
+          },
+          "sample_record_path_confirmed": true,
+          "sample_document_view_possible": true,
+          "minimum_lead_fields_available": [
+            "property_address",
+            "party_name",
+            "event_date",
+            "instrument_or_case_number"
+          ],
+          "operator_verified": false,
+          "notes": "FL Construction Lien / Claim of Lien (Ch. 713)."
+        }
+      ],
+      "selected_source_id": "clerk_official_records",
+      "status": "LIVE_SOURCE_FOUND",
+      "coverage_notes": "LIVE \u2014 Florida's statutory term is Construction Lien."
+    },
+    {
+      "lead_type": "Federal Tax Lien",
+      "state_applicability": "APPLICABLE",
+      "expected_authorities": [
+        "County Clerk / Recorder"
+      ],
+      "candidate_sources": [
+        {
+          "source_id": "clerk_official_records",
+          "official_url": "https://or.duvalclerk.com/",
+          "authority_type": "County Clerk / Recorder",
+          "source_role": "PRIMARY_EVENT_SOURCE",
+          "access_status": "OPEN_PUBLIC",
+          "bulk_availability": "BATCH_QUERY",
+          "verification_layers": {
+            "authority": "PASS",
+            "lead_type_relevance": "PASS",
+            "access": "PASS",
+            "extractability": "PASS",
+            "refresh_provenance": "PASS"
+          },
+          "sample_record_path_confirmed": true,
+          "sample_document_view_possible": true,
+          "minimum_lead_fields_available": [
+            "property_address",
+            "party_name",
+            "event_date",
+            "instrument_or_case_number"
+          ],
+          "operator_verified": false,
+          "notes": "IRS federal tax liens recorded in official records."
+        }
+      ],
+      "selected_source_id": "clerk_official_records",
+      "status": "LIVE_SOURCE_FOUND",
+      "coverage_notes": "LIVE \u2014 federal tax liens recorded on the OR portal."
+    },
+    {
+      "lead_type": "State Tax Lien",
+      "state_applicability": "APPLICABLE",
+      "expected_authorities": [
+        "County Clerk / Recorder"
+      ],
+      "candidate_sources": [
+        {
+          "source_id": "clerk_official_records",
+          "official_url": "https://or.duvalclerk.com/",
+          "authority_type": "County Clerk / Recorder",
+          "source_role": "PRIMARY_EVENT_SOURCE",
+          "access_status": "OPEN_PUBLIC",
+          "bulk_availability": "BATCH_QUERY",
+          "verification_layers": {
+            "authority": "PASS",
+            "lead_type_relevance": "PASS",
+            "access": "PASS",
+            "extractability": "PASS",
+            "refresh_provenance": "PASS"
+          },
+          "sample_record_path_confirmed": true,
+          "sample_document_view_possible": true,
+          "minimum_lead_fields_available": [
+            "property_address",
+            "party_name",
+            "event_date",
+            "instrument_or_case_number"
+          ],
+          "operator_verified": false,
+          "notes": "FL Dept. of Revenue warrants recorded in official records."
+        }
+      ],
+      "selected_source_id": "clerk_official_records",
+      "status": "LIVE_SOURCE_FOUND",
+      "coverage_notes": "LIVE \u2014 FL DOR tax warrants recorded on the OR portal."
+    },
+    {
+      "lead_type": "Probate",
+      "state_applicability": "APPLICABLE",
+      "expected_authorities": [
+        "Circuit Court \u2014 Probate Division"
+      ],
+      "candidate_sources": [
+        {
+          "source_id": "clerk_core_court",
+          "official_url": "https://core.duvalclerk.com/",
+          "authority_type": "County Clerk / Circuit Court",
+          "source_role": "PRIMARY_EVENT_SOURCE",
+          "access_status": "FREE_ACCOUNT_REQUIRED",
+          "bulk_availability": "BATCH_QUERY",
+          "verification_layers": {
+            "authority": "PASS",
+            "lead_type_relevance": "PASS",
+            "access": "PARTIAL",
+            "extractability": "PASS",
+            "refresh_provenance": "PASS"
+          },
+          "sample_record_path_confirmed": true,
+          "sample_document_view_possible": false,
+          "minimum_lead_fields_available": [
+            "property_address",
+            "party_name",
+            "event_date",
+            "instrument_or_case_number"
+          ],
+          "operator_verified": false,
+          "notes": "Probate docket index public; documents need a free registered account."
+        },
+        {
+          "source_id": "clerk_official_records",
+          "official_url": "https://or.duvalclerk.com/",
+          "authority_type": "County Clerk / Recorder",
+          "source_role": "PRIMARY_EVENT_SOURCE",
+          "access_status": "OPEN_PUBLIC",
+          "bulk_availability": "BATCH_QUERY",
+          "verification_layers": {
+            "authority": "PASS",
+            "lead_type_relevance": "PASS",
+            "access": "PASS",
+            "extractability": "PASS",
+            "refresh_provenance": "PASS"
+          },
+          "sample_record_path_confirmed": true,
+          "sample_document_view_possible": true,
+          "minimum_lead_fields_available": [
+            "property_address",
+            "party_name",
+            "event_date",
+            "instrument_or_case_number"
+          ],
+          "operator_verified": false,
+          "notes": "Personal-representative deeds and heirship affidavits recorded in OR."
+        }
+      ],
+      "selected_source_id": "clerk_core_court",
+      "status": "SOURCE_FOUND_NEEDS_LOGIN",
+      "coverage_notes": "Probate docket index is publicly searchable; document access needs a free CORE account. Related recorded deeds are LIVE via OR."
+    },
+    {
+      "lead_type": "Affidavit of Heirship",
+      "state_applicability": "APPLICABLE",
+      "expected_authorities": [
+        "County Clerk / Recorder"
+      ],
+      "candidate_sources": [
+        {
+          "source_id": "clerk_official_records",
+          "official_url": "https://or.duvalclerk.com/",
+          "authority_type": "County Clerk / Recorder",
+          "source_role": "PRIMARY_EVENT_SOURCE",
+          "access_status": "OPEN_PUBLIC",
+          "bulk_availability": "BATCH_QUERY",
+          "verification_layers": {
+            "authority": "PASS",
+            "lead_type_relevance": "PASS",
+            "access": "PASS",
+            "extractability": "PASS",
+            "refresh_provenance": "PASS"
+          },
+          "sample_record_path_confirmed": true,
+          "sample_document_view_possible": true,
+          "minimum_lead_fields_available": [
+            "property_address",
+            "party_name",
+            "event_date",
+            "instrument_or_case_number"
+          ],
+          "operator_verified": false,
+          "notes": "Affidavits of heirship recorded in official records."
+        }
+      ],
+      "selected_source_id": "clerk_official_records",
+      "status": "LIVE_SOURCE_FOUND",
+      "coverage_notes": "LIVE \u2014 recorded on the OR portal."
+    },
+    {
+      "lead_type": "Executor Deed",
+      "state_applicability": "APPLICABLE",
+      "expected_authorities": [
+        "County Clerk / Recorder"
+      ],
+      "candidate_sources": [
+        {
+          "source_id": "clerk_official_records",
+          "official_url": "https://or.duvalclerk.com/",
+          "authority_type": "County Clerk / Recorder",
+          "source_role": "PRIMARY_EVENT_SOURCE",
+          "access_status": "OPEN_PUBLIC",
+          "bulk_availability": "BATCH_QUERY",
+          "verification_layers": {
+            "authority": "PASS",
+            "lead_type_relevance": "PASS",
+            "access": "PASS",
+            "extractability": "PASS",
+            "refresh_provenance": "PASS"
+          },
+          "sample_record_path_confirmed": true,
+          "sample_document_view_possible": true,
+          "minimum_lead_fields_available": [
+            "property_address",
+            "party_name",
+            "event_date",
+            "instrument_or_case_number"
+          ],
+          "operator_verified": false,
+          "notes": "FL Personal Representative's Deed recorded in OR."
+        }
+      ],
+      "selected_source_id": "clerk_official_records",
+      "status": "LIVE_SOURCE_FOUND",
+      "coverage_notes": "LIVE \u2014 Florida's term is Personal Representative's Deed."
+    },
+    {
+      "lead_type": "Administrator Deed",
+      "state_applicability": "APPLICABLE",
+      "expected_authorities": [
+        "County Clerk / Recorder"
+      ],
+      "candidate_sources": [
+        {
+          "source_id": "clerk_official_records",
+          "official_url": "https://or.duvalclerk.com/",
+          "authority_type": "County Clerk / Recorder",
+          "source_role": "PRIMARY_EVENT_SOURCE",
+          "access_status": "OPEN_PUBLIC",
+          "bulk_availability": "BATCH_QUERY",
+          "verification_layers": {
+            "authority": "PASS",
+            "lead_type_relevance": "PASS",
+            "access": "PASS",
+            "extractability": "PASS",
+            "refresh_provenance": "PASS"
+          },
+          "sample_record_path_confirmed": true,
+          "sample_document_view_possible": true,
+          "minimum_lead_fields_available": [
+            "property_address",
+            "party_name",
+            "event_date",
+            "instrument_or_case_number"
+          ],
+          "operator_verified": false,
+          "notes": "FL Personal Representative's Deed (intestate) recorded in OR."
+        }
+      ],
+      "selected_source_id": "clerk_official_records",
+      "status": "LIVE_SOURCE_FOUND",
+      "coverage_notes": "LIVE \u2014 covered by the FL Personal Representative's Deed instrument."
+    },
+    {
+      "lead_type": "Code Lien",
+      "state_applicability": "APPLICABLE",
+      "expected_authorities": [
+        "County Clerk / Recorder",
+        "City Municipal Code Compliance"
+      ],
+      "candidate_sources": [
+        {
+          "source_id": "clerk_official_records",
+          "official_url": "https://or.duvalclerk.com/",
+          "authority_type": "County Clerk / Recorder",
+          "source_role": "PRIMARY_EVENT_SOURCE",
+          "access_status": "OPEN_PUBLIC",
+          "bulk_availability": "BATCH_QUERY",
+          "verification_layers": {
+            "authority": "PASS",
+            "lead_type_relevance": "PASS",
+            "access": "PASS",
+            "extractability": "PASS",
+            "refresh_provenance": "PASS"
+          },
+          "sample_record_path_confirmed": true,
+          "sample_document_view_possible": true,
+          "minimum_lead_fields_available": [
+            "property_address",
+            "party_name",
+            "event_date",
+            "instrument_or_case_number"
+          ],
+          "operator_verified": false,
+          "notes": "City code-enforcement liens are recorded in official records."
+        },
+        {
+          "source_id": "code_enforcement",
+          "official_url": "https://www.jacksonville.gov/departments/neighborhoods/municipal-code-compliance",
+          "authority_type": "City Municipal Code Compliance",
+          "source_role": "BLOCKED_SOURCE",
+          "access_status": "UNKNOWN",
+          "bulk_availability": "UNKNOWN",
+          "verification_layers": {
+            "authority": "PASS",
+            "lead_type_relevance": "PASS",
+            "access": "PARTIAL",
+            "extractability": "PASS",
+            "refresh_provenance": "PASS"
+          },
+          "sample_record_path_confirmed": false,
+          "sample_document_view_possible": false,
+          "minimum_lead_fields_available": [
+            "property_address",
+            "party_name",
+            "event_date",
+            "instrument_or_case_number"
+          ],
+          "operator_verified": false,
+          "notes": "No public case portal."
+        }
+      ],
+      "selected_source_id": "clerk_official_records",
+      "status": "LIVE_SOURCE_FOUND",
+      "coverage_notes": "LIVE \u2014 recorded code-enforcement liens appear on the OR portal."
+    },
+    {
+      "lead_type": "Demolition",
+      "state_applicability": "APPLICABLE",
+      "expected_authorities": [
+        "City Municipal Code Compliance"
+      ],
+      "candidate_sources": [
+        {
+          "source_id": "code_enforcement",
+          "official_url": "https://www.jacksonville.gov/departments/neighborhoods/municipal-code-compliance",
+          "authority_type": "City Municipal Code Compliance",
+          "source_role": "BLOCKED_SOURCE",
+          "access_status": "UNKNOWN",
+          "bulk_availability": "UNKNOWN",
+          "verification_layers": {
+            "authority": "PASS",
+            "lead_type_relevance": "PASS",
+            "access": "PARTIAL",
+            "extractability": "PASS",
+            "refresh_provenance": "PASS"
+          },
+          "sample_record_path_confirmed": false,
+          "sample_document_view_possible": false,
+          "minimum_lead_fields_available": [
+            "property_address",
+            "party_name",
+            "event_date",
+            "instrument_or_case_number"
+          ],
+          "operator_verified": false,
+          "notes": "No public code-enforcement case portal located."
+        }
+      ],
+      "selected_source_id": "code_enforcement",
+      "status": "SOURCE_FOUND_BLOCKED",
+      "coverage_notes": "Depends on the city code-enforcement case system \u2014 no public portal. Operator review required."
+    },
+    {
+      "lead_type": "Condemnation",
+      "state_applicability": "APPLICABLE",
+      "expected_authorities": [
+        "City Municipal Code Compliance"
+      ],
+      "candidate_sources": [
+        {
+          "source_id": "code_enforcement",
+          "official_url": "https://www.jacksonville.gov/departments/neighborhoods/municipal-code-compliance",
+          "authority_type": "City Municipal Code Compliance",
+          "source_role": "BLOCKED_SOURCE",
+          "access_status": "UNKNOWN",
+          "bulk_availability": "UNKNOWN",
+          "verification_layers": {
+            "authority": "PASS",
+            "lead_type_relevance": "PASS",
+            "access": "PARTIAL",
+            "extractability": "PASS",
+            "refresh_provenance": "PASS"
+          },
+          "sample_record_path_confirmed": false,
+          "sample_document_view_possible": false,
+          "minimum_lead_fields_available": [
+            "property_address",
+            "party_name",
+            "event_date",
+            "instrument_or_case_number"
+          ],
+          "operator_verified": false,
+          "notes": "No public code-enforcement case portal located."
+        }
+      ],
+      "selected_source_id": "code_enforcement",
+      "status": "SOURCE_FOUND_BLOCKED",
+      "coverage_notes": "Unsafe-structure / condemnation cases \u2014 no public portal. Operator review required."
+    },
+    {
+      "lead_type": "Eviction",
+      "state_applicability": "APPLICABLE",
+      "expected_authorities": [
+        "County Court \u2014 Civil Division"
+      ],
+      "candidate_sources": [
+        {
+          "source_id": "clerk_core_court",
+          "official_url": "https://core.duvalclerk.com/",
+          "authority_type": "County Clerk / Circuit Court",
+          "source_role": "PRIMARY_EVENT_SOURCE",
+          "access_status": "OPEN_PUBLIC",
+          "bulk_availability": "BATCH_QUERY",
+          "verification_layers": {
+            "authority": "PASS",
+            "lead_type_relevance": "PASS",
+            "access": "PASS",
+            "extractability": "PASS",
+            "refresh_provenance": "PASS"
+          },
+          "sample_record_path_confirmed": true,
+          "sample_document_view_possible": true,
+          "minimum_lead_fields_available": [
+            "property_address",
+            "party_name",
+            "event_date",
+            "instrument_or_case_number"
+          ],
+          "operator_verified": false,
+          "notes": "County civil eviction dockets, public-access tier."
+        }
+      ],
+      "selected_source_id": "clerk_core_court",
+      "status": "LIVE_SOURCE_FOUND",
+      "coverage_notes": "LIVE \u2014 county civil eviction dockets are public on CORE."
+    },
+    {
+      "lead_type": "Divorce",
+      "state_applicability": "APPLICABLE",
+      "expected_authorities": [
+        "Circuit Court \u2014 Family Division"
+      ],
+      "candidate_sources": [
+        {
+          "source_id": "clerk_core_court",
+          "official_url": "https://core.duvalclerk.com/",
+          "authority_type": "County Clerk / Circuit Court",
+          "source_role": "PRIMARY_EVENT_SOURCE",
+          "access_status": "FREE_ACCOUNT_REQUIRED",
+          "bulk_availability": "BATCH_QUERY",
+          "verification_layers": {
+            "authority": "PASS",
+            "lead_type_relevance": "PASS",
+            "access": "PARTIAL",
+            "extractability": "PASS",
+            "refresh_provenance": "PASS"
+          },
+          "sample_record_path_confirmed": true,
+          "sample_document_view_possible": false,
+          "minimum_lead_fields_available": [
+            "property_address",
+            "party_name",
+            "event_date",
+            "instrument_or_case_number"
+          ],
+          "operator_verified": false,
+          "notes": "Family docket index public; documents restricted."
+        }
+      ],
+      "selected_source_id": "clerk_core_court",
+      "status": "SOURCE_FOUND_NEEDS_LOGIN",
+      "coverage_notes": "Family-division records are access-restricted in Florida; document access needs a free CORE account."
+    },
+    {
+      "lead_type": "Bankruptcy",
+      "state_applicability": "APPLICABLE",
+      "expected_authorities": [
+        "US Bankruptcy Court \u2014 M.D. Fla., Jacksonville Division"
+      ],
+      "candidate_sources": [
+        {
+          "source_id": "pacer_mdfl",
+          "official_url": "https://pacer.uscourts.gov/",
+          "authority_type": "Federal Bankruptcy Court",
+          "source_role": "BLOCKED_SOURCE",
+          "access_status": "PAID_SUBSCRIPTION_REQUIRED",
+          "bulk_availability": "BATCH_QUERY",
+          "verification_layers": {
+            "authority": "PASS",
+            "lead_type_relevance": "PASS",
+            "access": "PARTIAL",
+            "extractability": "PASS",
+            "refresh_provenance": "PASS"
+          },
+          "sample_record_path_confirmed": true,
+          "sample_document_view_possible": false,
+          "minimum_lead_fields_available": [
+            "property_address",
+            "party_name",
+            "event_date",
+            "instrument_or_case_number"
+          ],
+          "operator_verified": false,
+          "notes": "Federal PACER \u2014 paid, outside county-source scope."
+        }
+      ],
+      "selected_source_id": "pacer_mdfl",
+      "status": "SOURCE_FOUND_PAID",
+      "coverage_notes": "Federal jurisdiction (PACER, paid). Operator decides whether to fund access."
+    },
+    {
+      "lead_type": "Surplus",
+      "state_applicability": "APPLICABLE",
+      "expected_authorities": [
+        "County Clerk \u2014 foreclosure / tax-deed surplus funds"
+      ],
+      "candidate_sources": [
+        {
+          "source_id": "clerk_core_court",
+          "official_url": "https://core.duvalclerk.com/",
+          "authority_type": "County Clerk",
+          "source_role": "SUPPORTING_EVENT_SOURCE",
+          "access_status": "OPEN_PUBLIC",
+          "bulk_availability": "BATCH_QUERY",
+          "verification_layers": {
+            "authority": "PASS",
+            "lead_type_relevance": "PASS",
+            "access": "PASS",
+            "extractability": "PASS",
+            "refresh_provenance": "PASS"
+          },
+          "sample_record_path_confirmed": true,
+          "sample_document_view_possible": true,
+          "minimum_lead_fields_available": [
+            "property_address",
+            "party_name",
+            "event_date",
+            "instrument_or_case_number"
+          ],
+          "operator_verified": false,
+          "notes": "The Clerk publishes unclaimed foreclosure/tax-deed surplus lists."
+        }
+      ],
+      "selected_source_id": "clerk_core_court",
+      "status": "NEEDS_OPERATOR_REVIEW",
+      "coverage_notes": "The Clerk publishes surplus-funds lists; build priority is low \u2014 flagged for operator review."
+    }
+  ]
+}

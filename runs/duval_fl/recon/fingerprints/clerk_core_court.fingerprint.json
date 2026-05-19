@@ -1,0 +1,17 @@
+{
+  "source_id": "clerk_core_court",
+  "source_type": "court_civil",
+  "portal_vendor": "Custom clerk court portal (CORE)",
+  "portal_family": "Custom county clerk court portal",
+  "rendering_type": "JAVASCRIPT_RENDERED",
+  "access_pattern": "STATIC_HTML",
+  "api_discovery_status": "NOT_FOUND",
+  "captcha_status": "UNKNOWN",
+  "session_status": "NO_SESSION_REQUIRED",
+  "pagination_model": "PAGE_NUMBER",
+  "record_detail_model": "DETAIL_PAGE",
+  "download_model": "PDF",
+  "source_priority": "P0",
+  "recommended_adapter": "scrapers/clerk_core_court_html.py",
+  "notes": "core.duvalclerk.com. Public-access tier free for civil / foreclosure / eviction dockets. Family and probate documents gated behind a free registered account."
+}

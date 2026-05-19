@@ -1,0 +1,17 @@
+{
+  "source_id": "parcel_master",
+  "source_type": "parcel_master",
+  "portal_vendor": "Custom county Property Appraiser (ASP.NET)",
+  "portal_family": "Custom property appraiser portal",
+  "rendering_type": "STATIC_HTML",
+  "access_pattern": "STATIC_HTML",
+  "api_discovery_status": "NOT_FOUND",
+  "captcha_status": "NONE",
+  "session_status": "NO_SESSION_REQUIRED",
+  "pagination_model": "PAGE_NUMBER",
+  "record_detail_model": "DETAIL_PAGE",
+  "download_model": "NONE",
+  "source_priority": "P2",
+  "recommended_adapter": "scrapers/parcel_master_html.py",
+  "notes": "paopropertysearch.coj.net/Basic/Search.aspx. Free public parcel search. Enrichment. Bulk preferred via dor_parcel_bulk NAL file; geometry/index via gis_parcels ArcGIS API."
+}

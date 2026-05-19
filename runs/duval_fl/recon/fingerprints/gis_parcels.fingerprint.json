@@ -1,0 +1,17 @@
+{
+  "source_id": "gis_parcels",
+  "source_type": "gis_parcels",
+  "portal_vendor": "Esri ArcGIS Server 11.1",
+  "portal_family": "ArcGIS REST feature services",
+  "rendering_type": "API",
+  "access_pattern": "OPEN_API",
+  "api_discovery_status": "FOUND",
+  "captcha_status": "NONE",
+  "session_status": "NO_SESSION_REQUIRED",
+  "pagination_model": "OFFSET",
+  "record_detail_model": "INLINE",
+  "download_model": "BULK_FILE",
+  "source_priority": "P2",
+  "recommended_adapter": "scrapers/gis_parcels_arcgis.py",
+  "notes": "maps.coj.net/coj/rest/services \u2014 public ArcGIS REST. CityBiz/Parcels/MapServer Parcels layer queryable via /query. Documented enrichment-index API."
+}

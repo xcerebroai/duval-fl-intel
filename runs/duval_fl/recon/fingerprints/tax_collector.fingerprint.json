@@ -1,0 +1,17 @@
+{
+  "source_id": "tax_collector",
+  "source_type": "tax_delinquency",
+  "portal_vendor": "Grant Street Group (publicaccessnow)",
+  "portal_family": "Grant Street Group tax portal",
+  "rendering_type": "STATIC_HTML",
+  "access_pattern": "STATIC_HTML",
+  "api_discovery_status": "NOT_FOUND",
+  "captcha_status": "NONE",
+  "session_status": "NO_SESSION_REQUIRED",
+  "pagination_model": "PAGE_NUMBER",
+  "record_detail_model": "DETAIL_PAGE",
+  "download_model": "NONE",
+  "source_priority": "P1",
+  "recommended_adapter": "scrapers/tax_collector_html.py",
+  "notes": "fl-duval-taxcollector.publicaccessnow.com. Free public per-account tax search; surfaces delinquency status. No bulk delinquent roll exposed \u2014 PER_RECORD_ONLY, coverage bounded by the externally-resolved parcel set."
+}

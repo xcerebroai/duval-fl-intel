@@ -1,0 +1,17 @@
+{
+  "source_id": "clerk_official_records",
+  "source_type": "clerk_recordings",
+  "portal_vendor": "Kofile / custom county clerk OR portal",
+  "portal_family": "Custom county clerk recorder portal",
+  "rendering_type": "STATIC_HTML",
+  "access_pattern": "STATIC_HTML",
+  "api_discovery_status": "NOT_FOUND",
+  "captcha_status": "NONE",
+  "session_status": "COOKIE_REQUIRED",
+  "pagination_model": "PAGE_NUMBER",
+  "record_detail_model": "DOCUMENT_VIEWER",
+  "download_model": "PDF",
+  "source_priority": "P0",
+  "recommended_adapter": "scrapers/clerk_official_records_html.py",
+  "notes": "or.duvalclerk.com ASP.NET search form. Free public search of recorded instruments since 1988. One-time terms/disclaimer acceptance likely sets a session cookie. Headline P0 primary lead source. Confirm doc-type dropdown strings in Build Mode."
+}
