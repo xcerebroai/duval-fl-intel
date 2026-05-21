@@ -1,0 +1,3 @@
+{
+  "reason": "clerk_official_records builds the lead index from recording metadata (instrument, doc type, parties, legal description); document images are not pulled in Phase 3."
+}

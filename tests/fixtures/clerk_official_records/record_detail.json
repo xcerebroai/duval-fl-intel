@@ -1,0 +1,25 @@
+{
+  "Data": [
+    {
+      "TransactionItemId": 21269021,
+      "U": "",
+      "NumberOfPages": 17,
+      "DirectName": "HARTKE LOGAN",
+      "CompressedDirectName": "HARTKELOGAN",
+      "IndirectName": "MOVEMENT MORTGAGE LLC",
+      "CompressedIndirectName": "MOVEMENTMORTGAGELLC",
+      "InstrumentNumber": "2026117137",
+      "NumericInstrumentNumber": 2026117137.0,
+      "DocTypeDescription": "MORTGAGE",
+      "BookType": "OR",
+      "BookPage": "21912/859",
+      "NumericPage": 859.0,
+      "TransactionId": 5519151,
+      "DocLegalDescription": "L 6 B 2 CHEROKEE SUBDIVISION OF L 5 6 TALLULAH",
+      "DeletedAfterVerify": null,
+      "GUID": 4,
+      "RecordDate": "2026/05/20"
+    }
+  ],
+  "Total": 1
+}
