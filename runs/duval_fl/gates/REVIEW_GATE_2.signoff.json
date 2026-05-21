@@ -1,0 +1,11 @@
+{
+  "gate": "REVIEW_GATE_2",
+  "signed_off_by": "Quentin Flores",
+  "signed_off_at": "2026-05-21T16:00:00Z",
+  "decision": "proceed_full",
+  "notes": "Phase 1 synthetic harness verified end-to-end: scaffold/tests/verify_synthetic_harness.py exits 0 with 110/110 checks PASS against config/counties/duval_fl.json. All 12 synthetic parcels, all 11 patterns, all score tiers, and all deal-path classifications render. The v5.3.1 hotfix (_auto_discover_county_config in build_leads.py) cleared the pre-existing bexar_tx halt that stopped the prior attempt. Regenerated synthetic data artifacts were reverted with git checkout and not committed. Proceeding to Phase 2 (first adapter).",
+  "approved_artifacts": [
+    "scaffold/tests/verify_synthetic_harness.py",
+    "config/counties/duval_fl.json"
+  ]
+}

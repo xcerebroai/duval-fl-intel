@@ -1,0 +1,42 @@
+{
+  "features": [
+    {
+      "attributes": {
+        "OBJECTID": 1,
+        "RE": "011550 0000",
+        "RE_NOSPACE": "0115500000",
+        "LNAMEOWNER": "STONE JACOB",
+        "LNAME2": " ",
+        "LONGNAME": "1903 MUNCIE AVE",
+        "UNIT_NO": " ",
+        "ADDRCITY": "JACKSONVILLE",
+        "ZIPCODE": 32210,
+        "MAILADDR1": "1903 MUNCIE AVE",
+        "MAILADDR2": " ",
+        "MAILADDR3": " ",
+        "MAILCITY": "JACKSONVILLE",
+        "MAILSTATE": "FL",
+        "MAILZIP": "32210",
+        "PUSE": "0100",
+        "DESCPU": "Single Family",
+        "ACRES": 0.51,
+        "CAMA_VAL": 350000,
+        "TOT_LND_VA": 84975,
+        "TOT_BLD_VA": 196897.0,
+        "TOT_IMPR_V": 210009.0,
+        "CURREXEMPT": 0.0,
+        "SALESLDD": 27,
+        "SALESLMM": 6,
+        "SALESLYY": 2022,
+        "NBBLDGS": 1,
+        "LEGAL1": "4-66     40-2S-25E  .516",
+        "LEGAL2": "LACKAWANNA",
+        "LEGAL3": "W1/2 LOT 1                  BLK 32",
+        "LEGAL4": " ",
+        "LEGAL5": " ",
+        "LAT": 30.28442596,
+        "LONG": -81.76113456
+      }
+    }
+  ]
+}

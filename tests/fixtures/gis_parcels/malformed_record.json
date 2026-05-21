@@ -1,0 +1,20 @@
+{
+  "features": [
+    {
+      "attributes": {
+        "OBJECTID": 999999,
+        "RE": "  ",
+        "RE_NOSPACE": "  ",
+        "LNAMEOWNER": " ",
+        "LNAME2": " ",
+        "LONGNAME": " ",
+        "UNIT_NO": " ",
+        "ADDRCITY": " ",
+        "ZIPCODE": null,
+        "CAMA_VAL": "not-a-number",
+        "ACRES": null,
+        "SALESLYY": 0
+      }
+    }
+  ]
+}
