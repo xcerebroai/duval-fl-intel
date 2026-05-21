@@ -87,3 +87,55 @@ Resolve the framework defect (ESC-001) upstream — fix the hardcoded `bexar_tx`
 default in `scaffold/pipeline/build_leads.py` and make
 `scaffold/tests/verify_synthetic_harness.py` county-agnostic — then re-enter
 Build Mode at Phase 1. The build does not auto-resume (§02.9).
+
+> RESOLVED: the v5.3.1 hotfix landed `_auto_discover_county_config`; Build Mode
+> resumed and completed Phase 1 (synthetic harness), Phase 2 (gis_parcels
+> enrichment foundation), and Phase 3 (clerk_official_records primary event
+> source adapter). See halt 002 below for the next stop.
+
+---
+
+# Build Mode Halt 002 — v5.3.0 §16–§20 pipeline architecture not shipped
+
+Halted 2026-05-21. Framework v5.3.1. Phase reached: Phase 3→4 (translator +
+pipeline + matcher + evidence ledger). Build classification: PARTIAL_BUILD.
+
+## Halt record (§02.9)
+
+    halt_reason        Step 2 (build clerk translator -> *_leads_base.json ->
+                       aggregator -> matched_leads.json, applying §17 debtor
+                       party rules + §18 signal aggregation) instructs against a
+                       pipeline architecture that is not implemented in shipped
+                       code. The v5.3.0 §16–§20 + §4.34 Build Mode Protocol is
+                       contract/doc surface only; the executable pipeline
+                       (scaffold/pipeline/build_leads.py) is the v5.1.2-beta
+                       monolithic orchestrator.
+    halt_class         framework_architecture_not_shipped
+    halt_phase         Phase 3 continuation / Phase 4
+    halt_at            2026-05-21
+    references         runs/duval_fl/build/escalations/ESC-002-v5.3.0-pipeline-
+                       architecture-not-shipped.md ; MASTER_PROMPT §7 (no silent
+                       architecture change), §4.34–§4.39, §4.21, README
+                       ("v5.3.0 ships the contract surface").
+    recommended_action Operator decision A / B / C in ESC-002. Do not improvise
+                       a §16–§20 subsystem inside the county build; do not
+                       silently substitute the monolithic pipeline.
+    auto_resume        false
+    build_outcome      HALTED (framework architecture gap — operator decision
+                       required)
+
+## What carries over unchanged
+
+Phase 0 (recon + config), Phase 1 (synthetic harness), Phase 2 (gis_parcels
+enrichment foundation), and Phase 3 (clerk_official_records primary event source
+adapter) are complete and committed (commits 412aa66, fce61df, b398a85,
+83a6a89). REVIEW_GATE_1/2/3 signed. No framework file modified by Claude Code
+(the v5.3.1 hotfix to build_leads.py / FRAMEWORK_VERSION.json /
+verify_synthetic_harness.py is the operator's, uncommitted in the working tree).
+
+## To resume
+
+Operator picks A (build the §16–§20 pipeline subsystem as a scoped framework
+patch), B (authorize the shipped monolithic pipeline for Duval), or C (defer
+§16–§20 to a framework patch cycle). See ESC-002. The build does not
+auto-resume (§02.9).
