@@ -2,9 +2,36 @@
 
 Status as of 2026-05-21. Framework v5.3.1. County: `duval_fl`.
 
-**Build outcome: HALTED at Phase 3→4** — framework architecture gap, operator
-decision required. Not a final delivery; the build resumes once the decision in
-`runs/duval_fl/build/escalations/ESC-002-*.md` is made.
+**Build outcome: PARKED at Phase 3→4** — framework architecture gap (ESC-002).
+County builds do not resume until the **v5.4.0 pipeline engine** ships. Not a
+final delivery.
+
+---
+
+## Wide-recon input captured (2026-05-21)
+
+The operator completed a wide manual recon of Duval County / Jacksonville — a
+43-source dossier across foreclosure auctions, tax deed auctions, the tax
+certificate sale, clerk/court records, property/parcel research, public notice
+portals, code/permit/municipal-lien portals, surplus sources, and third-party
+aggregators.
+
+Captured as recon INPUT only:
+
+  - `runs/duval_fl/recon/operator_source_dossier_2026-05-21.md` — the dossier,
+    labeled UNVERIFIED, pending empirical probe + §13 classification.
+  - `runs/duval_fl/recon/RECON_REOPEN_PENDING.md` — a wide Phase 0 re-recon,
+    using the dossier as input, is scheduled **post-v5.4.0**.
+
+The dossier is NOT written into `config/counties/duval_fl.json`. The §16
+Source-of-Record Matrix is NOT rebuilt now. The existing built adapters are NOT
+reclassified now. A **full re-recon + §16 matrix rebuild is scheduled
+post-v5.4.0**, at which point all 43 sources are empirically probed and
+classified PRIMARY / SUPPORTING / ENRICHMENT / REFERENCE / REJECTED per §13.
+
+Duval remains parked at **ESC-002** — the wide-recon dossier does not change the
+framework engine gap. Build resumption still waits on the v5.4.0 pipeline
+engine.
 
 ---
 
