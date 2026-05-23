@@ -1,0 +1,766 @@
+{
+  "category_counts": {
+    "THIN_PRIMARY_DATA": 1,
+    "THIN_ENRICHMENT_DATA": 1,
+    "UNKNOWN_DOC_TYPE": 147,
+    "NO_PARCEL_ID_FROM_CLERK": 1,
+    "NO_ENRICHMENT_HITS": 1
+  },
+  "entries": [
+    {
+      "category": "THIN_PRIMARY_DATA",
+      "detail": "clerk_official_records.jsonl carries only 200 rows; a real distress feed needs days or weeks of recordings",
+      "sample": null
+    },
+    {
+      "category": "THIN_ENRICHMENT_DATA",
+      "detail": "gis_parcels.jsonl carries only 25 rows; production enrichment needs the full county roll (~405k parcels) or a targeted match set",
+      "sample": null
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'NOTICE COMMENCEMENT' (reason=unknown_doc_type)",
+      "sample": "2026117134"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'AFFIDAVIT' (reason=unknown_doc_type)",
+      "sample": "2026117135"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'DEED' (reason=unknown_doc_type)",
+      "sample": "2026117136"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'TERMINATION' (reason=unknown_doc_type)",
+      "sample": "2026117142"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'DEED' (reason=unknown_doc_type)",
+      "sample": "2026117143"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'DEED' (reason=unknown_doc_type)",
+      "sample": "2026117146"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'TERMINATION' (reason=unknown_doc_type)",
+      "sample": "2026117147"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'DEED' (reason=unknown_doc_type)",
+      "sample": "2026117148"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'DEED' (reason=unknown_doc_type)",
+      "sample": "2026117150"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'AFFIDAVIT' (reason=unknown_doc_type)",
+      "sample": "2026117151"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'DEED' (reason=unknown_doc_type)",
+      "sample": "2026117152"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'DEED' (reason=unknown_doc_type)",
+      "sample": "2026117155"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'AFFIDAVIT' (reason=unknown_doc_type)",
+      "sample": "2026117156"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'NOTICE COMMENCEMENT' (reason=unknown_doc_type)",
+      "sample": "2026117167"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'ORDER' (reason=unknown_doc_type)",
+      "sample": "2026117177"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'NOTICE COMMENCEMENT' (reason=unknown_doc_type)",
+      "sample": "2026117178"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'NOTICE COMMENCEMENT' (reason=unknown_doc_type)",
+      "sample": "2026117179"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'NOTICE COMMENCEMENT' (reason=unknown_doc_type)",
+      "sample": "2026117180"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'JUDGMENT' (reason=unknown_doc_type)",
+      "sample": "2026117182"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'LIEN' (reason=unknown_doc_type)",
+      "sample": "2026117183"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'NOTICE COMMENCEMENT' (reason=unknown_doc_type)",
+      "sample": "2026117184"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'ORDER' (reason=unknown_doc_type)",
+      "sample": "2026117185"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'CC COURT JUDGMENT' (reason=unknown_doc_type)",
+      "sample": "2026117186"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'ORDER' (reason=unknown_doc_type)",
+      "sample": "2026117187"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'JUDGMENT' (reason=unknown_doc_type)",
+      "sample": "2026117188"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'JUDGMENT' (reason=unknown_doc_type)",
+      "sample": "2026117189"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'JUDGMENT' (reason=unknown_doc_type)",
+      "sample": "2026117190"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'ORDER' (reason=unknown_doc_type)",
+      "sample": "2026117191"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'JUDGMENT' (reason=unknown_doc_type)",
+      "sample": "2026117192"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'JUDGMENT' (reason=unknown_doc_type)",
+      "sample": "2026117194"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'RELEASE' (reason=unknown_doc_type)",
+      "sample": "2026117195"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'AFFIDAVIT' (reason=unknown_doc_type)",
+      "sample": "2026117197"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'NOTICE COMMENCEMENT' (reason=unknown_doc_type)",
+      "sample": "2026117200"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'NOTICE COMMENCEMENT' (reason=unknown_doc_type)",
+      "sample": "2026117201"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'ORDER' (reason=unknown_doc_type)",
+      "sample": "2026117202"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'ORDER' (reason=unknown_doc_type)",
+      "sample": "2026117203"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'AFFIDAVIT' (reason=unknown_doc_type)",
+      "sample": "2026117204"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'NOTICE COMMENCEMENT' (reason=unknown_doc_type)",
+      "sample": "2026117205"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'AFFIDAVIT' (reason=unknown_doc_type)",
+      "sample": "2026117206"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'WARRANT' (reason=unknown_doc_type)",
+      "sample": "2026117207"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'JUDGMENT' (reason=unknown_doc_type)",
+      "sample": "2026117208"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'JUDGMENT' (reason=unknown_doc_type)",
+      "sample": "2026117209"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'JUDGMENT' (reason=unknown_doc_type)",
+      "sample": "2026117211"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'DEED' (reason=unknown_doc_type)",
+      "sample": "2026117212"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'DEED' (reason=unknown_doc_type)",
+      "sample": "2026117214"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'MARRIAGE LICENSE' (reason=unknown_doc_type)",
+      "sample": "2026117215"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'JUDGMENT' (reason=unknown_doc_type)",
+      "sample": "2026117216"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'JUDGMENT' (reason=unknown_doc_type)",
+      "sample": "2026117217"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'JUDGMENT' (reason=unknown_doc_type)",
+      "sample": "2026117218"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'PARTIAL RELEASE' (reason=unknown_doc_type)",
+      "sample": "2026117219"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'CC COURT JUDGMENT' (reason=unknown_doc_type)",
+      "sample": "2026117220"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'JUDGMENT' (reason=unknown_doc_type)",
+      "sample": "2026117221"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'NOTICE COMMENCEMENT' (reason=unknown_doc_type)",
+      "sample": "2026117223"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'JUDGMENT' (reason=unknown_doc_type)",
+      "sample": "2026117224"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'JUDGMENT' (reason=unknown_doc_type)",
+      "sample": "2026117225"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'JUDGMENT' (reason=unknown_doc_type)",
+      "sample": "2026117226"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'JUDGMENT' (reason=unknown_doc_type)",
+      "sample": "2026117227"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'JUDGMENT' (reason=unknown_doc_type)",
+      "sample": "2026117228"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'JUDGMENT' (reason=unknown_doc_type)",
+      "sample": "2026117229"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'JUDGMENT' (reason=unknown_doc_type)",
+      "sample": "2026117231"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'JUDGMENT' (reason=unknown_doc_type)",
+      "sample": "2026117232"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'JUDGMENT' (reason=unknown_doc_type)",
+      "sample": "2026117233"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'JUDGMENT' (reason=unknown_doc_type)",
+      "sample": "2026117234"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'ORDER' (reason=unknown_doc_type)",
+      "sample": "2026117235"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'JUDGMENT' (reason=unknown_doc_type)",
+      "sample": "2026117236"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'NOTICE COMMENCEMENT' (reason=unknown_doc_type)",
+      "sample": "2026117237"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'JUDGMENT' (reason=unknown_doc_type)",
+      "sample": "2026117238"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'JUDGMENT' (reason=unknown_doc_type)",
+      "sample": "2026117239"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'ORDER' (reason=unknown_doc_type)",
+      "sample": "2026117240"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'ORDER' (reason=unknown_doc_type)",
+      "sample": "2026117241"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'DEED' (reason=unknown_doc_type)",
+      "sample": "2026117242"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'JUDGMENT' (reason=unknown_doc_type)",
+      "sample": "2026117243"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'JUDGMENT' (reason=unknown_doc_type)",
+      "sample": "2026117244"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'JUDGMENT' (reason=unknown_doc_type)",
+      "sample": "2026117245"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'LIEN' (reason=unknown_doc_type)",
+      "sample": "2026117246"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'NOTICE COMMENCEMENT' (reason=unknown_doc_type)",
+      "sample": "2026117247"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'NOTICE COMMENCEMENT' (reason=unknown_doc_type)",
+      "sample": "2026117249"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'JUDGMENT' (reason=unknown_doc_type)",
+      "sample": "2026117250"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'ORDER' (reason=unknown_doc_type)",
+      "sample": "2026117251"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'JUDGMENT/SENTENCE' (reason=unknown_doc_type)",
+      "sample": "2026117252"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'JUDGMENT' (reason=unknown_doc_type)",
+      "sample": "2026117253"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'JUDGMENT' (reason=unknown_doc_type)",
+      "sample": "2026117254"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'ORDER' (reason=unknown_doc_type)",
+      "sample": "2026117255"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'TERMINATION' (reason=unknown_doc_type)",
+      "sample": "2026117256"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'DEED' (reason=unknown_doc_type)",
+      "sample": "2026117257"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'JUDGMENT' (reason=unknown_doc_type)",
+      "sample": "2026117259"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'DEED' (reason=unknown_doc_type)",
+      "sample": "2026117260"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'JUDGMENT' (reason=unknown_doc_type)",
+      "sample": "2026117261"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'AFFIDAVIT' (reason=unknown_doc_type)",
+      "sample": "2026117262"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'DEED' (reason=unknown_doc_type)",
+      "sample": "2026117263"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'JUDGMENT' (reason=unknown_doc_type)",
+      "sample": "2026117265"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'CC COURT JUDGMENT' (reason=unknown_doc_type)",
+      "sample": "2026117266"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'ORDER' (reason=unknown_doc_type)",
+      "sample": "2026117267"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'DEED' (reason=unknown_doc_type)",
+      "sample": "2026117268"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'PROBATE' (reason=unknown_doc_type)",
+      "sample": "2026117269"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'CC COURT JUDGMENT' (reason=unknown_doc_type)",
+      "sample": "2026117270"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'JUDGMENT' (reason=unknown_doc_type)",
+      "sample": "2026117271"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'AFFIDAVIT' (reason=unknown_doc_type)",
+      "sample": "2026117272"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'AFFIDAVIT' (reason=unknown_doc_type)",
+      "sample": "2026117273"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'TERMINATION' (reason=unknown_doc_type)",
+      "sample": "2026117274"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'TERMINATION' (reason=unknown_doc_type)",
+      "sample": "2026117275"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'DEED' (reason=unknown_doc_type)",
+      "sample": "2026117276"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'ORDER' (reason=unknown_doc_type)",
+      "sample": "2026117278"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'JUDGMENT' (reason=unknown_doc_type)",
+      "sample": "2026117279"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'NOTICE COMMENCEMENT' (reason=unknown_doc_type)",
+      "sample": "2026117280"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'JUDGMENT' (reason=unknown_doc_type)",
+      "sample": "2026117281"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'JUDGMENT' (reason=unknown_doc_type)",
+      "sample": "2026117282"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'DEED' (reason=unknown_doc_type)",
+      "sample": "2026117283"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'POWER OF ATTORNEY' (reason=unknown_doc_type)",
+      "sample": "2026117284"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'AFFIDAVIT' (reason=unknown_doc_type)",
+      "sample": "2026117285"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'JUDGMENT' (reason=unknown_doc_type)",
+      "sample": "2026117287"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'NOTICE COMMENCEMENT' (reason=unknown_doc_type)",
+      "sample": "2026117288"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'JUDGMENT' (reason=unknown_doc_type)",
+      "sample": "2026117289"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'JUDGMENT' (reason=unknown_doc_type)",
+      "sample": "2026117290"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'ORDER' (reason=unknown_doc_type)",
+      "sample": "2026117291"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'JUDGMENT' (reason=unknown_doc_type)",
+      "sample": "2026117292"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'JUDGMENT/SENTENCE' (reason=unknown_doc_type)",
+      "sample": "2026117294"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'JUDGMENT' (reason=unknown_doc_type)",
+      "sample": "2026117295"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'CC COURT JUDGMENT' (reason=unknown_doc_type)",
+      "sample": "2026117297"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'DEED' (reason=unknown_doc_type)",
+      "sample": "2026117298"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'NOTICE COMMENCEMENT' (reason=unknown_doc_type)",
+      "sample": "2026117300"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'NOTICE COMMENCEMENT' (reason=unknown_doc_type)",
+      "sample": "2026117302"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'JUDGMENT' (reason=unknown_doc_type)",
+      "sample": "2026117303"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'JUDGMENT' (reason=unknown_doc_type)",
+      "sample": "2026117304"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'JUDGMENT' (reason=unknown_doc_type)",
+      "sample": "2026117305"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'TERMINATION' (reason=unknown_doc_type)",
+      "sample": "2026117306"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'DEED' (reason=unknown_doc_type)",
+      "sample": "2026117307"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'JUDGMENT' (reason=unknown_doc_type)",
+      "sample": "2026117308"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'JUDGMENT/SENTENCE' (reason=unknown_doc_type)",
+      "sample": "2026117309"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'ORDER' (reason=unknown_doc_type)",
+      "sample": "2026117310"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'JUDGMENT' (reason=unknown_doc_type)",
+      "sample": "2026117311"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'DEATH CERTIFICATE' (reason=unknown_doc_type)",
+      "sample": "2026117312"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'AFFIDAVIT' (reason=unknown_doc_type)",
+      "sample": "2026117313"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'AFFIDAVIT' (reason=unknown_doc_type)",
+      "sample": "2026117314"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'TERMINATION' (reason=unknown_doc_type)",
+      "sample": "2026117315"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'JUDGMENT' (reason=unknown_doc_type)",
+      "sample": "2026117317"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'JUDGMENT/SENTENCE' (reason=unknown_doc_type)",
+      "sample": "2026117318"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'CC COURT JUDGMENT' (reason=unknown_doc_type)",
+      "sample": "2026117319"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'JUDGMENT' (reason=unknown_doc_type)",
+      "sample": "2026117321"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'JUDGMENT' (reason=unknown_doc_type)",
+      "sample": "2026117322"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'NOTICE COMMENCEMENT' (reason=unknown_doc_type)",
+      "sample": "2026117325"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'JUDGMENT' (reason=unknown_doc_type)",
+      "sample": "2026117326"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'DEED' (reason=unknown_doc_type)",
+      "sample": "2026117327"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'CC COURT JUDGMENT' (reason=unknown_doc_type)",
+      "sample": "2026117329"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'AFFIDAVIT' (reason=unknown_doc_type)",
+      "sample": "2026117331"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'DEED' (reason=unknown_doc_type)",
+      "sample": "2026117332"
+    },
+    {
+      "category": "UNKNOWN_DOC_TYPE",
+      "detail": "normalize.normalize_doc_type returned None for raw label 'AFFIDAVIT' (reason=unknown_doc_type)",
+      "sample": "2026117333"
+    },
+    {
+      "category": "NO_PARCEL_ID_FROM_CLERK",
+      "detail": "200/200 clerk events carry no parcel_id (clerk index is name+legal-description only). The Phase 4 matcher would resolve parcel_id from legal description + situs address; that matcher is not invoked here, so §18 aggregation uses parcel_id=None for these rows",
+      "sample": null
+    },
+    {
+      "category": "NO_ENRICHMENT_HITS",
+      "detail": "no clerk event resolved to a gis_parcels parcel_id — clerk rows have parcel_id=None; UNENRICHED is the expected outcome per R3(iii)/§13.14",
+      "sample": null
+    }
+  ]
+}

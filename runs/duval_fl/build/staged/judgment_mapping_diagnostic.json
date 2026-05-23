@@ -1,0 +1,1096 @@
+{
+  "registry_judgment_keys": [
+    "FINAL_JUDGMENT_OF_FORECLOSURE",
+    "JUDGMENT_LIEN",
+    "VACATED_JUDGMENT"
+  ],
+  "civil_judgment_in_registry": false,
+  "abstract_of_judgment_in_registry": false,
+  "sample_count": 60,
+  "classification_tally": {
+    "NON_PROPERTY_RECORD": 3,
+    "NAME_ONLY_JUDGMENT": 57
+  },
+  "per_row": [
+    {
+      "instrument": "2026117182",
+      "doc_type": "JUDGMENT",
+      "classification": "NON_PROPERTY_RECORD",
+      "evidence": {
+        "parcel_id": null,
+        "situs_address": null,
+        "legal_description": "(blank)",
+        "legal_has_property_tokens": false,
+        "legal_text_only_no_property_tokens": false,
+        "legal_blank": true,
+        "has_lien_language_in_legal_desc": false,
+        "has_garnishment_marker_in_parties": true,
+        "has_foreclosure_judgment_marker": false,
+        "direct_party": "DISCOVER BANK",
+        "indirect_party": "VYSTAR CREDIT UNION GARNISHEE"
+      }
+    },
+    {
+      "instrument": "2026117186",
+      "doc_type": "CC COURT JUDGMENT",
+      "classification": "NAME_ONLY_JUDGMENT",
+      "evidence": {
+        "parcel_id": null,
+        "situs_address": null,
+        "legal_description": "(blank)",
+        "legal_has_property_tokens": false,
+        "legal_text_only_no_property_tokens": false,
+        "legal_blank": true,
+        "has_lien_language_in_legal_desc": false,
+        "has_garnishment_marker_in_parties": false,
+        "has_foreclosure_judgment_marker": false,
+        "direct_party": "DNF ASSOCIATES LLC",
+        "indirect_party": "LEMUS PAUL"
+      }
+    },
+    {
+      "instrument": "2026117188",
+      "doc_type": "JUDGMENT",
+      "classification": "NON_PROPERTY_RECORD",
+      "evidence": {
+        "parcel_id": null,
+        "situs_address": null,
+        "legal_description": "(blank)",
+        "legal_has_property_tokens": false,
+        "legal_text_only_no_property_tokens": false,
+        "legal_blank": true,
+        "has_lien_language_in_legal_desc": false,
+        "has_garnishment_marker_in_parties": true,
+        "has_foreclosure_judgment_marker": false,
+        "direct_party": "CAVALRY SPV I LLC",
+        "indirect_party": "UNITED STATES DEPARTMENT OF VETERANS AFFAIRS GARNISHEE"
+      }
+    },
+    {
+      "instrument": "2026117189",
+      "doc_type": "JUDGMENT",
+      "classification": "NAME_ONLY_JUDGMENT",
+      "evidence": {
+        "parcel_id": null,
+        "situs_address": null,
+        "legal_description": "(blank)",
+        "legal_has_property_tokens": false,
+        "legal_text_only_no_property_tokens": false,
+        "legal_blank": true,
+        "has_lien_language_in_legal_desc": false,
+        "has_garnishment_marker_in_parties": false,
+        "has_foreclosure_judgment_marker": false,
+        "direct_party": "CAVALRY SPV I LLC",
+        "indirect_party": "CRUZ ROBERTO"
+      }
+    },
+    {
+      "instrument": "2026117190",
+      "doc_type": "JUDGMENT",
+      "classification": "NAME_ONLY_JUDGMENT",
+      "evidence": {
+        "parcel_id": null,
+        "situs_address": null,
+        "legal_description": "(blank)",
+        "legal_has_property_tokens": false,
+        "legal_text_only_no_property_tokens": false,
+        "legal_blank": true,
+        "has_lien_language_in_legal_desc": false,
+        "has_garnishment_marker_in_parties": false,
+        "has_foreclosure_judgment_marker": false,
+        "direct_party": "NEUROLOGY PARTNERS PA",
+        "indirect_party": "HILDRETH DANIEL L"
+      }
+    },
+    {
+      "instrument": "2026117192",
+      "doc_type": "JUDGMENT",
+      "classification": "NAME_ONLY_JUDGMENT",
+      "evidence": {
+        "parcel_id": null,
+        "situs_address": null,
+        "legal_description": "(blank)",
+        "legal_has_property_tokens": false,
+        "legal_text_only_no_property_tokens": false,
+        "legal_blank": true,
+        "has_lien_language_in_legal_desc": false,
+        "has_garnishment_marker_in_parties": false,
+        "has_foreclosure_judgment_marker": false,
+        "direct_party": "7750 BELFORT OWNER LLC",
+        "indirect_party": "SIRANE MENTESENOTE"
+      }
+    },
+    {
+      "instrument": "2026117194",
+      "doc_type": "JUDGMENT",
+      "classification": "NAME_ONLY_JUDGMENT",
+      "evidence": {
+        "parcel_id": null,
+        "situs_address": null,
+        "legal_description": "(blank)",
+        "legal_has_property_tokens": false,
+        "legal_text_only_no_property_tokens": false,
+        "legal_blank": true,
+        "has_lien_language_in_legal_desc": false,
+        "has_garnishment_marker_in_parties": false,
+        "has_foreclosure_judgment_marker": false,
+        "direct_party": "YES COMMUNITIES",
+        "indirect_party": "SINGLETON JEROME"
+      }
+    },
+    {
+      "instrument": "2026117208",
+      "doc_type": "JUDGMENT",
+      "classification": "NAME_ONLY_JUDGMENT",
+      "evidence": {
+        "parcel_id": null,
+        "situs_address": null,
+        "legal_description": "(blank)",
+        "legal_has_property_tokens": false,
+        "legal_text_only_no_property_tokens": false,
+        "legal_blank": true,
+        "has_lien_language_in_legal_desc": false,
+        "has_garnishment_marker_in_parties": false,
+        "has_foreclosure_judgment_marker": false,
+        "direct_party": "CAMERON LATONIA",
+        "indirect_party": "DAVIS JEYHNA"
+      }
+    },
+    {
+      "instrument": "2026117209",
+      "doc_type": "JUDGMENT",
+      "classification": "NAME_ONLY_JUDGMENT",
+      "evidence": {
+        "parcel_id": null,
+        "situs_address": null,
+        "legal_description": "(blank)",
+        "legal_has_property_tokens": false,
+        "legal_text_only_no_property_tokens": false,
+        "legal_blank": true,
+        "has_lien_language_in_legal_desc": false,
+        "has_garnishment_marker_in_parties": false,
+        "has_foreclosure_judgment_marker": false,
+        "direct_party": "BRIDGE WF II FL POINTE SIENNA LLC",
+        "indirect_party": "JACKSON RANDY LASHAWN JR"
+      }
+    },
+    {
+      "instrument": "2026117211",
+      "doc_type": "JUDGMENT",
+      "classification": "NAME_ONLY_JUDGMENT",
+      "evidence": {
+        "parcel_id": null,
+        "situs_address": null,
+        "legal_description": "(blank)",
+        "legal_has_property_tokens": false,
+        "legal_text_only_no_property_tokens": false,
+        "legal_blank": true,
+        "has_lien_language_in_legal_desc": false,
+        "has_garnishment_marker_in_parties": false,
+        "has_foreclosure_judgment_marker": false,
+        "direct_party": "ELEVATE COMMUNITIES",
+        "indirect_party": "BROOKS CAROL"
+      }
+    },
+    {
+      "instrument": "2026117216",
+      "doc_type": "JUDGMENT",
+      "classification": "NAME_ONLY_JUDGMENT",
+      "evidence": {
+        "parcel_id": null,
+        "situs_address": null,
+        "legal_description": "(blank)",
+        "legal_has_property_tokens": false,
+        "legal_text_only_no_property_tokens": false,
+        "legal_blank": true,
+        "has_lien_language_in_legal_desc": false,
+        "has_garnishment_marker_in_parties": false,
+        "has_foreclosure_judgment_marker": false,
+        "direct_party": "MAA DEERWOOD",
+        "indirect_party": "BOSWELL QUONDARIUS"
+      }
+    },
+    {
+      "instrument": "2026117217",
+      "doc_type": "JUDGMENT",
+      "classification": "NAME_ONLY_JUDGMENT",
+      "evidence": {
+        "parcel_id": null,
+        "situs_address": null,
+        "legal_description": "(blank)",
+        "legal_has_property_tokens": false,
+        "legal_text_only_no_property_tokens": false,
+        "legal_blank": true,
+        "has_lien_language_in_legal_desc": false,
+        "has_garnishment_marker_in_parties": false,
+        "has_foreclosure_judgment_marker": false,
+        "direct_party": "CREO QRS RC LLC",
+        "indirect_party": "BRINSON TAMIYAH"
+      }
+    },
+    {
+      "instrument": "2026117218",
+      "doc_type": "JUDGMENT",
+      "classification": "NAME_ONLY_JUDGMENT",
+      "evidence": {
+        "parcel_id": null,
+        "situs_address": null,
+        "legal_description": "(blank)",
+        "legal_has_property_tokens": false,
+        "legal_text_only_no_property_tokens": false,
+        "legal_blank": true,
+        "has_lien_language_in_legal_desc": false,
+        "has_garnishment_marker_in_parties": false,
+        "has_foreclosure_judgment_marker": false,
+        "direct_party": "DISTINCTIVE PROPERTIES OF JACKSONVILLE INC.",
+        "indirect_party": "CAMPBELL CLEORA"
+      }
+    },
+    {
+      "instrument": "2026117220",
+      "doc_type": "CC COURT JUDGMENT",
+      "classification": "NAME_ONLY_JUDGMENT",
+      "evidence": {
+        "parcel_id": null,
+        "situs_address": null,
+        "legal_description": "(blank)",
+        "legal_has_property_tokens": false,
+        "legal_text_only_no_property_tokens": false,
+        "legal_blank": true,
+        "has_lien_language_in_legal_desc": false,
+        "has_garnishment_marker_in_parties": false,
+        "has_foreclosure_judgment_marker": false,
+        "direct_party": "PROGRESSIVE AMERICAN INSURANCE COMPANY",
+        "indirect_party": "ROSS MA'KIA"
+      }
+    },
+    {
+      "instrument": "2026117221",
+      "doc_type": "JUDGMENT",
+      "classification": "NAME_ONLY_JUDGMENT",
+      "evidence": {
+        "parcel_id": null,
+        "situs_address": null,
+        "legal_description": "(blank)",
+        "legal_has_property_tokens": false,
+        "legal_text_only_no_property_tokens": false,
+        "legal_blank": true,
+        "has_lien_language_in_legal_desc": false,
+        "has_garnishment_marker_in_parties": false,
+        "has_foreclosure_judgment_marker": false,
+        "direct_party": "CROWN ASSET MANAGEMENT LLC",
+        "indirect_party": "NGUYEN KEVIN JANAE-LOFTON"
+      }
+    },
+    {
+      "instrument": "2026117224",
+      "doc_type": "JUDGMENT",
+      "classification": "NAME_ONLY_JUDGMENT",
+      "evidence": {
+        "parcel_id": null,
+        "situs_address": null,
+        "legal_description": "(blank)",
+        "legal_has_property_tokens": false,
+        "legal_text_only_no_property_tokens": false,
+        "legal_blank": true,
+        "has_lien_language_in_legal_desc": false,
+        "has_garnishment_marker_in_parties": false,
+        "has_foreclosure_judgment_marker": false,
+        "direct_party": "FR TREELINE LLC",
+        "indirect_party": "JOHNSON BRANDON"
+      }
+    },
+    {
+      "instrument": "2026117225",
+      "doc_type": "JUDGMENT",
+      "classification": "NAME_ONLY_JUDGMENT",
+      "evidence": {
+        "parcel_id": null,
+        "situs_address": null,
+        "legal_description": "(blank)",
+        "legal_has_property_tokens": false,
+        "legal_text_only_no_property_tokens": false,
+        "legal_blank": true,
+        "has_lien_language_in_legal_desc": false,
+        "has_garnishment_marker_in_parties": false,
+        "has_foreclosure_judgment_marker": false,
+        "direct_party": "PEREIRA ARIEL ELISHA MARIE",
+        "indirect_party": "PEREIRA NICHOLAS MARK ANTHONY"
+      }
+    },
+    {
+      "instrument": "2026117226",
+      "doc_type": "JUDGMENT",
+      "classification": "NAME_ONLY_JUDGMENT",
+      "evidence": {
+        "parcel_id": null,
+        "situs_address": null,
+        "legal_description": "(blank)",
+        "legal_has_property_tokens": false,
+        "legal_text_only_no_property_tokens": false,
+        "legal_blank": true,
+        "has_lien_language_in_legal_desc": false,
+        "has_garnishment_marker_in_parties": false,
+        "has_foreclosure_judgment_marker": false,
+        "direct_party": "HOGAN JAMES A",
+        "indirect_party": "JUSTICE ZACK SR"
+      }
+    },
+    {
+      "instrument": "2026117227",
+      "doc_type": "JUDGMENT",
+      "classification": "NAME_ONLY_JUDGMENT",
+      "evidence": {
+        "parcel_id": null,
+        "situs_address": null,
+        "legal_description": "(blank)",
+        "legal_has_property_tokens": false,
+        "legal_text_only_no_property_tokens": false,
+        "legal_blank": true,
+        "has_lien_language_in_legal_desc": false,
+        "has_garnishment_marker_in_parties": false,
+        "has_foreclosure_judgment_marker": false,
+        "direct_party": "PEGASUS RESIDENTIAL",
+        "indirect_party": "BAKER DEANGELO"
+      }
+    },
+    {
+      "instrument": "2026117228",
+      "doc_type": "JUDGMENT",
+      "classification": "NAME_ONLY_JUDGMENT",
+      "evidence": {
+        "parcel_id": null,
+        "situs_address": null,
+        "legal_description": "(blank)",
+        "legal_has_property_tokens": false,
+        "legal_text_only_no_property_tokens": false,
+        "legal_blank": true,
+        "has_lien_language_in_legal_desc": false,
+        "has_garnishment_marker_in_parties": false,
+        "has_foreclosure_judgment_marker": false,
+        "direct_party": "JWB PROPERTY MANAGEMENT LLC",
+        "indirect_party": "YOUNG NITISHIA"
+      }
+    },
+    {
+      "instrument": "2026117229",
+      "doc_type": "JUDGMENT",
+      "classification": "NAME_ONLY_JUDGMENT",
+      "evidence": {
+        "parcel_id": null,
+        "situs_address": null,
+        "legal_description": "(blank)",
+        "legal_has_property_tokens": false,
+        "legal_text_only_no_property_tokens": false,
+        "legal_blank": true,
+        "has_lien_language_in_legal_desc": false,
+        "has_garnishment_marker_in_parties": false,
+        "has_foreclosure_judgment_marker": false,
+        "direct_party": "JOHNSON SHANIECE LASHAWNED",
+        "indirect_party": "MILLER JUSTIN PAUL"
+      }
+    },
+    {
+      "instrument": "2026117231",
+      "doc_type": "JUDGMENT",
+      "classification": "NAME_ONLY_JUDGMENT",
+      "evidence": {
+        "parcel_id": null,
+        "situs_address": null,
+        "legal_description": "(blank)",
+        "legal_has_property_tokens": false,
+        "legal_text_only_no_property_tokens": false,
+        "legal_blank": true,
+        "has_lien_language_in_legal_desc": false,
+        "has_garnishment_marker_in_parties": false,
+        "has_foreclosure_judgment_marker": false,
+        "direct_party": "KENDALL COURT LLC",
+        "indirect_party": "MYERS DAYSHAUN"
+      }
+    },
+    {
+      "instrument": "2026117232",
+      "doc_type": "JUDGMENT",
+      "classification": "NAME_ONLY_JUDGMENT",
+      "evidence": {
+        "parcel_id": null,
+        "situs_address": null,
+        "legal_description": "(blank)",
+        "legal_has_property_tokens": false,
+        "legal_text_only_no_property_tokens": false,
+        "legal_blank": true,
+        "has_lien_language_in_legal_desc": false,
+        "has_garnishment_marker_in_parties": false,
+        "has_foreclosure_judgment_marker": false,
+        "direct_party": "RIVER HEIGHTS CAPITAL LLC",
+        "indirect_party": "DAY JAMES R"
+      }
+    },
+    {
+      "instrument": "2026117233",
+      "doc_type": "JUDGMENT",
+      "classification": "NAME_ONLY_JUDGMENT",
+      "evidence": {
+        "parcel_id": null,
+        "situs_address": null,
+        "legal_description": "(blank)",
+        "legal_has_property_tokens": false,
+        "legal_text_only_no_property_tokens": false,
+        "legal_blank": true,
+        "has_lien_language_in_legal_desc": false,
+        "has_garnishment_marker_in_parties": false,
+        "has_foreclosure_judgment_marker": false,
+        "direct_party": "ACCEL JACKSONVILLE LLC",
+        "indirect_party": "HOLIDAY DEMITRIS"
+      }
+    },
+    {
+      "instrument": "2026117234",
+      "doc_type": "JUDGMENT",
+      "classification": "NAME_ONLY_JUDGMENT",
+      "evidence": {
+        "parcel_id": null,
+        "situs_address": null,
+        "legal_description": "(blank)",
+        "legal_has_property_tokens": false,
+        "legal_text_only_no_property_tokens": false,
+        "legal_blank": true,
+        "has_lien_language_in_legal_desc": false,
+        "has_garnishment_marker_in_parties": false,
+        "has_foreclosure_judgment_marker": false,
+        "direct_party": "PLAZA SERVICES LLC",
+        "indirect_party": "SKIPPER CHIMEKO N"
+      }
+    },
+    {
+      "instrument": "2026117236",
+      "doc_type": "JUDGMENT",
+      "classification": "NAME_ONLY_JUDGMENT",
+      "evidence": {
+        "parcel_id": null,
+        "situs_address": null,
+        "legal_description": "(blank)",
+        "legal_has_property_tokens": false,
+        "legal_text_only_no_property_tokens": false,
+        "legal_blank": true,
+        "has_lien_language_in_legal_desc": false,
+        "has_garnishment_marker_in_parties": false,
+        "has_foreclosure_judgment_marker": false,
+        "direct_party": "SOLOMON KIEYANA LACTELL",
+        "indirect_party": "WHITE DEVAN TYRELLE SR"
+      }
+    },
+    {
+      "instrument": "2026117238",
+      "doc_type": "JUDGMENT",
+      "classification": "NAME_ONLY_JUDGMENT",
+      "evidence": {
+        "parcel_id": null,
+        "situs_address": null,
+        "legal_description": "(blank)",
+        "legal_has_property_tokens": false,
+        "legal_text_only_no_property_tokens": false,
+        "legal_blank": true,
+        "has_lien_language_in_legal_desc": false,
+        "has_garnishment_marker_in_parties": false,
+        "has_foreclosure_judgment_marker": false,
+        "direct_party": "PEGASUS RESIDENTIAL",
+        "indirect_party": "JORDAN CARMEN"
+      }
+    },
+    {
+      "instrument": "2026117239",
+      "doc_type": "JUDGMENT",
+      "classification": "NAME_ONLY_JUDGMENT",
+      "evidence": {
+        "parcel_id": null,
+        "situs_address": null,
+        "legal_description": "(blank)",
+        "legal_has_property_tokens": false,
+        "legal_text_only_no_property_tokens": false,
+        "legal_blank": true,
+        "has_lien_language_in_legal_desc": false,
+        "has_garnishment_marker_in_parties": false,
+        "has_foreclosure_judgment_marker": false,
+        "direct_party": "MERIDIAN JACKSONVILLE LLC",
+        "indirect_party": "HERRERA WALBERTO I"
+      }
+    },
+    {
+      "instrument": "2026117243",
+      "doc_type": "JUDGMENT",
+      "classification": "NAME_ONLY_JUDGMENT",
+      "evidence": {
+        "parcel_id": null,
+        "situs_address": null,
+        "legal_description": "(blank)",
+        "legal_has_property_tokens": false,
+        "legal_text_only_no_property_tokens": false,
+        "legal_blank": true,
+        "has_lien_language_in_legal_desc": false,
+        "has_garnishment_marker_in_parties": false,
+        "has_foreclosure_judgment_marker": false,
+        "direct_party": "BRZOSKA LYNSEY R.",
+        "indirect_party": "BRZOSKA JEREMIAH M."
+      }
+    },
+    {
+      "instrument": "2026117244",
+      "doc_type": "JUDGMENT",
+      "classification": "NAME_ONLY_JUDGMENT",
+      "evidence": {
+        "parcel_id": null,
+        "situs_address": null,
+        "legal_description": "(blank)",
+        "legal_has_property_tokens": false,
+        "legal_text_only_no_property_tokens": false,
+        "legal_blank": true,
+        "has_lien_language_in_legal_desc": false,
+        "has_garnishment_marker_in_parties": false,
+        "has_foreclosure_judgment_marker": false,
+        "direct_party": "THIRDSTONE PROPERTIES LLC",
+        "indirect_party": "COTTINGHAM CHANTRAE"
+      }
+    },
+    {
+      "instrument": "2026117245",
+      "doc_type": "JUDGMENT",
+      "classification": "NON_PROPERTY_RECORD",
+      "evidence": {
+        "parcel_id": null,
+        "situs_address": null,
+        "legal_description": "(blank)",
+        "legal_has_property_tokens": false,
+        "legal_text_only_no_property_tokens": false,
+        "legal_blank": true,
+        "has_lien_language_in_legal_desc": false,
+        "has_garnishment_marker_in_parties": true,
+        "has_foreclosure_judgment_marker": false,
+        "direct_party": "WORLD OMNI FINANCIAL CORP",
+        "indirect_party": "JINKO SOLAR (U.S.) INDUSTRIES INC GARNISHEE"
+      }
+    },
+    {
+      "instrument": "2026117250",
+      "doc_type": "JUDGMENT",
+      "classification": "NAME_ONLY_JUDGMENT",
+      "evidence": {
+        "parcel_id": null,
+        "situs_address": null,
+        "legal_description": "(blank)",
+        "legal_has_property_tokens": false,
+        "legal_text_only_no_property_tokens": false,
+        "legal_blank": true,
+        "has_lien_language_in_legal_desc": false,
+        "has_garnishment_marker_in_parties": false,
+        "has_foreclosure_judgment_marker": false,
+        "direct_party": "ANCHOR EQUITY LLC",
+        "indirect_party": "HATCHER AMEKA"
+      }
+    },
+    {
+      "instrument": "2026117253",
+      "doc_type": "JUDGMENT",
+      "classification": "NAME_ONLY_JUDGMENT",
+      "evidence": {
+        "parcel_id": null,
+        "situs_address": null,
+        "legal_description": "(blank)",
+        "legal_has_property_tokens": false,
+        "legal_text_only_no_property_tokens": false,
+        "legal_blank": true,
+        "has_lien_language_in_legal_desc": false,
+        "has_garnishment_marker_in_parties": false,
+        "has_foreclosure_judgment_marker": false,
+        "direct_party": "BANK OF AMERICA N.A.",
+        "indirect_party": "BEEN BRANDEN ERIC"
+      }
+    },
+    {
+      "instrument": "2026117254",
+      "doc_type": "JUDGMENT",
+      "classification": "NAME_ONLY_JUDGMENT",
+      "evidence": {
+        "parcel_id": null,
+        "situs_address": null,
+        "legal_description": "(blank)",
+        "legal_has_property_tokens": false,
+        "legal_text_only_no_property_tokens": false,
+        "legal_blank": true,
+        "has_lien_language_in_legal_desc": false,
+        "has_garnishment_marker_in_parties": false,
+        "has_foreclosure_judgment_marker": false,
+        "direct_party": "WYN-MARSHALL ARMS APTS LLC",
+        "indirect_party": "PYNE VICTORIA"
+      }
+    },
+    {
+      "instrument": "2026117259",
+      "doc_type": "JUDGMENT",
+      "classification": "NAME_ONLY_JUDGMENT",
+      "evidence": {
+        "parcel_id": null,
+        "situs_address": null,
+        "legal_description": "(blank)",
+        "legal_has_property_tokens": false,
+        "legal_text_only_no_property_tokens": false,
+        "legal_blank": true,
+        "has_lien_language_in_legal_desc": false,
+        "has_garnishment_marker_in_parties": false,
+        "has_foreclosure_judgment_marker": false,
+        "direct_party": "MIKE WILLIAMS SHERIFF OF DUVAL COUNTY",
+        "indirect_party": "MUHAMMAD KHALID AMIR"
+      }
+    },
+    {
+      "instrument": "2026117261",
+      "doc_type": "JUDGMENT",
+      "classification": "NAME_ONLY_JUDGMENT",
+      "evidence": {
+        "parcel_id": null,
+        "situs_address": null,
+        "legal_description": "(blank)",
+        "legal_has_property_tokens": false,
+        "legal_text_only_no_property_tokens": false,
+        "legal_blank": true,
+        "has_lien_language_in_legal_desc": false,
+        "has_garnishment_marker_in_parties": false,
+        "has_foreclosure_judgment_marker": false,
+        "direct_party": "DICATALDO JAIMIE LEE KEHAULANI",
+        "indirect_party": "MCKENNEY WESLEY DANIEL"
+      }
+    },
+    {
+      "instrument": "2026117265",
+      "doc_type": "JUDGMENT",
+      "classification": "NAME_ONLY_JUDGMENT",
+      "evidence": {
+        "parcel_id": null,
+        "situs_address": null,
+        "legal_description": "(blank)",
+        "legal_has_property_tokens": false,
+        "legal_text_only_no_property_tokens": false,
+        "legal_blank": true,
+        "has_lien_language_in_legal_desc": false,
+        "has_garnishment_marker_in_parties": false,
+        "has_foreclosure_judgment_marker": false,
+        "direct_party": "AMERIPROP SFR PROPERTY OWNER LLC",
+        "indirect_party": "REED JONATHAN"
+      }
+    },
+    {
+      "instrument": "2026117266",
+      "doc_type": "CC COURT JUDGMENT",
+      "classification": "NAME_ONLY_JUDGMENT",
+      "evidence": {
+        "parcel_id": null,
+        "situs_address": null,
+        "legal_description": "(blank)",
+        "legal_has_property_tokens": false,
+        "legal_text_only_no_property_tokens": false,
+        "legal_blank": true,
+        "has_lien_language_in_legal_desc": false,
+        "has_garnishment_marker_in_parties": false,
+        "has_foreclosure_judgment_marker": false,
+        "direct_party": "AUTOVEST FINANCIAL SERVICES LLC",
+        "indirect_party": "BROWN KENTON"
+      }
+    },
+    {
+      "instrument": "2026117270",
+      "doc_type": "CC COURT JUDGMENT",
+      "classification": "NAME_ONLY_JUDGMENT",
+      "evidence": {
+        "parcel_id": null,
+        "situs_address": null,
+        "legal_description": "(blank)",
+        "legal_has_property_tokens": false,
+        "legal_text_only_no_property_tokens": false,
+        "legal_blank": true,
+        "has_lien_language_in_legal_desc": false,
+        "has_garnishment_marker_in_parties": false,
+        "has_foreclosure_judgment_marker": false,
+        "direct_party": "MIDLAND CREDIT MANAGEMENT INC",
+        "indirect_party": "TALIFERRO MARLON"
+      }
+    },
+    {
+      "instrument": "2026117271",
+      "doc_type": "JUDGMENT",
+      "classification": "NAME_ONLY_JUDGMENT",
+      "evidence": {
+        "parcel_id": null,
+        "situs_address": null,
+        "legal_description": "(blank)",
+        "legal_has_property_tokens": false,
+        "legal_text_only_no_property_tokens": false,
+        "legal_blank": true,
+        "has_lien_language_in_legal_desc": false,
+        "has_garnishment_marker_in_parties": false,
+        "has_foreclosure_judgment_marker": false,
+        "direct_party": "VYSTAR CREDIT UNION",
+        "indirect_party": "CABAL JANIQUE CHANTELLE"
+      }
+    },
+    {
+      "instrument": "2026117279",
+      "doc_type": "JUDGMENT",
+      "classification": "NAME_ONLY_JUDGMENT",
+      "evidence": {
+        "parcel_id": null,
+        "situs_address": null,
+        "legal_description": "(blank)",
+        "legal_has_property_tokens": false,
+        "legal_text_only_no_property_tokens": false,
+        "legal_blank": true,
+        "has_lien_language_in_legal_desc": false,
+        "has_garnishment_marker_in_parties": false,
+        "has_foreclosure_judgment_marker": false,
+        "direct_party": "MICHAELSON GROUP REAL ESTATE LLC",
+        "indirect_party": "RIVERA CARLOS ROBLEDO"
+      }
+    },
+    {
+      "instrument": "2026117281",
+      "doc_type": "JUDGMENT",
+      "classification": "NAME_ONLY_JUDGMENT",
+      "evidence": {
+        "parcel_id": null,
+        "situs_address": null,
+        "legal_description": "(blank)",
+        "legal_has_property_tokens": false,
+        "legal_text_only_no_property_tokens": false,
+        "legal_blank": true,
+        "has_lien_language_in_legal_desc": false,
+        "has_garnishment_marker_in_parties": false,
+        "has_foreclosure_judgment_marker": false,
+        "direct_party": "MID AMERICA APARTMENTS LP",
+        "indirect_party": "FREITAS MARTILENE"
+      }
+    },
+    {
+      "instrument": "2026117282",
+      "doc_type": "JUDGMENT",
+      "classification": "NAME_ONLY_JUDGMENT",
+      "evidence": {
+        "parcel_id": null,
+        "situs_address": null,
+        "legal_description": "(blank)",
+        "legal_has_property_tokens": false,
+        "legal_text_only_no_property_tokens": false,
+        "legal_blank": true,
+        "has_lien_language_in_legal_desc": false,
+        "has_garnishment_marker_in_parties": false,
+        "has_foreclosure_judgment_marker": false,
+        "direct_party": "OLIVER BRIANA CWANIQUE",
+        "indirect_party": "MCCORMICK JABBARRI DAVONTE"
+      }
+    },
+    {
+      "instrument": "2026117287",
+      "doc_type": "JUDGMENT",
+      "classification": "NAME_ONLY_JUDGMENT",
+      "evidence": {
+        "parcel_id": null,
+        "situs_address": null,
+        "legal_description": "(blank)",
+        "legal_has_property_tokens": false,
+        "legal_text_only_no_property_tokens": false,
+        "legal_blank": true,
+        "has_lien_language_in_legal_desc": false,
+        "has_garnishment_marker_in_parties": false,
+        "has_foreclosure_judgment_marker": false,
+        "direct_party": "SPRING WOODS PROPERTY HOLDINGS LLC",
+        "indirect_party": "CARR PAYNE"
+      }
+    },
+    {
+      "instrument": "2026117289",
+      "doc_type": "JUDGMENT",
+      "classification": "NAME_ONLY_JUDGMENT",
+      "evidence": {
+        "parcel_id": null,
+        "situs_address": null,
+        "legal_description": "(blank)",
+        "legal_has_property_tokens": false,
+        "legal_text_only_no_property_tokens": false,
+        "legal_blank": true,
+        "has_lien_language_in_legal_desc": false,
+        "has_garnishment_marker_in_parties": false,
+        "has_foreclosure_judgment_marker": false,
+        "direct_party": "BURTON WARREN R",
+        "indirect_party": "DUVAL COUNTY PROPERTY APPRAISER"
+      }
+    },
+    {
+      "instrument": "2026117290",
+      "doc_type": "JUDGMENT",
+      "classification": "NAME_ONLY_JUDGMENT",
+      "evidence": {
+        "parcel_id": null,
+        "situs_address": null,
+        "legal_description": "(blank)",
+        "legal_has_property_tokens": false,
+        "legal_text_only_no_property_tokens": false,
+        "legal_blank": true,
+        "has_lien_language_in_legal_desc": false,
+        "has_garnishment_marker_in_parties": false,
+        "has_foreclosure_judgment_marker": false,
+        "direct_party": "ROBINSONS HSAYNATAINE MELCIA",
+        "indirect_party": "SIMS MICHAEL ALDOUS"
+      }
+    },
+    {
+      "instrument": "2026117292",
+      "doc_type": "JUDGMENT",
+      "classification": "NAME_ONLY_JUDGMENT",
+      "evidence": {
+        "parcel_id": null,
+        "situs_address": null,
+        "legal_description": "(blank)",
+        "legal_has_property_tokens": false,
+        "legal_text_only_no_property_tokens": false,
+        "legal_blank": true,
+        "has_lien_language_in_legal_desc": false,
+        "has_garnishment_marker_in_parties": false,
+        "has_foreclosure_judgment_marker": false,
+        "direct_party": "SHORELINE MULTIFAMILY PARTNERS LLC",
+        "indirect_party": "ROBINSON TAMMY"
+      }
+    },
+    {
+      "instrument": "2026117295",
+      "doc_type": "JUDGMENT",
+      "classification": "NAME_ONLY_JUDGMENT",
+      "evidence": {
+        "parcel_id": null,
+        "situs_address": null,
+        "legal_description": "(blank)",
+        "legal_has_property_tokens": false,
+        "legal_text_only_no_property_tokens": false,
+        "legal_blank": true,
+        "has_lien_language_in_legal_desc": false,
+        "has_garnishment_marker_in_parties": false,
+        "has_foreclosure_judgment_marker": false,
+        "direct_party": "7750 BELFORT OWNER LLC",
+        "indirect_party": "SIRANE MENTESENOTE"
+      }
+    },
+    {
+      "instrument": "2026117297",
+      "doc_type": "CC COURT JUDGMENT",
+      "classification": "NAME_ONLY_JUDGMENT",
+      "evidence": {
+        "parcel_id": null,
+        "situs_address": null,
+        "legal_description": "(blank)",
+        "legal_has_property_tokens": false,
+        "legal_text_only_no_property_tokens": false,
+        "legal_blank": true,
+        "has_lien_language_in_legal_desc": false,
+        "has_garnishment_marker_in_parties": false,
+        "has_foreclosure_judgment_marker": false,
+        "direct_party": "AUTOVEST FINANCIAL SERVICES LLC",
+        "indirect_party": "FISHER ANITRA"
+      }
+    },
+    {
+      "instrument": "2026117303",
+      "doc_type": "JUDGMENT",
+      "classification": "NAME_ONLY_JUDGMENT",
+      "evidence": {
+        "parcel_id": null,
+        "situs_address": null,
+        "legal_description": "(blank)",
+        "legal_has_property_tokens": false,
+        "legal_text_only_no_property_tokens": false,
+        "legal_blank": true,
+        "has_lien_language_in_legal_desc": false,
+        "has_garnishment_marker_in_parties": false,
+        "has_foreclosure_judgment_marker": false,
+        "direct_party": "ONEMAIN FINANCIAL GROUP LLC",
+        "indirect_party": "KACZMAREK SHELBY E"
+      }
+    },
+    {
+      "instrument": "2026117304",
+      "doc_type": "JUDGMENT",
+      "classification": "NAME_ONLY_JUDGMENT",
+      "evidence": {
+        "parcel_id": null,
+        "situs_address": null,
+        "legal_description": "(blank)",
+        "legal_has_property_tokens": false,
+        "legal_text_only_no_property_tokens": false,
+        "legal_blank": true,
+        "has_lien_language_in_legal_desc": false,
+        "has_garnishment_marker_in_parties": false,
+        "has_foreclosure_judgment_marker": false,
+        "direct_party": "FLORIDA STATE OF",
+        "indirect_party": "BROWN DAVID JAMIE"
+      }
+    },
+    {
+      "instrument": "2026117305",
+      "doc_type": "JUDGMENT",
+      "classification": "NAME_ONLY_JUDGMENT",
+      "evidence": {
+        "parcel_id": null,
+        "situs_address": null,
+        "legal_description": "(blank)",
+        "legal_has_property_tokens": false,
+        "legal_text_only_no_property_tokens": false,
+        "legal_blank": true,
+        "has_lien_language_in_legal_desc": false,
+        "has_garnishment_marker_in_parties": false,
+        "has_foreclosure_judgment_marker": false,
+        "direct_party": "WRH REALTY SERVICES INC",
+        "indirect_party": "CURRY MYRA"
+      }
+    },
+    {
+      "instrument": "2026117308",
+      "doc_type": "JUDGMENT",
+      "classification": "NAME_ONLY_JUDGMENT",
+      "evidence": {
+        "parcel_id": null,
+        "situs_address": null,
+        "legal_description": "(blank)",
+        "legal_has_property_tokens": false,
+        "legal_text_only_no_property_tokens": false,
+        "legal_blank": true,
+        "has_lien_language_in_legal_desc": false,
+        "has_garnishment_marker_in_parties": false,
+        "has_foreclosure_judgment_marker": false,
+        "direct_party": "CREDIT ACCEPTANCE CORPORATION",
+        "indirect_party": "DALLAS BOLSEY E"
+      }
+    },
+    {
+      "instrument": "2026117311",
+      "doc_type": "JUDGMENT",
+      "classification": "NAME_ONLY_JUDGMENT",
+      "evidence": {
+        "parcel_id": null,
+        "situs_address": null,
+        "legal_description": "(blank)",
+        "legal_has_property_tokens": false,
+        "legal_text_only_no_property_tokens": false,
+        "legal_blank": true,
+        "has_lien_language_in_legal_desc": false,
+        "has_garnishment_marker_in_parties": false,
+        "has_foreclosure_judgment_marker": false,
+        "direct_party": "AMERICAN EXPRESS NATIONAL BANK",
+        "indirect_party": "PINO ANDRES L"
+      }
+    },
+    {
+      "instrument": "2026117317",
+      "doc_type": "JUDGMENT",
+      "classification": "NAME_ONLY_JUDGMENT",
+      "evidence": {
+        "parcel_id": null,
+        "situs_address": null,
+        "legal_description": "(blank)",
+        "legal_has_property_tokens": false,
+        "legal_text_only_no_property_tokens": false,
+        "legal_blank": true,
+        "has_lien_language_in_legal_desc": false,
+        "has_garnishment_marker_in_parties": false,
+        "has_foreclosure_judgment_marker": false,
+        "direct_party": "FAM-TWO LLC",
+        "indirect_party": "PERRY WALLACE"
+      }
+    },
+    {
+      "instrument": "2026117319",
+      "doc_type": "CC COURT JUDGMENT",
+      "classification": "NAME_ONLY_JUDGMENT",
+      "evidence": {
+        "parcel_id": null,
+        "situs_address": null,
+        "legal_description": "(blank)",
+        "legal_has_property_tokens": false,
+        "legal_text_only_no_property_tokens": false,
+        "legal_blank": true,
+        "has_lien_language_in_legal_desc": false,
+        "has_garnishment_marker_in_parties": false,
+        "has_foreclosure_judgment_marker": false,
+        "direct_party": "MIDLAND CREDIT MANAGEMENT INC",
+        "indirect_party": "MEMNON EDOUARD"
+      }
+    },
+    {
+      "instrument": "2026117321",
+      "doc_type": "JUDGMENT",
+      "classification": "NAME_ONLY_JUDGMENT",
+      "evidence": {
+        "parcel_id": null,
+        "situs_address": null,
+        "legal_description": "(blank)",
+        "legal_has_property_tokens": false,
+        "legal_text_only_no_property_tokens": false,
+        "legal_blank": true,
+        "has_lien_language_in_legal_desc": false,
+        "has_garnishment_marker_in_parties": false,
+        "has_foreclosure_judgment_marker": false,
+        "direct_party": "TAYLOR CHAKYLA",
+        "indirect_party": "ELLISON BRANDON"
+      }
+    },
+    {
+      "instrument": "2026117322",
+      "doc_type": "JUDGMENT",
+      "classification": "NAME_ONLY_JUDGMENT",
+      "evidence": {
+        "parcel_id": null,
+        "situs_address": null,
+        "legal_description": "(blank)",
+        "legal_has_property_tokens": false,
+        "legal_text_only_no_property_tokens": false,
+        "legal_blank": true,
+        "has_lien_language_in_legal_desc": false,
+        "has_garnishment_marker_in_parties": false,
+        "has_foreclosure_judgment_marker": false,
+        "direct_party": "BANK OF AMERICA N.A.",
+        "indirect_party": "DECOSTA BETH"
+      }
+    },
+    {
+      "instrument": "2026117326",
+      "doc_type": "JUDGMENT",
+      "classification": "NAME_ONLY_JUDGMENT",
+      "evidence": {
+        "parcel_id": null,
+        "situs_address": null,
+        "legal_description": "(blank)",
+        "legal_has_property_tokens": false,
+        "legal_text_only_no_property_tokens": false,
+        "legal_blank": true,
+        "has_lien_language_in_legal_desc": false,
+        "has_garnishment_marker_in_parties": false,
+        "has_foreclosure_judgment_marker": false,
+        "direct_party": "SHIMONI GOLAN",
+        "indirect_party": "BARNEY AQUINAS B"
+      }
+    },
+    {
+      "instrument": "2026117329",
+      "doc_type": "CC COURT JUDGMENT",
+      "classification": "NAME_ONLY_JUDGMENT",
+      "evidence": {
+        "parcel_id": null,
+        "situs_address": null,
+        "legal_description": "(blank)",
+        "legal_has_property_tokens": false,
+        "legal_text_only_no_property_tokens": false,
+        "legal_blank": true,
+        "has_lien_language_in_legal_desc": false,
+        "has_garnishment_marker_in_parties": false,
+        "has_foreclosure_judgment_marker": false,
+        "direct_party": "AUTOVEST FINANCIAL SERVICES LLC",
+        "indirect_party": "FISHER LAKENYA"
+      }
+    }
+  ]
+}

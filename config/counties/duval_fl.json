@@ -83,7 +83,14 @@
       "rate_limit_rpm": 60,
       "scraper_module": "scrapers/clerk_official_records.py",
       "fields": {},
-      "doc_type_synonyms": {},
+      "doc_type_synonyms": {
+        "ASSIGNMENT": "ASSIGNMENT_OF_MORTGAGE",
+        "MORTGAGE MOD": "MORTGAGE_MODIFICATION",
+        "CREDIT UNION MORTGAGE": "MORTGAGE",
+        "Government (Exempt from all Tax)": "MORTGAGE",
+        "SATISFACTION NO FEE": "SATISFACTION_OF_MORTGAGE",
+        "FINANCE STATEMENT/UCC": "UCC_FINANCING_STATEMENT"
+      },
       "refresh_cadence": "daily",
       "ttl_days": 1095,
       "blocked_unblock_paths": [
