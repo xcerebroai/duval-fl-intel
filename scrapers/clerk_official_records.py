@@ -242,11 +242,11 @@ class ClerkSession:
 # Fixture entry point — §05 "Scraper fixture requirement"
 # --------------------------------------------------------------------------
 
-FIXTURE_DIR = REPO_ROOT / "tests" / "fixtures" / SOURCE_ID
+FIXTURE_DIR = REPO_ROOT / "scrapers" / "fixtures" / SOURCE_ID
 
 
 def parse_fixture(fixture_name: str):
-    """Parse a saved fixture from tests/fixtures/clerk_official_records/.
+    """Parse a saved fixture from scrapers/fixtures/clerk_official_records/.
 
     Data fixtures are Acclaim GridResults JSON ({"Data":[...],"Total":N}); the
     pagination fixture carries {"pages":[...]}. blocked_session raises

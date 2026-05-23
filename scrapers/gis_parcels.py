@@ -234,7 +234,7 @@ def _detect_block(response: dict) -> None:
 # requirement". The harness (tests/test_scrapers.py) calls parse_fixture().
 # --------------------------------------------------------------------------
 
-FIXTURE_DIR = REPO_ROOT / "tests" / "fixtures" / SOURCE_ID
+FIXTURE_DIR = REPO_ROOT / "scrapers" / "fixtures" / SOURCE_ID
 
 
 def _features_from_pages(pages: list) -> list:
@@ -257,7 +257,7 @@ def _features_from_pages(pages: list) -> list:
 
 
 def parse_fixture(fixture_name: str):
-    """Parse a saved fixture from tests/fixtures/gis_parcels/.
+    """Parse a saved fixture from scrapers/fixtures/gis_parcels/.
 
     Returns a list of wrapped records for the data fixtures. For
     blocked_session.json it raises SourceBlockedError (the harness maps this to
