@@ -1,19 +1,24 @@
-"""Adapter — Duval v5.4.0 staged-pipeline output → El Paso renderer record shape.
+"""Adapter — Duval v5.4.0 staged-pipeline output → operator-dashboard record shape.
 
 Reads:
   runs/duval_fl/build/staged/scored_leads.json   (full scored_lead records)
   runs/duval_fl/build/staged/matched_leads.json  (signals[] per lead)
   data/raw/clerk_official_records.jsonl          (raw doc_type per evidence_id)
   data/raw/gis_parcels.jsonl                     (legal_description, situs_zip)
+  data/raw/pa_tax_roll*.jsonl                    (PA enrichment + estate origination)
+  data/raw/duval_tax_collector*.jsonl            (TC delinquency origination)
+  data/raw/realforeclose*.jsonl, realtaxdeed*.jsonl (RealAuction events)
 
 Writes:
-  dashboard/data.json                            (El Paso renderer shape)
+  dashboard/data.json                            (operator-board payload)
   dashboard/data.js                              (window.LEADS = ... for the
                                                   <script src=data.js> path)
 
-Field name `epcad_enrichment_status` is kept verbatim so the El Paso renderer's
-enrichment-badge / detail-panel branches work unchanged; the display text was
-already rebranded to "JaxGIS enriched" in dashboard/app.js. No scaffold/ or
+Field-naming note: the v5 renderer originated in the El Paso TX build and
+ships with `epcad_enrichment_status` keys. We KEEP the key names so the
+renderer's enrichment-badge / detail-panel branches work unchanged, but the
+DISPLAYED text on the dashboard is rebranded to the Duval source names
+("JaxGIS enriched" / "PA tax-roll enriched"). No scaffold/ or
 knowledge_base/ edits — county-side only.
 """
 from __future__ import annotations
@@ -59,24 +64,23 @@ SIGNAL_LABELS = {
     "notice_of_sale": "Notice of Sale", "notice_of_default": "Notice of Default",
     "probate": "Probate", "affidavit_of_heirship": "Affidavit of Heirship",
     "executors_deed": "Executor's Deed",
-    "administrators_deed": "Administrator's Deed",
+    # The PA tax-roll estate-origination path maps to administrators_deed
+    # canonical (closest universal STRUCTURED rule with GR debtor). On the
+    # dashboard, label honestly — it's an estate-titled OWNER name from the
+    # tax roll, NOT a recorded administrator's deed.
+    "administrators_deed": "Estate-Titled Owner",
     "personal_representative_deed": "Personal Representative's Deed",
     "code_lien": "Code Lien", "mechanics_lien": "Mechanic's Lien",
     "municipal_lien": "Municipal Lien", "hoa_lien": "HOA Lien",
     "hospital_lien": "Hospital Lien", "water_lien": "Water Lien",
-    "satisfaction_of_mortgage": "Satisfaction of Mortgage",
-    "mortgage": "Mortgage", "mortgage_modification": "Mortgage Modification",
-    "assignment_of_mortgage": "Assignment of Mortgage",
-    "ucc_financing_statement": "UCC Financing Statement",
-    "deed_of_trust": "Deed of Trust", "quitclaim_deed": "Quitclaim Deed",
-    "warranty_deed": "Warranty Deed",
-    "special_warranty_deed": "Special Warranty Deed",
     "sheriff_deed": "Sheriff's Deed",
-    "trustees_deed_upon_sale": "Trustee's Deed Upon Sale",
-    "easement": "Easement", "plat": "Plat",
-    "condominium_declaration": "Condominium Declaration",
+    "sheriff_sale": "Sheriff Sale",
     "eviction_filing": "Eviction Filing",
-    "divorce_filing": "Divorce Filing", "bankruptcy_petition": "Bankruptcy Petition",
+    "bankruptcy_petition": "Bankruptcy Petition",
+    "judgment": "Judgment", "civil_judgment": "Civil Judgment",
+    "certificate_of_title_deed": "Certificate of Title (Foreclosure)",
+    "code_violation_notice": "Code Violation Notice",
+    "notice_contest_of_lien": "Notice of Contest of Lien",
 }
 
 
@@ -242,11 +246,17 @@ def main() -> int:
         latest_event_date = sl.get("primary_event_date") or ""
         for s in ml.get("signals", []) or []:
             canon = s.get("canonical_doc_type") or ""
-            label = SIGNAL_LABELS.get(canon) or s.get("signal_type") or canon
             # Alias certain canonicals to the renderer's expected signal_type
             # name (so the "Foreclosure sale window" filter + the soonest-sale
             # sort work on canonicals that are functionally "foreclosure").
             rendered_type = DASHBOARD_SIGNAL_TYPE_ALIAS.get(canon, canon)
+            # Label preference: aliased type label (renderer-facing) wins,
+            # then canonical label, then the type itself. That way the
+            # dashboard says "Tax Default" not "Tax Sale Certificate" when
+            # tax_sale_certificate has been aliased to tax_default.
+            label = (SIGNAL_LABELS.get(rendered_type)
+                     or SIGNAL_LABELS.get(canon)
+                     or s.get("signal_type") or canon)
             evs = s.get("evidence_ids") or []
             # raw doc_type + sale_date lookup by evidence. jaxdailyrecord
             # notices carry sale_date directly in raw_payload.

@@ -43,10 +43,14 @@
   // ---------- state ----------
   var DATA = (typeof window !== "undefined" && window.LEADS) || null;
   var records = [];
+  // Standing rule #5 — the board opens on ALL records, neutrally sorted.
+  // Filters default to empty selection — when nothing is selected, the
+  // filter is INACTIVE (show everything), not "show nothing". Click a
+  // signal / owner type to filter to just it; click more to stack.
   var state = {
     search: "", saleWindow: "any", valMin: null, valMax: null,
     signals: {}, owners: {}, absentee: false, oos: false, review: false,
-    multiOnly: false, sort: "urgency", shown: 0, preset: "all",
+    multiOnly: false, sort: "recent", shown: 0, preset: "all",
     newOnly: false, last30Only: false,
     taxDefaultOnly: false, hideTinyBal: false,
     yearsDelinquent: "any", balMin: null
@@ -91,7 +95,12 @@
     r._days = daysFromToday(sd);
     r._assessed = Number(r.assessed_value) || 0;
     r._review = r.parcel_resolution_status === "REVIEW_REQUIRED";
-    r._filed = parseDate(r.latest_event_date);
+    // For "recent" sort, prefer the server-computed most_recent_event_date
+    // (which excludes snapshot sources — PA estate + TC delinquency — so
+    // those don't get falsely pinned to "today"). Fall back to
+    // latest_event_date for older payloads.
+    r._filed = parseDate(r.most_recent_event_date) ||
+               parseDate(r.latest_event_date);
     // Recency — county recorded/event date, NOT the scrape clock. Server
     // computed these once in the build step; they survive lead-card updates.
     r._isNew = !!r.is_new;
@@ -115,12 +124,14 @@
   }
   function urgencyTier(r) {
     var d = r._days;
+    // tier 1-2: imminent foreclosure sale by sale date.
     if (r._isFcl && d != null && d >= 0 && d <= 21) return 1;
     if (r._isFcl && d != null && d > 21 && d <= 60) return 2;
-    // tier 3: estate-titled property OR tax-deed-pipeline progression
-    // (Applied/Sold/Certified/Escheated — multi-year delinquent leads
-    // already moving through the tax-deed process).
-    if (r.owner_type === "ESTATE") return 3;
+    // tier 3: tax-deed-pipeline progression (Applied/Sold/Certified/Escheated
+    // — multi-year delinquent leads already moving through the deed sale
+    // process; FL Ch. 197 requires 2+ years). NO estate-only clause here —
+    // estate-titled property is just a probate signal, not an urgency
+    // ranking on its own (standing rule #5).
     if (r._taxDefault && (r._yearsDelinq || 0) >= 2) return 3;
     if ((r.signal_count || 0) >= 2) return 4;
     // tier 5: stand-alone tax_default with meaningful balance.
@@ -231,11 +242,13 @@
     var box = $("signalFilter");
     Object.keys(counts).sort(function (a, b) { return counts[b] - counts[a]; })
       .forEach(function (t) {
-        state.signals[t] = true;
+        // Standing rule #5 — default UNSELECTED. Empty selection = no filter.
+        state.signals[t] = false;
         var l = document.createElement("label");
         l.className = "chk";
-        l.innerHTML = '<input type="checkbox" checked data-sig="' + esc(t) +
-          '"> ' + esc(labels[t]) + '<span class="cnt">' + counts[t] + "</span>";
+        l.innerHTML = '<input type="checkbox" data-sig="' + esc(t) +
+          '"> ' + esc(labels[t]) + '<span class="cnt">' +
+          counts[t].toLocaleString() + "</span>";
         l.querySelector("input").addEventListener("change", function (e) {
           state.signals[t] = e.target.checked; markPresetActive("");
           render();
@@ -251,11 +264,13 @@
     });
     var box = $("ownerFilter");
     Object.keys(counts).sort().forEach(function (o) {
-      state.owners[o] = true;
+      // Standing rule #5 — default UNSELECTED.
+      state.owners[o] = false;
       var l = document.createElement("label");
       l.className = "chk";
-      l.innerHTML = '<input type="checkbox" checked data-own="' + esc(o) +
-        '"> ' + esc(o) + '<span class="cnt">' + counts[o] + "</span>";
+      l.innerHTML = '<input type="checkbox" data-own="' + esc(o) +
+        '"> ' + esc(o) + '<span class="cnt">' +
+        counts[o].toLocaleString() + "</span>";
       l.querySelector("input").addEventListener("change", function (e) {
         state.owners[o] = e.target.checked; markPresetActive(""); render();
       });
@@ -340,8 +355,9 @@
     state.yearsDelinquent = "any"; $("yearsDelinquent").value = "any";
     state.balMin = null; $("balMin").value = "";
     state.multiOnly = false;
-    setAllChecks("signalFilter", "sig", state.signals, true);
-    setAllChecks("ownerFilter", "own", state.owners, true);
+    // Standing rule #5 — reset = empty selection (no filter), not all-checked.
+    setAllChecks("signalFilter", "sig", state.signals, false);
+    setAllChecks("ownerFilter", "own", state.owners, false);
 
     if (id === "new") {
       state.newOnly = true; $("togNew").checked = true;
@@ -389,22 +405,25 @@
 
   // ---------- filtering + sorting ----------
   function applyFilters() {
-    var sigKeys = Object.keys(state.signals);
-    var allSig = sigKeys.every(function (k) { return state.signals[k]; });
-    var ownKeys = Object.keys(state.owners);
-    var allOwn = ownKeys.every(function (k) { return state.owners[k]; });
+    // Standing rule #5 — empty selection = no filter (show everything).
+    // Click-to-select / stack: any selected type is included; nothing
+    // selected means the filter is inactive.
+    var anySig = Object.keys(state.signals).some(
+      function (k) { return state.signals[k]; });
+    var anyOwn = Object.keys(state.owners).some(
+      function (k) { return state.owners[k]; });
     var win = state.saleWindow === "any" ? null : Number(state.saleWindow);
 
     return records.filter(function (r) {
       if (skipped[r.lead_id]) return false;
       if (state.review && !r._review) return false;
-      if (!allSig) {
+      if (anySig) {
         var hit = (r.signal_types || []).some(function (t) {
           return state.signals[t];
         });
         if (!hit) return false;
       }
-      if (!allOwn && !state.owners[r.owner_type || "UNKNOWN"]) return false;
+      if (anyOwn && !state.owners[r.owner_type || "UNKNOWN"]) return false;
       if (state.absentee && !r.absentee_owner_flag) return false;
       if (state.oos && !r.out_of_state_owner_flag) return false;
       if (state.newOnly && !r._isNew) return false;
@@ -703,19 +722,17 @@
     if (state.search) parts.push('search "' + esc(state.search) + '"');
     if (state.saleWindow !== "any")
       parts.push("sale &le; " + state.saleWindow + " days");
-    var sigOff = Object.keys(state.signals).filter(function (k) {
-      return !state.signals[k];
+    var sigOn = Object.keys(state.signals).filter(function (k) {
+      return state.signals[k];
     });
-    if (sigOff.length)
-      parts.push((Object.keys(state.signals).length - sigOff.length) +
-        " signal type(s)");
-    var ownOff = Object.keys(state.owners).filter(function (k) {
-      return !state.owners[k];
+    if (sigOn.length)
+      parts.push(sigOn.length === 1 ? esc(sigOn[0])
+        : sigOn.length + " signal types");
+    var ownOn = Object.keys(state.owners).filter(function (k) {
+      return state.owners[k];
     });
-    if (ownOff.length)
-      parts.push(Object.keys(state.owners).filter(function (k) {
-        return state.owners[k];
-      }).join("/"));
+    if (ownOn.length)
+      parts.push("owner " + ownOn.join("/"));
     if (state.valMin != null) parts.push("min " + money(state.valMin));
     if (state.valMax != null) parts.push("max " + money(state.valMax));
     if (state.absentee) parts.push("absentee");

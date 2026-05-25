@@ -69,18 +69,50 @@ def _norm_parcel(s: str) -> str:
 # Estate-titled owner pattern. Word-boundary detection — matches:
 #   "SMITH JOHN ESTATE OF"
 #   "JONES MARY EST OF"
-#   "DOE JANE LIFE EST"
 #   "BROWN BOB ESTATE"
 #   "DOE JANE EST"
+#   "DOE JANE (DECD)"
 # Does NOT match:
 #   "ESTABLISHED REALTY LLC" (no word boundary)
 #   "WEST OF MILTON" (suffix containing EST but as letters in another word)
+#   "OAK ESTATES SUBDIVISION" (ESTATES plural — fails \bESTATE\b)
 # The regex anchors to whole-word EST / ESTATE preceded or followed by
-# whitespace or end-of-string, and gates "LIFE EST" specifically.
+# whitespace or end-of-string.
 ESTATE_PATTERN = re.compile(
     r"(?:\b(?:ESTATE|EST)\s+OF\b)"            # "ESTATE OF"/"EST OF"
-    r"|(?:\b(?:LIFE\s+ESTATE|LIFE\s+EST)\b)"  # "LIFE ESTATE"/"LIFE EST"
-    r"|(?:\b(?:ESTATE|EST)\s*$)",             # trailing "ESTATE"/"EST"
+    r"|(?:\b(?:ESTATE|EST)\s*$)"              # trailing "ESTATE"/"EST"
+    r"|(?:\bDEC(?:E)?D\b)"                    # "(DECD)" / "DECEASED" markers
+    r"|(?:\(DECD\))",
+    re.I,
+)
+
+# LIFE ESTATE / LIFE EST — a living life-tenant under a deliberate estate-
+# planning arrangement (the owner is ALIVE; the remainderman is named on
+# the same deed). NOT a probate signal. Detected separately and EXCLUDED
+# from estate-titled origination.
+LIFE_ESTATE_PATTERN = re.compile(
+    r"\bLIFE\s+(?:ESTATE|EST)\b",
+    re.I,
+)
+
+# Entity / corporate / trust / institutional keywords. When any of these
+# match, the owner is NOT an individual decedent — the parcel is held by
+# an entity that happens to have "ESTATE" in its name (e.g. "REAL ESTATE
+# OF JACKSONVILLE LLC", "X TRUST & ESTATE"). Exclude from estate origination.
+ENTITY_KEYWORDS_PATTERN = re.compile(
+    r"\b(?:LLC|L\.L\.C\.?|INC\.?|INCORPORATED|CORP\.?|CORPORATION|"
+    r"COMPANY|LP|LLP|LTD\.?|LIMITED|REALTY|PROPERTIES|HOLDINGS|"
+    r"INVESTMENTS|HOMES|FUND|ASSOCIATION|PARTNERS|GROUP|BANK|CLUB|"
+    r"FOUNDATION|ENTERPRISES|VENTURES|REAL\s+ESTATE|MINISTRIES)\b",
+    re.I,
+)
+
+# Trust-tail keywords. "X TRUST" / "X TRUST OF" — a living-trust holding
+# the parcel — also excluded from estate origination (the owner is the
+# trustee, not a decedent). "TRUST ESTATE" is treated as the trust-side,
+# not the probate-side.
+TRUST_KEYWORDS_PATTERN = re.compile(
+    r"\b(?:TRUST|TRUSTEE|REVOCABLE|IRREVOCABLE)\b",
     re.I,
 )
 
@@ -234,11 +266,38 @@ def _sale(parts: list) -> dict:
     }
 
 
-def is_estate_titled(owner: str) -> bool:
-    """Word-boundary estate-name detection. Matches the framework rule."""
+def classify_estate_name(owner: str) -> str:
+    """Three-way estate classification per standing rule #4.
+
+    Returns one of:
+      "individual_estate"  — "ESTATE OF [name]", "EST OF", "[name] ESTATE",
+                              "(DECD)" on an individual person → probate lead
+      "life_estate"        — "LIFE ESTATE" / "LIFE EST" → living life-tenant,
+                              NOT a probate lead, tagged separately, NOT
+                              emitted as an origination event
+      "entity_estate"      — company / trust / institutional owner that
+                              happens to have ESTATE in the name → NOT a
+                              probate lead, dropped from origination
+      ""                   — no estate match
+    """
     if not owner or len(owner.strip()) < 4:
-        return False
-    return bool(ESTATE_PATTERN.search(owner))
+        return ""
+    # Life estate first — it's the most common false positive in FL.
+    if LIFE_ESTATE_PATTERN.search(owner):
+        return "life_estate"
+    if not ESTATE_PATTERN.search(owner):
+        return ""
+    if ENTITY_KEYWORDS_PATTERN.search(owner):
+        return "entity_estate"
+    if TRUST_KEYWORDS_PATTERN.search(owner):
+        return "entity_estate"
+    return "individual_estate"
+
+
+def is_estate_titled(owner: str) -> bool:
+    """Back-compat wrapper — True only for individual-person estate matches.
+    Companies, trusts, and life estates DO NOT originate probate leads."""
+    return classify_estate_name(owner) == "individual_estate"
 
 
 def _flush_parcel(parcel_id: str, master: dict | None,
@@ -342,7 +401,11 @@ def run(src: Path, *, out_enrichment: Path, out_estates: Path,
 
     parcels_written = 0
     estates_written = 0
+    estate_dedup_skipped = 0
+    estate_life_excluded = 0
+    estate_entity_excluded = 0
     estate_parcels: set[str] = set()
+    estate_dedup_keys: set[tuple[str, str]] = set()
     homestead_parcels = 0
     refresh_iso = datetime.now(timezone.utc).date().isoformat()
 
@@ -402,14 +465,29 @@ def run(src: Path, *, out_enrichment: Path, out_estates: Path,
                 owner = _safe(parts, 3).strip()
                 if owner:
                     owners.append(owner)
-                    if is_estate_titled(owner):
-                        ev = _estate_event(pid, owner, master, situs,
-                                            " ".join(legal_parts.get(k, "")
-                                                    for k in sorted(legal_parts)),
-                                            len(owners), refresh_iso)
-                        fh_est.write(json.dumps(ev, ensure_ascii=False) + "\n")
-                        estates_written += 1
-                        estate_parcels.add(pid)
+                    klass = classify_estate_name(owner)
+                    if klass == "life_estate":
+                        estate_life_excluded += 1
+                    elif klass == "entity_estate":
+                        estate_entity_excluded += 1
+                    elif klass == "individual_estate":
+                        # Dedupe per (parcel_id, normalized name) — the CSV
+                        # occasionally carries the same individual estate on
+                        # multiple sequence rows for one parcel.
+                        norm_name = re.sub(r"\s+", " ", owner.upper()).strip()
+                        key = (pid, norm_name)
+                        if key in estate_dedup_keys:
+                            estate_dedup_skipped += 1
+                        else:
+                            estate_dedup_keys.add(key)
+                            ev = _estate_event(
+                                pid, owner, master, situs,
+                                " ".join(legal_parts.get(k, "")
+                                         for k in sorted(legal_parts)),
+                                len(owners), refresh_iso)
+                            fh_est.write(json.dumps(ev, ensure_ascii=False) + "\n")
+                            estates_written += 1
+                            estate_parcels.add(pid)
             elif rt == "00004":
                 # 00004 fields (1-indexed by position in row):
                 #   1:rt, 2:pid, 3:seq, 4:N/Y, 5:street name,
@@ -444,6 +522,9 @@ def run(src: Path, *, out_enrichment: Path, out_estates: Path,
         "parcels_written":         parcels_written,
         "estates_written":         estates_written,
         "estate_parcels_distinct": len(estate_parcels),
+        "estate_life_excluded":    estate_life_excluded,
+        "estate_entity_excluded":  estate_entity_excluded,
+        "estate_dedup_skipped":    estate_dedup_skipped,
         "homestead_parcels":       homestead_parcels,
         "enrichment_path":         str(out_enrichment.relative_to(REPO_ROOT)),
         "estates_path":            str(out_estates.relative_to(REPO_ROOT)),

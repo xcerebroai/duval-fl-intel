@@ -13037,7 +13037,7 @@
     "additional_owner_names": [],
     "aggregation_key": {
       "canonical_doc_type": "tax_foreclosure_notice",
-      "parcel_id": "1621101110",
+      "parcel_id": "0277690010",
       "signal_type": "Tax Foreclosure Notice"
     },
     "base_record_id": "base_duval_tax_collector_foreclosure:027769-0010:2025:84991",
@@ -13071,7 +13071,7 @@
     "property_refs": {
       "case_number": null,
       "legal_description": "28-12 39-1S-26E BUSH TERRACE LOT 8",
-      "parcel_id": "1621101110",
+      "parcel_id": "0277690010",
       "situs_address": "3630 MCMILLAN AVE"
     },
     "raw_event_id": "duval_tax_collector_foreclosure:027769-0010:2025:84991",
@@ -43172,7 +43172,7 @@
     "additional_owner_names": [],
     "aggregation_key": {
       "canonical_doc_type": "tax_foreclosure_notice",
-      "parcel_id": "0363060000",
+      "parcel_id": "0888710000",
       "signal_type": "Tax Foreclosure Notice"
     },
     "base_record_id": "base_duval_tax_collector_foreclosure:088871-0000:2025:150390",
@@ -43206,7 +43206,7 @@
     "property_refs": {
       "case_number": null,
       "legal_description": "5-66 55-2S-26E KAUFMANS ADDN TO SPEEDWAY PARK LOT 15 BLK 28",
-      "parcel_id": "0363060000",
+      "parcel_id": "0888710000",
       "situs_address": "W 22ND ST"
     },
     "raw_event_id": "duval_tax_collector_foreclosure:088871-0000:2025:150390",

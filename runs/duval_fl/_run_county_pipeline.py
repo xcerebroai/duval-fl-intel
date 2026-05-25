@@ -86,6 +86,77 @@ DOC_TYPE_PARTY_OVERRIDES = {
     "final_judgment_of_foreclosure": ("PL", "DF"),
 }
 
+# ---------------------------------------------------------------- distress allowlist
+# Standing rule #3 — doc-type honesty. Only canonical doc types that PROVE
+# a distress condition with property attachment originate leads. Anything
+# else from the clerk recorder index — deeds, mortgages, satisfactions,
+# marriage / death / military discharge, plats, easements, generic affidavits,
+# notice-of-commencement, court orders/warrants/sentences without explicit
+# property attachment — is NOT a lead. Ambiguous → REVIEW_REQUIRED, but the
+# canonical map below already drops the non-distress vocabulary; if a clerk
+# row's canonical_doc_type isn't here, the clerk mapper drops it (with a
+# CLERK_NON_DISTRESS_DROPPED punch entry for audit).
+CLERK_DISTRESS_ALLOWLIST: frozenset[str] = frozenset({
+    # Foreclosure family
+    "lis_pendens",
+    "notice_of_sale",
+    "final_judgment_of_foreclosure",
+    "foreclosure_notice",
+    "deed_in_lieu_of_foreclosure",
+    "certificate_of_title",
+    "certificate_of_sale",
+    "certificate_of_title_deed",
+    "notice_of_default",
+    "notice_of_substitute_trustee_sale",
+    # Tax family
+    "tax_deed",
+    "tax_foreclosure_notice",
+    "tax_sale_certificate",
+    "tax_delinquency",
+    # Lien family (every recorded encumbrance that distresses)
+    "lien",
+    "claim_of_lien",
+    "construction_lien",
+    "mechanics_lien",
+    "hoa_lien",
+    "federal_tax_lien",
+    "state_tax_lien",
+    "code_lien",
+    "demolition_lien",
+    "municipal_lien",
+    "hospital_lien",
+    "water_lien",
+    "judgment_lien",
+    "abstract_of_judgment",
+    "notice_contest_of_lien",
+    # Judgment family — money judgments / civil judgments attach to real
+    # property; criminal sentences / DV protective orders do NOT.
+    "judgment",
+    "civil_judgment",
+    # Probate / estate family
+    "probate",
+    "affidavit_of_heirship",
+    "executors_deed",
+    "administrators_deed",
+    "personal_representative_deed",
+    "letters_testamentary",
+    "letters_of_administration",
+    "transfer_on_death_deed",
+    "inheritance_tax_waiver",
+    "disclaimer_of_interest",
+    "determination_of_heirship",
+    "muniment_of_title",
+    # Sheriff / bankruptcy / eviction
+    "sheriff_sale",
+    "sheriff_deed",
+    "sheriff_sale_surplus",
+    "eviction_filing",
+    "bankruptcy_petition",
+    # Code / demolition
+    "code_violation_notice",
+})
+
+
 SIGNAL_TYPE_LABELS = {
     "lis_pendens": "Lis Pendens", "lien": "Lien",
     "claim_of_lien": "Claim of Lien", "construction_lien": "Construction Lien",
@@ -132,6 +203,18 @@ def map_clerk_row_to_raw_event(rec: dict) -> dict | None:
         if lower_canon not in REGISTRY_LOWER_KEYS:
             punch("CANON_NOT_IN_REGISTRY",
                   f"{upper_canon!r} not in REGISTRY_LOWER_KEYS", instrument)
+
+    # Standing rule #3 — drop the row entirely if the canonical doc type
+    # is NOT in the county distress allowlist. The recorder index is full
+    # of deeds, mortgages, satisfactions, marriage licenses, military
+    # discharges, plats, etc. — none of which are leads. We do NOT count
+    # these as leads, even with REVIEW_REQUIRED routing.
+    if lower_canon not in CLERK_DISTRESS_ALLOWLIST:
+        punch("CLERK_NON_DISTRESS_DROPPED",
+              f"raw label {raw_doc_type!r} → canonical {lower_canon!r} "
+              "is not in the distress allowlist; not a lead",
+              instrument)
+        return None
 
     direct = (pay.get("direct_name") or "").strip()
     indirect = (pay.get("indirect_name") or "").strip()
