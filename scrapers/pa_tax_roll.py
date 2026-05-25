@@ -489,15 +489,25 @@ def run(src: Path, *, out_enrichment: Path, out_estates: Path,
                             estates_written += 1
                             estate_parcels.add(pid)
             elif rt == "00004":
-                # 00004 fields (1-indexed by position in row):
-                #   1:rt, 2:pid, 3:seq, 4:N/Y, 5:street name,
-                #   6:street type, 7:unit, 8:city, 9:zip+ext, 10:?
+                # 00004 fields (0-indexed in the parts list):
+                #   0:rt, 1:pid, 2:house_number, 3:direction (N/S/E/W),
+                #   4:street_name, 5:street_type (LN/AVE/HWY/etc.),
+                #   6:unit, 7:city, 8:zip+ext, 9:reserved
+                # Earlier versions of this adapter mis-aligned the
+                # positions and dropped the house number — that broke the
+                # downstream PA-tax-roll address join for ~all enriched
+                # leads (cards showed "STREET TYPE, JACKSONVILLE, FL"
+                # with no house number). The fix lifts house_number +
+                # direction into the composed street address.
+                hnum = _safe(parts, 2).strip()
+                direction = _safe(parts, 3).strip()
+                street_name = _safe(parts, 4).strip()
+                street_type = _safe(parts, 5).strip()
+                unit = _safe(parts, 6).strip()
+                street = " ".join(filter(None, [
+                    hnum, direction, street_name, street_type, unit]))
                 situs = {
-                    "street": (
-                        (_safe(parts, 4).strip() + " " +
-                         _safe(parts, 5).strip() + " " +
-                         _safe(parts, 6).strip()).strip()
-                    ),
+                    "street": street,
                     "city":   _safe(parts, 7).strip(),
                     "zip":    _safe(parts, 8).strip().split("-")[0],
                 }

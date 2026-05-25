@@ -28,9 +28,21 @@ Thumbs.db
 
 # Build artifacts that DO NOT belong in version control
 # (Phase 1+ may generate these; tracked separately by run manifests)
-data/raw/
+# Use data/raw/* (not data/raw/) so per-file `!` exceptions below can
+# re-include specific files — directory-level exclusion in gitignore
+# blocks all child !pattern overrides.
+data/raw/*
 data/runs/*/raw/
 data/evidence/*.pdf
+
+# Exception — the Tax Collector delinquency export is a MANUAL operator
+# download (county-taxes.net is JS-rendered behind Cloudflare; the export
+# endpoint isn't yet reverse-engineered for CI). Commit the gzipped CSV
+# (24 MB; the raw is 140 MB) so the daily-refresh workflow has a known
+# source to parse — otherwise CI would silently drop the 19,878 tax-default
+# leads on the next refresh. Re-gzip and recommit whenever the operator
+# downloads a fresh CSV.
+!data/raw/duval_tax_collector_src.csv.gz
 
 # Per-county run logs and transient artifacts
 # The runs/<slug>/ folder itself IS committed (launch files, manifests, notes).

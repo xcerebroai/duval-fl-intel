@@ -48,6 +48,56 @@ def _normalize_parcel_id(s: str) -> str:
     return re.sub(r"[^0-9]", "", (s or "").strip())
 
 
+def _is_valid_parcel_id(s: str) -> bool:
+    """A valid Duval RE_NOSPACE parcel id is exactly 10 digits. The
+    RealAuction scraper occasionally captures the link-button label
+    ("Property Appraiser", "MULTIPLE PARCELS") instead of the actual
+    parcel number when the auction page hides it behind a JS lookup —
+    those strings are rejected here."""
+    n = _normalize_parcel_id(s)
+    return bool(n) and len(n) == 10 and n.isdigit()
+
+
+# Street-address normalization for PA address-index lookup.
+_ADDR_TOKEN_PAT = re.compile(r"[^A-Z0-9 ]+")
+_STREET_ABBR = {
+    "AVENUE": "AVE", "STREET": "ST", "DRIVE": "DR", "ROAD": "RD",
+    "LANE": "LN", "COURT": "CT", "CIRCLE": "CIR", "BOULEVARD": "BLVD",
+    "PLACE": "PL", "PARKWAY": "PKWY", "HIGHWAY": "HWY",
+    "TERRACE": "TER", "TRAIL": "TRL",
+}
+_STREET_ABBR_RE = re.compile(
+    r"\b(" + "|".join(_STREET_ABBR) + r")\b", re.I)
+
+
+def _normalize_street(addr: str) -> str:
+    """Normalize a street string for cross-source matching:
+       'Property Address:\t2503 Summerfield Ln.' → '2503 SUMMERFIELD LN'.
+    Strips punctuation, collapses whitespace, uppercases, abbreviates
+    full street-type words to PA-style tokens."""
+    if not addr:
+        return ""
+    s = addr.upper()
+    if "PROPERTY ADDRESS:" in s:
+        s = s.split("PROPERTY ADDRESS:", 1)[1]
+    # Drop city/state/zip tail beyond the first comma (PA address is
+    # street-only; jaxdailyrecord includes city/state — strip the tail).
+    if "," in s:
+        s = s.split(",", 1)[0]
+    s = _ADDR_TOKEN_PAT.sub(" ", s)
+    s = _STREET_ABBR_RE.sub(lambda m: _STREET_ABBR[m.group(1).upper()], s)
+    s = re.sub(r"\s+", " ", s).strip()
+    return s
+
+
+def _strip_case_suffix(case_no: str) -> str:
+    """RealAuction case '16-2018-CA-007777-XXXX-MA' →
+    jaxdailyrecord '16-2018-CA-007777' base."""
+    if not case_no:
+        return ""
+    return re.sub(r"-[A-Z]+-[A-Z]+$", "", case_no.strip().upper())
+
+
 # ---------- legal-description → parcel resolver ----------
 # The Acclaim clerk feed gives a compact legal description per recorded
 # instrument (e.g. "L 359 WINCHESTER RIDGE PHASE 2 U 5") but no parcel_id.
@@ -481,6 +531,33 @@ def main() -> int:
           f"condo={len(pa_legal_indexes[2])}, "
           f"fuzzy={len(pa_legal_indexes[3])}")
 
+    # PA address index — normalized street → list[parcel_id]. Used when an
+    # event-doc carries a property_address but the parcel_id is missing
+    # or invalid (the RealForeclose scraper occasionally captures the
+    # "Property Appraiser" link-text instead of the number when the
+    # auction page hides it behind a JS lookup).
+    pa_by_norm_addr: dict[str, list[str]] = {}
+    for pid, p in pa_by_pid.items():
+        norm = _normalize_street(p.get("situs_address") or "")
+        if norm:
+            pa_by_norm_addr.setdefault(norm, []).append(pid)
+    print(f"  pa_address_index keys : {len(pa_by_norm_addr)}")
+
+    # jaxdailyrecord cross-source index — RealForeclose carries the long
+    # court-case format ("16-2018-CA-007777-XXXX-MA"); jaxdailyrecord
+    # publishes the same notice in shorter base form ("16-2018-CA-007777").
+    # Joining by base case lifts the property address from the newspaper
+    # notice onto the RealForeclose lead when the auction page hid the
+    # parcel + address. Both sources are PRIMARY EVENT — this is a
+    # cross-source merge, not an enrichment-stage rule violation.
+    jaxdaily_by_case_base: dict[str, dict] = {}
+    for rec in _read_jsonl(JAXDAILY):
+        p = rec.get("raw_payload") or {}
+        base = _strip_case_suffix(p.get("case_no") or "")
+        if base:
+            jaxdaily_by_case_base[base] = p
+    print(f"  jaxdaily case_base    : {len(jaxdaily_by_case_base)}")
+
     records: list[dict] = []
     enriched_count = unenriched_count = review_count = approved_count = 0
     owner_enriched_via_pa = 0
@@ -506,45 +583,76 @@ def main() -> int:
         owner_source = "event_document"
         is_placeholder = bool(PLACEHOLDER_OWNER_PAT.search(owner_name))
         if is_placeholder:
-            # Step A — recover parcel_id from the raw event-doc directly
-            # (RealAuction events carry parcel_id; most clerk records do
-            # not). When §19's aggregator dropped parcel_id from the lead,
-            # this re-recovers it for downstream enrichment, NOT for §17.
+            # Step A — recover parcel_id from the raw event-doc directly.
+            # The RealAuction adapter occasionally captures the page's
+            # "Property Appraiser" link-text instead of the parcel
+            # number when the auction page hid it behind JS — we reject
+            # any non-10-digit string here.
             recovered_pid_raw = ""
             recovered_situs = ""
             recovered_legal = ""
+            recovered_case = ""
             for ev_id in sl.get("evidence_ids") or []:
                 if ev_id in realauction_by_evidence:
                     r = realauction_by_evidence[ev_id]
-                    if not recovered_pid_raw:
+                    if not recovered_pid_raw and _is_valid_parcel_id(
+                            r.get("parcel_id") or ""):
                         recovered_pid_raw = r.get("parcel_id") or ""
                     if not recovered_situs:
                         addr = r.get("property_address") or ""
                         if addr.startswith("Property Address:"):
                             addr = addr.split("\t", 1)[-1].replace("\t", " ").strip()
                         recovered_situs = addr
+                    if not recovered_case:
+                        recovered_case = r.get("case_number") or ""
                 elif ev_id in clerk_by_evidence:
                     c = clerk_by_evidence[ev_id]
-                    if not recovered_pid_raw:
+                    if not recovered_pid_raw and _is_valid_parcel_id(
+                            c.get("parcel_id") or ""):
                         recovered_pid_raw = c.get("parcel_id") or ""
                     if not recovered_situs:
                         recovered_situs = c.get("situs_address") or ""
                     if not recovered_legal:
                         recovered_legal = c.get("legal_description") or ""
+                elif ev_id in jaxdaily_by_evidence:
+                    j = jaxdaily_by_evidence[ev_id]
+                    if not recovered_situs:
+                        recovered_situs = j.get("property_address") or ""
+                    if not recovered_case:
+                        recovered_case = j.get("case_no") or ""
             recovered_pid = _normalize_parcel_id(recovered_pid_raw)
             resolution_method = "event_doc_parcel_id" if recovered_pid else ""
 
-            # Step B — fallback: legal-description → PA legal index match.
-            # The Acclaim clerk feed lacks parcel_id but carries a compact
-            # legal description ("L 359 WINCHESTER RIDGE PHASE 2 U 5") on
-            # the property-attached distress types (CERTIFICATE OF TITLE
-            # DEED 100%, LIEN 41%, PROBATE w/ embedded PIN). Parse +
-            # cross-join against the PA tax-roll legal_description index.
+            # Step B — legal-description → PA legal index match (clerk).
             if not recovered_pid and recovered_legal:
                 resolved_pid, resolution_method = resolve_parcel_via_legal(
                     recovered_legal, pa_legal_indexes, pa_by_pid)
                 if resolved_pid:
                     recovered_pid = resolved_pid
+
+            # Step C — jaxdailyrecord cross-source by case base. The
+            # RealForeclose auction page sometimes hides BOTH the parcel
+            # and the address behind JS; the Jacksonville Daily Record
+            # publishes the same Ch. 45 sale notice with the address in
+            # plain text. Both are PRIMARY EVENT sources for the same
+            # foreclosure — joining by base case lifts the address onto
+            # the RealForeclose lead.
+            if not recovered_situs and recovered_case:
+                base = _strip_case_suffix(recovered_case)
+                if base in jaxdaily_by_case_base:
+                    jd = jaxdaily_by_case_base[base]
+                    recovered_situs = jd.get("property_address") or ""
+
+            # Step D — address-based PA lookup (when parcel still missing).
+            # Normalized street match against the PA situs_address index;
+            # only accept a UNIQUE match to avoid wrong-house false hits.
+            if not recovered_pid and recovered_situs:
+                norm = _normalize_street(recovered_situs)
+                if norm:
+                    hits = pa_by_norm_addr.get(norm, [])
+                    if len(hits) == 1:
+                        recovered_pid = hits[0]
+                        resolution_method = "address_match"
 
             # Step C — attach PA owner of record when we have any parcel_id.
             if recovered_pid:
@@ -562,6 +670,7 @@ def main() -> int:
                         "lot_subdiv":          "pa_tax_roll_via_legal_lot",
                         "condo_subdiv_unit":   "pa_tax_roll_via_legal_condo",
                         "fuzzy_subdiv_lot":    "pa_tax_roll_via_legal_fuzzy",
+                        "address_match":       "pa_tax_roll_via_address",
                     }
                     owner_source = method_to_source.get(
                         resolution_method,
@@ -828,6 +937,16 @@ def main() -> int:
             and most_recent_event_date.toordinal() >= cutoff_30d
         )
 
+        # has_street_address — true when the lead has a house-number-bearing
+        # street (a usable mail-to / drive-by address), not just city/state.
+        # A street is considered "real" when it carries at least one digit
+        # (PA + clerk addresses all carry the house number on real
+        # residential/commercial properties; "US 301 HWY" is a state road
+        # without a number and still works — accept any non-blank street
+        # token longer than 3 chars).
+        has_street_address = bool((street or "").strip()
+                                  and len(street.strip()) >= 3)
+
         rec = {
             "lead_id": lead_id,
             "parcel_resolution_status": parcel_res,
@@ -837,6 +956,7 @@ def main() -> int:
             "owner_name": owner_name,
             "owner_source": owner_source,
             "owner_type": owner_type,
+            "has_street_address": has_street_address,
             "property_full_address": property_full,
             "property_street": street,
             "property_city": city,
@@ -897,6 +1017,8 @@ def main() -> int:
     for r in records:
         src = r.get("owner_source") or "event_document"
         owner_source_dist[src] = owner_source_dist.get(src, 0) + 1
+    addr_resolved = sum(1 for r in records if r.get("has_street_address"))
+    addr_unresolved = len(records) - addr_resolved
 
     # Tax-default surface for top-stats + filters.
     tax_default_count = sum(1 for r in records if r.get("tax_default"))
@@ -925,6 +1047,8 @@ def main() -> int:
         "new_leads": new_count,
         "last_30d_leads": last_30d_count,
         "owner_source_distribution": dict(sorted(owner_source_dist.items())),
+        "address_resolved_leads": addr_resolved,
+        "address_unresolved_leads": addr_unresolved,
         "tax_default_leads": tax_default_count,
         "tax_balance_total_owed": tax_balance_total,
         "tax_default_years_distribution": dict(sorted(years_dist.items())),
@@ -998,6 +1122,7 @@ def main() -> int:
     print(f"  owner enriched via PA: {owner_enriched_via_pa}")
     print(f"  owner still unresolved: {owner_still_unresolved}")
     print(f"  owner_source dist    : {dict(sorted(owner_source_dist.items()))}")
+    print(f"  address-resolved     : {addr_resolved} (no-street: {addr_unresolved})")
     print(f"  tax_default leads    : {tax_default_count}")
     print(f"  tax_foreclosure leads: {tax_fcl_count}")
     print(f"  tax_sale leads       : {tax_sale_count}")

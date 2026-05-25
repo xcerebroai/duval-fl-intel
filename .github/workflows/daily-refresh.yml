@@ -101,21 +101,23 @@ jobs:
           python scrapers/pa_tax_roll.py --url "$PA_TXT_ZIP_URL"
 
       - name: Parse Duval Tax Collector delinquency export
-        # PUNCH-LIST — the county-taxes.net real-estate report download is
-        # NOT yet automated in CI (the page is JS-rendered behind
-        # Cloudflare; reverse-engineering the export endpoint is a separate
-        # build). The expected file is data/raw/duval_tax_collector_src.csv,
-        # committed manually by the operator after each refresh OR uploaded
-        # via gh release / repo artifact; the parser is idempotent and
-        # safely no-ops if the file is missing.
+        # The county-taxes.net real-estate report download is NOT yet
+        # automated in CI (the page is JS-rendered behind Cloudflare; the
+        # export endpoint isn't reverse-engineered). The operator commits
+        # a gzipped copy at data/raw/duval_tax_collector_src.csv.gz
+        # (gitignore exception). Daily-refresh gunzips it before parsing.
+        # If the .gz is missing the run FAILS LOUDLY — never silently
+        # publish a board that dropped the 19,878 tax-default leads.
         run: |
-          if [ -f data/raw/duval_tax_collector_src.csv ]; then
-            python scrapers/duval_tax_collector.py
-          else
-            echo "::warning::data/raw/duval_tax_collector_src.csv missing — \
-              tax_collector source will be stale until operator uploads. \
-              Skipping parser (existing JSONL outputs remain unchanged)."
+          if [ ! -f data/raw/duval_tax_collector_src.csv.gz ]; then
+            echo "::error::data/raw/duval_tax_collector_src.csv.gz is missing — \
+              operator must re-download the county-taxes.net real-estate \
+              report and commit it gzipped. Refusing to publish a degraded \
+              board without the tax-default leads."
+            exit 1
           fi
+          gunzip -k -f data/raw/duval_tax_collector_src.csv.gz
+          python scrapers/duval_tax_collector.py
 
       # --------------------------------------------------------------
       # 2. Staged pipeline (§17 → §18 → §19 → §20 → seam → scoring)
@@ -125,11 +127,75 @@ jobs:
           python runs/duval_fl/_run_county_pipeline.py
 
       # --------------------------------------------------------------
-      # 3. Dashboard payload (El Paso renderer record shape)
+      # 3. Dashboard payload (operator-board record shape)
       # --------------------------------------------------------------
       - name: Build dashboard payload
         run: |
           python runs/duval_fl/_build_el_paso_data.py
+
+      # --------------------------------------------------------------
+      # 3a. SANITY THRESHOLDS — refuse to publish a degraded board.
+      # The Greene-NY lesson: CI silently shipped 525 of 1,210 leads
+      # because a source dropped without warning. We fail the run if the
+      # rebuilt payload regresses against known-good baselines.
+      # --------------------------------------------------------------
+      - name: Verify lead-count + ENRICHMENT sanity thresholds
+        # Standing rule against the Greene-NY failure mode: CI re-pulled
+        # the primary event sources but did NOT re-run the parcel
+        # enrichment, so every lead came out "Unknown — no owner — no
+        # address". A numerically-correct lead_total is NOT enough; we
+        # also assert that the enrichment join produced the expected
+        # surface — resolved owners, resolved addresses, tax-default
+        # depth. If ANY threshold drops below the known-good floor, the
+        # workflow FAILS and the broken board is never published.
+        env:
+          DUVAL_MIN_LEAD_TOTAL: "25000"          # known-good 26,754 -5% margin
+          DUVAL_MIN_TAX_DEFAULT: "18000"         # known-good 19,878
+          DUVAL_MIN_ADDR_RESOLVED: "20000"       # known-good 22,873
+          DUVAL_MIN_OWNER_EVENT_DOC: "20000"     # known-good 22,878  (§17 +
+                                                  # TC + PA-estate owner)
+          DUVAL_MAX_OWNER_UNRESOLVED: "5000"     # known-good 3,639 (cap to
+                                                  # catch a dead-board run)
+        run: |
+          python - <<'PY'
+          import json, os, sys
+          p = json.load(open("dashboard/data.json"))
+          osd = p.get("owner_source_distribution", {})
+          total = p.get("lead_total", 0)
+          tax_default = p.get("tax_default_leads", 0)
+          addr = p.get("address_resolved_leads", 0)
+          owner_doc = osd.get("event_document", 0)
+          owner_un = osd.get("unresolved", 0)
+          checks = [
+              ("lead_total",             total,      ">=",
+               int(os.environ["DUVAL_MIN_LEAD_TOTAL"])),
+              ("tax_default_leads",      tax_default, ">=",
+               int(os.environ["DUVAL_MIN_TAX_DEFAULT"])),
+              ("address_resolved_leads", addr,        ">=",
+               int(os.environ["DUVAL_MIN_ADDR_RESOLVED"])),
+              ("owner.event_document",   owner_doc,   ">=",
+               int(os.environ["DUVAL_MIN_OWNER_EVENT_DOC"])),
+              ("owner.unresolved",       owner_un,    "<=",
+               int(os.environ["DUVAL_MAX_OWNER_UNRESOLVED"])),
+          ]
+          failed = []
+          for name, got, op, thr in checks:
+              ok = (got >= thr) if op == ">=" else (got <= thr)
+              status = "OK" if ok else "FAIL"
+              print(f"  {name:<26} got={got:>6,}  {op}  {thr:>6,}  [{status}]")
+              if not ok:
+                  failed.append(f"{name} {got} {op} {thr}")
+          if failed:
+              print()
+              print("::error::sanity threshold(s) failed: "
+                    + "; ".join(failed))
+              print("::error::refusing to publish a degraded board — "
+                    "the most common cause is that the parcel-enrichment "
+                    "join (PA tax roll → owner / address) did not run "
+                    "this cycle. Investigate the upstream source(s).")
+              sys.exit(1)
+          print("\nAll sanity thresholds passed.")
+          PY
 
       # --------------------------------------------------------------
       # 4. Commit + push (Pages publishes on main).

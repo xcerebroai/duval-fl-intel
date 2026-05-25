@@ -53,7 +53,8 @@
     multiOnly: false, sort: "recent", shown: 0, preset: "all",
     newOnly: false, last30Only: false,
     taxDefaultOnly: false, hideTinyBal: false,
-    yearsDelinquent: "any", balMin: null
+    yearsDelinquent: "any", balMin: null,
+    addrOnly: false
   };
   var PAGE = 60;
   var marked = loadMarked();   // Set of lead_id (localStorage)
@@ -189,7 +190,11 @@
       return '<div class="topstat ' + (cls || "") + '"><div class="n">' +
         n + '</div><div class="l">' + l + "</div></div>";
     }
+    var addrR = (typeof p.address_resolved_leads === "number")
+      ? p.address_resolved_leads
+      : records.filter(function (r) { return r.has_street_address; }).length;
     return st(records.length.toLocaleString(), "leads") +
+      st(addrR.toLocaleString(), "address resolved") +
       st(newCount.toLocaleString(),
         "NEW today" + (p.refresh_date ? " (" + esc(p.refresh_date) + ")" : ""),
         "new") +
@@ -198,13 +203,13 @@
         "tax-default leads", "tax") +
       st(money(taxBal), "owed to county", "tax") +
       st(act.toLocaleString(), "actionable") +
-      st(fclAddr, "foreclosures w/ addr") +
       st(soon, "sale &le;21 days", "urgent") +
       st(estates, "estate-titled leads", "estate");
   }
 
   // ---------- sidebar ----------
   var PRESETS = [
+    { id: "addrResolved", label: "Address resolved" },
     { id: "new", label: "NEW today" },
     { id: "last30", label: "Last 30 days" },
     { id: "fcl21", label: "Foreclosures — next 21 days" },
@@ -326,6 +331,9 @@
       state.balMin = e.target.value === "" ? null : Number(e.target.value);
       markPresetActive(""); render();
     });
+    $("togAddrOnly").addEventListener("change", function (e) {
+      state.addrOnly = e.target.checked; markPresetActive(""); render();
+    });
     $("sortMode").addEventListener("change", function (e) {
       state.sort = e.target.value; render();
     });
@@ -355,12 +363,15 @@
     state.hideTinyBal = false; $("togHideTinyBal").checked = false;
     state.yearsDelinquent = "any"; $("yearsDelinquent").value = "any";
     state.balMin = null; $("balMin").value = "";
+    state.addrOnly = false; $("togAddrOnly").checked = false;
     state.multiOnly = false;
     // Standing rule #5 — reset = empty selection (no filter), not all-checked.
     setAllChecks("signalFilter", "sig", state.signals, false);
     setAllChecks("ownerFilter", "own", state.owners, false);
 
-    if (id === "new") {
+    if (id === "addrResolved") {
+      state.addrOnly = true; $("togAddrOnly").checked = true;
+    } else if (id === "new") {
       state.newOnly = true; $("togNew").checked = true;
       state.sort = "recent"; $("sortMode").value = "recent";
     } else if (id === "last30") {
@@ -429,6 +440,7 @@
       if (state.oos && !r.out_of_state_owner_flag) return false;
       if (state.newOnly && !r._isNew) return false;
       if (state.last30Only && !r._within30d) return false;
+      if (state.addrOnly && !r.has_street_address) return false;
       if (state.taxDefaultOnly && !r._taxDefault) return false;
       if (state.yearsDelinquent !== "any") {
         var yMin = Number(state.yearsDelinquent);
@@ -455,7 +467,14 @@
   function sortRows(rows) {
     var c = rows.slice();
     var by = state.sort;
+    // Standing rule #7-addendum — a lead with a real street address is
+    // operator-actionable; one with only city/state isn't. The default
+    // sort puts address-resolved leads above no-street leads, then
+    // applies the chosen secondary ordering within each bucket.
+    function addrRank(r) { return r.has_street_address ? 0 : 1; }
     c.sort(function (a, b) {
+      var ar = addrRank(a), br = addrRank(b);
+      if (ar !== br) return ar - br;
       if (by === "sale") {
         var av = a._saleDate ? a._saleDate.getTime() : 8e15;
         var bv = b._saleDate ? b._saleDate.getTime() : 8e15;
@@ -469,9 +488,8 @@
       }
       if (by === "signals")
         return (b.signal_count || 0) - (a.signal_count || 0);
-      // urgency (default): tier asc, then within-tier secondary
       if (a._tier !== b._tier) return a._tier - b._tier;
-      if (a._tier <= 2) {            // foreclosure tiers: soonest sale first
+      if (a._tier <= 2) {
         var as = a._saleDate ? a._saleDate.getTime() : 8e15;
         var bs = b._saleDate ? b._saleDate.getTime() : 8e15;
         return as - bs;
@@ -746,6 +764,7 @@
       parts.push(state.yearsDelinquent + "+ yr delinquent");
     if (state.balMin != null) parts.push("balance &ge; " + money(state.balMin));
     if (state.hideTinyBal) parts.push("low-priority hidden");
+    if (state.addrOnly) parts.push("address-resolved only");
     if (state.multiOnly) parts.push("multi-signal");
     $("filterSummary").innerHTML = parts.length
       ? "Showing: " + parts.join(" · ")
