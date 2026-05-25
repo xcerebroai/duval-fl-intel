@@ -148,12 +148,13 @@
     records.forEach(prep);
 
     $("topStats").innerHTML = topStatsHtml(payload);
-    if (payload.build_label && payload.build_label !== "FULL_BUILD") {
-      var b = $("banner");
-      b.hidden = false;
-      b.textContent = "PARTIAL LEAD BOARD (" + payload.build_label + ") — " +
-        (payload.build_label_reason || "");
-    }
+    // Standing rule #5/#6 — the build-status banner ("PARTIAL LEAD BOARD
+    // (PARTIAL_BUILD) — v5.4.0 staged pipeline. Primary event sources: ...")
+    // is internal build commentary and never renders on the client-facing
+    // board. The #banner element is reused below by the fetch error-handler
+    // to surface a "could not load data" message; it stays hidden on a
+    // successful boot regardless of build_label.
+    $("banner").hidden = true;
 
     buildPresets();
     buildSignalFilter();
