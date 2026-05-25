@@ -23,10 +23,45 @@ knowledge_base/ edits — county-side only.
 """
 from __future__ import annotations
 import json
+import re
+import sys
 from datetime import date, datetime, timezone
 from pathlib import Path
 
+# Import the PA tax-roll owner classifiers so the enrichment-side owner
+# attachment uses the same logic as primary origination.
 REPO = Path(__file__).resolve().parents[2]
+if str(REPO) not in sys.path:
+    sys.path.insert(0, str(REPO))
+from scrapers.pa_tax_roll import (   # noqa: E402
+    classify_estate_name as _classify_estate_name,
+    ENTITY_KEYWORDS_PATTERN as _PA_ENTITY_PAT,
+    TRUST_KEYWORDS_PATTERN as _PA_TRUST_PAT,
+)
+
+
+PLACEHOLDER_OWNER_PAT = re.compile(r"unidentified party", re.I)
+
+
+def _normalize_parcel_id(s: str) -> str:
+    """RealAuction "127483-0000" → "1274830000" (PA RE_NOSPACE format)."""
+    return re.sub(r"[^0-9]", "", (s or "").strip())
+
+
+def _owner_type_from_name(name: str) -> str:
+    """Re-classify owner_type from a name string. Same rules the PA adapter
+    uses for estate origination, mirrored here so enrichment-side owners
+    surface with a consistent owner_type."""
+    if not name:
+        return "UNKNOWN"
+    if _classify_estate_name(name) == "individual_estate":
+        return "ESTATE"
+    if _PA_ENTITY_PAT.search(name):
+        return "ENTITY"
+    if _PA_TRUST_PAT.search(name):
+        return "TRUST"
+    return "INDIVIDUAL"
+
 
 SCORED = REPO / "runs/duval_fl/build/staged/scored_leads.json"
 MATCHED = REPO / "runs/duval_fl/build/staged/matched_leads.json"
@@ -205,8 +240,39 @@ def main() -> int:
             gis_by_pid[pid] = p
     print(f"  gis_parcels indexed   : {len(gis_by_pid)}")
 
+    # PA tax-roll enrichment by parcel_id — used downstream to attach an
+    # owner_of_record to leads whose §17 routed to REVIEW_REQUIRED with a
+    # placeholder owner (e.g. "notice_of_sale against unidentified party").
+    # Same pattern greene-ny uses for AAR auctions.
+    PA_TAX_ROLL = REPO / "data/raw/pa_tax_roll.jsonl"
+    pa_by_pid: dict[str, dict] = {}
+    for rec in _read_jsonl(PA_TAX_ROLL):
+        p = rec.get("raw_payload") or {}
+        pid = p.get("parcel_id")
+        if pid:
+            pa_by_pid[pid] = p
+    print(f"  pa_tax_roll enrichment: {len(pa_by_pid)}")
+
+    # Index clerk raw by raw_record_id so we can recover parcel_id from the
+    # event-doc when §17 routed to REVIEW (the §19 aggregator drops
+    # parcel_id from the lead when the parcel-resolution status is
+    # REVIEW_REQUIRED; we re-recover here for ENRICHMENT, not §17).
+    clerk_by_evidence: dict[str, dict] = {}
+    for rec in _read_jsonl(CLERK):
+        rid = rec.get("raw_record_id")
+        if rid:
+            p = rec.get("raw_payload") or {}
+            clerk_by_evidence[rid] = {
+                "parcel_id":         (p.get("parcel_id") or "").strip(),
+                "situs_address":     (p.get("situs_address") or "").strip(),
+                "legal_description": (p.get("legal_description") or "").strip(),
+                "instrument_number": (p.get("instrument_number") or "").strip(),
+            }
+
     records: list[dict] = []
     enriched_count = unenriched_count = review_count = approved_count = 0
+    owner_enriched_via_pa = 0
+    owner_still_unresolved = 0
 
     for sl in scored:
         lead_id = sl.get("lead_id")
@@ -218,10 +284,88 @@ def main() -> int:
         attributes = sl.get("attributes") or []
         gis = gis_by_pid.get(parcel_id, {}) if parcel_id else {}
 
-        is_review = (sl.get("lead_status") == "REVIEW_REQUIRED"
-                     or ml.get("parcel_resolution_status") == "REVIEW_REQUIRED"
-                     or any("review" in (f or "").lower()
-                            for f in sl.get("review_flags") or []))
+        # ENRICHMENT-side owner resolution. When §17 placed a placeholder
+        # owner on the lead ("X against unidentified party" — i.e. the
+        # event-document does not name the property owner), join the lead
+        # to the PA tax roll by parcel_id and surface the owner of record
+        # as ENRICHMENT. §17 stage boundary preserved: §17 still reads
+        # only event-document parties; the resolved owner is tracked
+        # separately with owner_source = "pa_tax_roll".
+        owner_source = "event_document"
+        is_placeholder = bool(PLACEHOLDER_OWNER_PAT.search(owner_name))
+        if is_placeholder:
+            # Recover a parcel_id when the §19 aggregator dropped it
+            # (REVIEW_REQUIRED parcel_resolution forces aggregation_key.parcel_id
+            # to None). Pull from the raw event-doc via evidence_ids.
+            recovered_pid_raw = ""
+            recovered_situs = ""
+            for ev_id in sl.get("evidence_ids") or []:
+                if ev_id in realauction_by_evidence:
+                    r = realauction_by_evidence[ev_id]
+                    if not recovered_pid_raw:
+                        recovered_pid_raw = r.get("parcel_id") or ""
+                    if not recovered_situs:
+                        addr = r.get("property_address") or ""
+                        if addr.startswith("Property Address:"):
+                            addr = addr.split("\t", 1)[-1].replace("\t", " ").strip()
+                        recovered_situs = addr
+                elif ev_id in clerk_by_evidence:
+                    c = clerk_by_evidence[ev_id]
+                    if not recovered_pid_raw:
+                        recovered_pid_raw = c.get("parcel_id") or ""
+                    if not recovered_situs:
+                        recovered_situs = c.get("situs_address") or ""
+            recovered_pid = _normalize_parcel_id(recovered_pid_raw)
+            if recovered_pid:
+                if not parcel_id:
+                    parcel_id = recovered_pid
+                    gis = gis_by_pid.get(parcel_id, gis)
+                pa = pa_by_pid.get(recovered_pid)
+                if pa and pa.get("owner_name"):
+                    owner_name = pa["owner_name"]
+                    owner_type = _owner_type_from_name(owner_name)
+                    owner_source = "pa_tax_roll"
+                    is_placeholder = False
+                    owner_enriched_via_pa += 1
+                    # Promote PA address/mailing into parcel_display so the
+                    # card renders them (parcel_display is the seam's
+                    # interim shape; mutating it for this rec only).
+                    if not parcel_display.get("situs_address"):
+                        parcel_display["situs_address"] = pa.get("situs_address")
+                        parcel_display["situs_city"] = pa.get("situs_city")
+                        parcel_display["situs_state"] = pa.get("situs_state")
+                    if not parcel_display.get("owner_mailing_address"):
+                        parcel_display["owner_mailing_address"] = pa.get("owner_mailing_addr1")
+                        parcel_display["owner_mailing_city"] = pa.get("owner_mailing_city")
+                        parcel_display["owner_mailing_state"] = pa.get("owner_mailing_state")
+                        parcel_display["owner_mailing_zip"] = pa.get("owner_mailing_zip")
+                    if not parcel_display.get("assessed_value"):
+                        parcel_display["assessed_value"] = pa.get("assessed_value")
+            if is_placeholder:
+                # No parcel join, no enrichment recovery — surface the
+                # event-doc address (if any) and keep the lead in review.
+                if recovered_situs and not parcel_display.get("situs_address"):
+                    parcel_display["situs_address"] = recovered_situs
+                    parcel_display["situs_state"] = "FL"
+                owner_source = "unresolved"
+                owner_still_unresolved += 1
+
+        # A lead is in REVIEW only when it is GENUINELY under-resolved
+        # after enrichment attempts — no resolved owner. A foreclosure with
+        # enrichment-resolved owner + address + sale date is actionable,
+        # not "review required". §17's REVIEW routing remains the audit
+        # trail (the operator can still see which leads §17 couldn't
+        # resolve from the event document alone via owner_source).
+        is_owner_resolved = not bool(PLACEHOLDER_OWNER_PAT.search(owner_name))
+        underlying_review = (
+            sl.get("lead_status") == "REVIEW_REQUIRED"
+            or ml.get("parcel_resolution_status") == "REVIEW_REQUIRED"
+            or any("review" in (f or "").lower()
+                   for f in sl.get("review_flags") or [])
+        )
+        # is_review (the dashboard's badge / filter trigger) =
+        #   §17/§19 said review AND we still don't have an owner.
+        is_review = underlying_review and not is_owner_resolved
         parcel_res = (
             "REVIEW_REQUIRED" if is_review
             else "RESOLVED" if parcel_id
@@ -453,6 +597,7 @@ def main() -> int:
             "filer_entity": ml.get("filer_entity") or "",
             "parcel_id": parcel_id,
             "owner_name": owner_name,
+            "owner_source": owner_source,
             "owner_type": owner_type,
             "property_full_address": property_full,
             "property_street": street,
@@ -510,6 +655,10 @@ def main() -> int:
 
     new_count = sum(1 for r in records if r.get("is_new"))
     last_30d_count = sum(1 for r in records if r.get("recorded_within_30_days"))
+    owner_source_dist: dict = {}
+    for r in records:
+        src = r.get("owner_source") or "event_document"
+        owner_source_dist[src] = owner_source_dist.get(src, 0) + 1
 
     # Tax-default surface for top-stats + filters.
     tax_default_count = sum(1 for r in records if r.get("tax_default"))
@@ -537,6 +686,7 @@ def main() -> int:
         "refresh_date": refresh_date.isoformat(),
         "new_leads": new_count,
         "last_30d_leads": last_30d_count,
+        "owner_source_distribution": dict(sorted(owner_source_dist.items())),
         "tax_default_leads": tax_default_count,
         "tax_balance_total_owed": tax_balance_total,
         "tax_default_years_distribution": dict(sorted(years_dist.items())),
@@ -607,6 +757,9 @@ def main() -> int:
     print(f"  UNENRICHED           : {unenriched_count}")
     print(f"  NEW (filed today)    : {new_count}")
     print(f"  filed last 30 days   : {last_30d_count}")
+    print(f"  owner enriched via PA: {owner_enriched_via_pa}")
+    print(f"  owner still unresolved: {owner_still_unresolved}")
+    print(f"  owner_source dist    : {dict(sorted(owner_source_dist.items()))}")
     print(f"  tax_default leads    : {tax_default_count}")
     print(f"  tax_foreclosure leads: {tax_fcl_count}")
     print(f"  tax_sale leads       : {tax_sale_count}")
