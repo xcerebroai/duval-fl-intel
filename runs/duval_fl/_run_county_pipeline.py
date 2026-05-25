@@ -60,6 +60,8 @@ CLERK_RAW = REPO / "data/raw/clerk_official_records.jsonl"
 JAXDAILY_RAW = REPO / "data/raw/jaxdailyrecord_foreclosures.jsonl"
 REALFORECLOSE_RAW = REPO / "data/raw/realforeclose_duval.jsonl"
 REALTAXDEED_RAW = REPO / "data/raw/realtaxdeed_duval.jsonl"
+PA_ENRICHMENT_RAW = REPO / "data/raw/pa_tax_roll.jsonl"
+PA_ESTATES_RAW = REPO / "data/raw/pa_tax_roll_estates.jsonl"
 GIS_RAW = REPO / "data/raw/gis_parcels.jsonl"
 WORKDIR = REPO / "runs/duval_fl/build/staged"
 DASHBOARD_DATA = REPO / "data/leads.json"
@@ -332,6 +334,72 @@ def map_realauction_row_to_raw_event(rec: dict) -> dict | None:
     }
 
 
+def map_pa_estate_row_to_raw_event(rec: dict) -> dict | None:
+    """Duval Property Appraiser tax-roll estate-titled-owner row → §17 raw_event.
+
+    Framework rule: an estate-titled owner name in the parcel master IS itself
+    a primary distress event — a motivated-heir / probate signal even absent
+    a court filing. The doc-type maps to "estate_titled_owner" (see Smith
+    county rule). §17 will route through the broad ESTATE / probate-style
+    rule using the owner name as TP.
+
+    Stage boundary preserved:
+      event_source       = pa_tax_roll_estates
+      §17 parties        = [{name: estate_owner, name_type: TP, role: Direct}]
+                           — derived from the event-doc itself (the PA tax
+                           roll IS the event-doc here)
+      property_refs.parcel_id = from raw_payload.parcel_id
+      enrichment_source  = pa_tax_roll + gis_parcels (downstream §13.14)
+    """
+    pay = rec.get("raw_payload", {}) or {}
+    owner = (pay.get("owner_name") or "").strip()
+    parcel_id = (pay.get("parcel_id") or "").strip()
+    if not owner or not parcel_id:
+        punch("DEGENERATE_ROW",
+              "pa estate row missing owner_name AND parcel_id — dropped",
+              rec.get("raw_record_id"))
+        return None
+    # §17 canonical_doc_type "administrators_deed" — STRUCTURED rule with
+    # expected_debtor_name_type = "GR" and no filer; the estate is the lead
+    # subject. The PA tax-roll's estate-named owner row is functionally the
+    # same lead signal an administrators_deed conveys (the estate holds the
+    # property; the heir is the motivated party). owner_type classifies as
+    # ESTATE via the universal name-pattern rule once §17 resolves the GR.
+    parties = [{
+        "name":      owner,
+        "name_type": "GR",
+        "raw_role":  "Direct",
+    }]
+    event_date = (pay.get("event_date") or pay.get("recorded_date") or "").strip()
+    return {
+        "raw_event_id":      rec.get("raw_record_id"),
+        "source_id":         "pa_tax_roll_estates",
+        "source_role":       "PRIMARY_EVENT_SOURCE",
+        "canonical_doc_type": "administrators_deed",
+        "raw_doc_type":      "ESTATE TITLED OWNER",
+        "instrument_number": "",
+        "recorded_date":     event_date,
+        "event_date":        event_date or None,
+        "source_url":        rec.get("source_url") or "",
+        "parties":           parties,
+        "document_body_text": None,
+        "property_refs": {
+            "parcel_id":         parcel_id,
+            "situs_address":     pay.get("situs_address"),
+            "legal_description": pay.get("legal_description"),
+            "case_number":       None,
+        },
+        "amounts":           [],
+        "evidence_ids":      [rec.get("raw_record_id")],
+        "parser_name":       "pa_tax_roll_estates",
+        "parser_version":    "0.1.0",
+        "parser_confidence": rec.get("parser_confidence", 92),
+        "captured_at":       rec.get("source_fetched_at") or
+                             datetime.now(timezone.utc).isoformat(
+                                 timespec="seconds").replace("+00:00", "Z"),
+    }
+
+
 def map_evidence(rec: dict) -> dict:
     return {
         "evidence_id": rec.get("raw_record_id"),
@@ -458,39 +526,91 @@ def resolve_parcel_ids(raw_events: list[dict],
     return resolved, multi_only, no_match
 
 
-def build_enrichment_provider(parcel_id_to_raw: dict):
+def _read_pa_enrichment(path: Path) -> dict[str, dict]:
+    """Read the PA tax-roll enrichment file into {parcel_id: raw_payload}."""
+    out: dict[str, dict] = {}
+    if not path.exists():
+        return out
+    for rec in _read_jsonl(path):
+        p = rec.get("raw_payload") or {}
+        pid = (p.get("parcel_id") or "").strip()
+        if pid:
+            out[pid] = p
+    return out
+
+
+def build_enrichment_provider(parcel_id_to_raw: dict,
+                              pa_by_pid: dict[str, dict] | None = None):
     """Build the parcel_id -> seam-shaped parcel dict map and the provider.
+
+    The PA tax-roll fields SUPERSEDE the JaxGIS Parcels MapServer values for
+    fields the COJ layer does not expose:
+      year_built (COJ Parcels layer has none — PA has it)
+      last_sale_date / last_sale_price (COJ has neither — PA carries both)
+      exemptions / homestead (COJ doesn't expose — PA does)
+    For the overlapping fields (owner_name, owner_mailing, situs_address,
+    assessed_value) the PA tax roll is canonical (the source of record);
+    we fall back to gis_parcels when the PA file lacks the parcel.
 
     The seam's _parcel_display_from reads `owner_mailing_address` (not the
     gis_parcels canonical `owner_mailing_addr1`). This shim renames the field
-    for seam consumption; the raw gis_parcels.jsonl on disk preserves the
-    canonical scraper-output name. Attribute derivation in the seam needs
-    accurate {situs_address, owner_mailing_address, owner_mailing_state,
-    assessed_value, last_sale_date, year_built} — those drive absentee,
-    out_of_state_owner, long_term_owned, high_equity, senior_owner_proxy.
+    for seam consumption.
     """
-    by_pid = {}
-    for pid, raw_rec in parcel_id_to_raw.items():
-        p = raw_rec["raw_payload"]
+    pa_by_pid = pa_by_pid or {}
+    by_pid: dict = {}
+    all_pids = set(parcel_id_to_raw.keys()) | set(pa_by_pid.keys())
+    for pid in all_pids:
+        g = (parcel_id_to_raw.get(pid) or {}).get("raw_payload") or {}
+        pa = pa_by_pid.get(pid) or {}
+        # PA wins on conflict; gis_parcels fills gaps.
+        def pick(*vals):
+            for v in vals:
+                if v not in (None, "", []):
+                    return v
+            return None
         by_pid[pid] = {
             "parcel_id": pid,
-            "situs_address": p.get("situs_address"),
-            "situs_city": p.get("situs_city"),
-            "situs_state": p.get("situs_state"),
-            "owner_name": p.get("owner_name"),
-            "owner_mailing_address": p.get("owner_mailing_addr1"),  # rename
-            "owner_mailing_city": p.get("owner_mailing_city"),
-            "owner_mailing_state": p.get("owner_mailing_state"),
-            "owner_mailing_zip": p.get("owner_mailing_zip"),
-            "assessed_value": p.get("assessed_value"),
-            "land_value": p.get("land_value"),
-            "improvement_value": p.get("improvement_value"),
-            "last_sale_date": p.get("last_sale_date"),
-            "last_sale_price": p.get("last_sale_price"),
-            "year_built": p.get("year_built"),
-            "legal_description": p.get("legal_description"),
-            "acreage": p.get("acreage"),
-            "property_class": p.get("property_class"),
+            "situs_address":         pick(pa.get("situs_address"),
+                                          g.get("situs_address")),
+            "situs_city":            pick(pa.get("situs_city"),
+                                          g.get("situs_city")),
+            "situs_state":           pick(pa.get("situs_state"),
+                                          g.get("situs_state")),
+            "situs_zip":             pick(pa.get("situs_zip"),
+                                          g.get("situs_zip")),
+            "owner_name":            pick(pa.get("owner_name"),
+                                          g.get("owner_name")),
+            "owner_mailing_address": pick(pa.get("owner_mailing_addr1"),
+                                          g.get("owner_mailing_addr1")),
+            "owner_mailing_city":    pick(pa.get("owner_mailing_city"),
+                                          g.get("owner_mailing_city")),
+            "owner_mailing_state":   pick(pa.get("owner_mailing_state"),
+                                          g.get("owner_mailing_state")),
+            "owner_mailing_zip":     pick(pa.get("owner_mailing_zip"),
+                                          g.get("owner_mailing_zip")),
+            "assessed_value":        pick(pa.get("assessed_value"),
+                                          g.get("assessed_value")),
+            "just_value":            pick(pa.get("just_value_total"),
+                                          pa.get("just_value")),
+            "taxable_value":         pa.get("taxable_value"),
+            "land_value":            g.get("land_value"),
+            "improvement_value":     g.get("improvement_value"),
+            "last_sale_date":        pick(pa.get("last_sale_date"),
+                                          g.get("last_sale_date")),
+            "last_sale_price":       pick(pa.get("last_sale_price"),
+                                          g.get("last_sale_price")),
+            "year_built":            pick(pa.get("year_built"),
+                                          g.get("year_built")),
+            "legal_description":     pick(pa.get("legal_description"),
+                                          g.get("legal_description")),
+            "acreage":               pick(pa.get("acreage"),
+                                          g.get("acreage")),
+            "property_class":        pick(pa.get("property_class"),
+                                          g.get("property_class")),
+            "exemptions":            pa.get("exemptions") or [],
+            "homestead":             "HOMESTEAD" if pa.get("homestead") else None,
+            "additional_owner_names": pa.get("additional_owner_names") or [],
+            "owner_count":           pa.get("owner_count"),
         }
 
     def provider(parcel_id):
@@ -557,6 +677,19 @@ def main() -> int:
     print(f"  realtaxdeed sales      : {len(realtaxdeed)} pulled "
           f"(source: {REALTAXDEED_RAW.relative_to(REPO)})")
     print(f"  realauction merged     : {realauction_added}")
+
+    # Merge PA tax-roll estate-titled-owner rows — PRIMARY event source.
+    # Framework rule: an estate-named owner in the parcel master IS a lead.
+    pa_estates = _read_jsonl(PA_ESTATES_RAW)
+    pa_estates_added = 0
+    for rec in pa_estates:
+        ev = map_pa_estate_row_to_raw_event(rec)
+        if ev is not None:
+            raw_events.append(ev)
+            pa_estates_added += 1
+    print(f"  pa_tax_roll estates    : {len(pa_estates)} pulled, "
+          f"{pa_estates_added} merged (source: "
+          f"{PA_ESTATES_RAW.relative_to(REPO)})")
     print(f"  raw_events TOTAL       : {len(raw_events)}")
 
     evidence_entries = [map_evidence(rec) for rec in clerk
@@ -565,6 +698,9 @@ def main() -> int:
         if rec.get("raw_record_id"):
             evidence_entries.append(map_evidence(rec))
     for rec in realforeclose + realtaxdeed:
+        if rec.get("raw_record_id"):
+            evidence_entries.append(map_evidence(rec))
+    for rec in pa_estates:
         if rec.get("raw_record_id"):
             evidence_entries.append(map_evidence(rec))
 
@@ -609,7 +745,12 @@ def main() -> int:
         print(f"  gis_parcels.jsonl written: {len(parcel_id_to_raw)} records "
               f"({GIS_RAW.relative_to(REPO)})")
 
-    enrichment_provider = build_enrichment_provider(parcel_id_to_raw)
+    # PA tax-roll enrichment — supersedes JaxGIS for year_built / sales /
+    # exemptions; PA + JaxGIS merged in build_enrichment_provider.
+    pa_by_pid = _read_pa_enrichment(PA_ENRICHMENT_RAW)
+    print(f"\n  PA tax-roll enrichment   : {len(pa_by_pid)} parcels indexed "
+          f"({PA_ENRICHMENT_RAW.relative_to(REPO) if PA_ENRICHMENT_RAW.exists() else '<missing>'})")
+    enrichment_provider = build_enrichment_provider(parcel_id_to_raw, pa_by_pid)
 
     # --- staged pipeline WITH enrichment_provider ---
     WORKDIR.mkdir(parents=True, exist_ok=True)
@@ -658,12 +799,14 @@ def main() -> int:
     )
     payload["event_source"] = (
         "clerk_official_records + jaxdailyrecord_foreclosures + "
-        "realforeclose_duval + realtaxdeed_duval"
+        "realforeclose_duval + realtaxdeed_duval + pa_tax_roll_estates"
     )
-    payload["enrichment_source"] = "gis_parcels"
+    payload["enrichment_source"] = "pa_tax_roll + gis_parcels"
     payload["enrichment_attach_mode"] = (
         "pre_pipeline_parcel_id_via_owner_name_exact "
-        "+ event_doc_parcel_id_from_realauction"
+        "+ event_doc_parcel_id_from_realauction "
+        "+ event_doc_parcel_id_from_pa_estates "
+        "+ pa_tax_roll_supersede_gis"
     )
 
     DASHBOARD_DATA.parent.mkdir(parents=True, exist_ok=True)

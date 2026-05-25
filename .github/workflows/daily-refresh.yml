@@ -90,6 +90,16 @@ jobs:
           xvfb-run -a python scrapers/realauction_duval.py \
             --portal realtaxdeed --days-back 30 --days-forward 180 --headed
 
+      - name: Pull Duval PA tax roll (monthly uncertified pipe-delimited)
+        # The PA tax roll's filename changes monthly; the data-offerings page
+        # is the discovery surface. For CI we hardcode the current month;
+        # operators rotate this URL each month (or build a discovery step).
+        env:
+          PA_TXT_ZIP_URL: ${{ vars.PA_TXT_ZIP_URL || 'https://www.jacksonville.gov/getContentAsset/d9765ea7-5c22-4211-8b70-ff8393eec112/135b97c9-84fa-4e82-b956-0fbccec4aa1f/DCPAO-REAL-ESTATE-PIPE-DELIMITED-TEXT-UNCERTIFIED-AS-OF-04-07-2026.zip' }}
+        run: |
+          rm -f data/raw/pa_tax_roll_src.zip      # force re-download each run
+          python scrapers/pa_tax_roll.py --url "$PA_TXT_ZIP_URL"
+
       # --------------------------------------------------------------
       # 2. Staged pipeline (§17 → §18 → §19 → §20 → seam → scoring)
       # --------------------------------------------------------------

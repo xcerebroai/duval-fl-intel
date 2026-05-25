@@ -137,6 +137,18 @@ def main() -> int:
             raw_doc_type_by_evidence[rid] = "NOTICE OF SALE"
     print(f"  jaxdailyrecord rows indexed: {len(jaxdaily_by_evidence)}")
 
+    # PA tax-roll estate-titled-owner index — keyed by evidence_id. These are
+    # status-not-event signals; the dashboard suppresses NEW / last-30-days
+    # recency for them. is_snapshot_event drives that suppression.
+    PA_ESTATES = REPO / "data/raw/pa_tax_roll_estates.jsonl"
+    pa_estate_evidence: set[str] = set()
+    for rec in _read_jsonl(PA_ESTATES):
+        rid = rec.get("raw_record_id")
+        if rid:
+            pa_estate_evidence.add(rid)
+            raw_doc_type_by_evidence[rid] = "ESTATE TITLED OWNER"
+    print(f"  pa_tax_roll estate rows    : {len(pa_estate_evidence)}")
+
     # RealAuction (foreclosure + tax deed) → sale_date + parcel_id + address +
     # case/cert # by evidence_id, so the foreclosure-window + tax-deed filters
     # have real sale_dates to filter on. Index doc_type_raw too.
@@ -336,13 +348,27 @@ def main() -> int:
         # event); they qualify on the sale-window filter instead.
         candidate_dates: list[date] = []
         for s in signals_out:
+            # PA estate-titled-owner signals are status, not events — their
+            # recorded_date is the snapshot date, which would falsely flag
+            # them NEW. Skip them in the recency compute; if the same lead
+            # ALSO carries a real recorded signal (e.g. lis_pendens), that
+            # signal's date drives NEW / last-30-days correctly.
+            ev_ids = s.get("evidence_ids") or []
+            if ev_ids and all(e in pa_estate_evidence for e in ev_ids):
+                continue
             for k in ("recorded_date", "earliest_recorded_date"):
                 d_ = _parse_iso_date(s.get(k) or "")
                 if d_:
                     candidate_dates.append(d_)
-        d_ = _parse_iso_date(latest_event_date)
-        if d_:
-            candidate_dates.append(d_)
+        # latest_event_date carries the lead-level seam-derived primary date.
+        # When the lead is PA-estate-only, the seam set it to today (the
+        # snapshot) and we should skip it. When the lead has a non-PA
+        # primary, latest_event_date is the real event date.
+        evs = sl.get("evidence_ids") or []
+        if not (evs and all(e in pa_estate_evidence for e in evs)):
+            d_ = _parse_iso_date(latest_event_date)
+            if d_:
+                candidate_dates.append(d_)
         most_recent_event_date = (max([d for d in candidate_dates
                                        if d <= refresh_date], default=None)
                                   if candidate_dates else None)
@@ -406,12 +432,16 @@ def main() -> int:
         "build_label": "PARTIAL_BUILD",
         "build_label_reason": (
             "v5.4.0 staged pipeline. Primary event sources: or.duvalclerk.com "
-            "(Acclaim clerk recorder) + jaxdailyrecord.com (Ch. 45 sale notices) "
-            "+ duval.realforeclose.com (Ch. 45 foreclosure auction calendar) "
-            "+ duval.realtaxdeed.com (Ch. 197 tax-deed auction calendar). "
-            "JaxGIS Parcels is the enrichment source. Some doc types stay "
-            "unmapped to canonical lead types — see framework punch-list "
-            "FW-PL-001/002/003."
+            "(Acclaim clerk recorder) + jaxdailyrecord.com (Ch. 45 sale "
+            "notices) + duval.realforeclose.com (Ch. 45 foreclosure auction "
+            "calendar) + duval.realtaxdeed.com (Ch. 197 tax-deed auction "
+            "calendar) + Duval Property Appraiser tax roll (estate-titled-"
+            "owner origination). Enrichment: PA tax roll (canonical) + JaxGIS "
+            "Parcels (fallback). KNOWN GAP — tax-delinquency status lives at "
+            "the Duval Tax Collector (jaxtaxcollector.com / Grant Street "
+            "Group); the PA data-offerings page does NOT carry delinquency, "
+            "so standalone tax-delinquent leads are not yet generated. Build "
+            "tax_collector adapter to unlock years-behind binning."
         ),
         "lead_total": len(records),
         "actionable_leads": approved_count,
@@ -427,7 +457,9 @@ def main() -> int:
             "jaxdailyrecord_foreclosures (Jacksonville Daily Record — Ch. 45 sale notices)",
             "realforeclose_duval (duval.realforeclose.com — Ch. 45 foreclosure auctions)",
             "realtaxdeed_duval (duval.realtaxdeed.com — Ch. 197 tax-deed auctions)",
-            "gis_parcels (JaxGIS Parcels MapServer — enrichment)",
+            "pa_tax_roll_estates (Duval PA tax roll — estate-titled owner origination)",
+            "pa_tax_roll (Duval PA tax roll — canonical parcel enrichment)",
+            "gis_parcels (JaxGIS Parcels MapServer — enrichment fallback)",
         ],
         "records": records,
     }
