@@ -54,3 +54,4 @@ secrets/
 .coverage
 htmlcov/
 .tox/
+data/leads_synthetic.json
