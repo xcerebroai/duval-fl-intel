@@ -48,6 +48,204 @@ def _normalize_parcel_id(s: str) -> str:
     return re.sub(r"[^0-9]", "", (s or "").strip())
 
 
+# ---------- legal-description → parcel resolver ----------
+# The Acclaim clerk feed gives a compact legal description per recorded
+# instrument (e.g. "L 359 WINCHESTER RIDGE PHASE 2 U 5") but no parcel_id.
+# The PA tax-roll legal_description carries the same identity in a verbose
+# form ("ASHLEY WOODS UNIT ONE LOT 1"). Joining clerk → PA by parsed
+# (subdivision, lot, unit, block) recovers the parcel_id for clerk leads
+# whose §17 routed REVIEW_REQUIRED for lack of named owner — the lookup
+# then drives PA-tax-roll owner enrichment, same pattern as the
+# RealForeclose join (owner_source = "jaxgis_legal_description_match",
+# i.e. resolution via the JaxGIS-aligned PA legal description).
+
+_NUM_WORDS = {
+    "ONE": "1", "TWO": "2", "THREE": "3", "FOUR": "4", "FIVE": "5",
+    "SIX": "6", "SEVEN": "7", "EIGHT": "8", "NINE": "9", "TEN": "10",
+    "ELEVEN": "11", "TWELVE": "12", "THIRTEEN": "13", "FOURTEEN": "14",
+    "FIFTEEN": "15", "SIXTEEN": "16", "SEVENTEEN": "17",
+    "EIGHTEEN": "18", "NINETEEN": "19", "TWENTY": "20",
+    "I": "1", "II": "2", "III": "3", "IV": "4", "V": "5", "VI": "6",
+    "VII": "7", "VIII": "8", "IX": "9", "X": "10",
+}
+_PIN_PAT = re.compile(r"\b(?:PIN\s+)?(\d{6}-\d{4})\b", re.I)
+# Clerk uses three lot conventions in the wild:
+#   "L 359"   (space) — most common
+#   "L6"      (no space, run-together)
+#   "LOT 25"  (full word)
+_CLERK_LOT_PAT = re.compile(
+    r"\b(?:LOT\s+|L\s+|L)([0-9]+|[0-9A-Z\-/]{2,})\b", re.I)
+_CLERK_BLOCK_PAT = re.compile(
+    r"\b(?:BLOCK\s+|BLK\s+|B\s+)([0-9A-Z\-/]+)\b", re.I)
+_CLERK_UNIT_PAT = re.compile(
+    r"\b(?:UNIT\s+|U\s+)([0-9A-Z\-/]+)\b", re.I)
+_PA_LOT_PAT = re.compile(r"\bLOT\s+([0-9A-Z\-/]+)\b", re.I)
+_PA_BLOCK_PAT = re.compile(r"\bBLK\s+([0-9A-Z\-/]+)\b", re.I)
+_PA_UNIT_PAT = re.compile(
+    r"\bUNIT\s+([0-9A-Z\-/]+|" + "|".join(_NUM_WORDS.keys()) + r")\b", re.I)
+
+
+def _norm_num(s: str) -> str:
+    s = (s or "").strip().upper()
+    # Strip leading zeros from numeric-only tokens so "01" matches "1".
+    if s.isdigit():
+        return str(int(s))
+    return _NUM_WORDS.get(s, s)
+
+
+def parse_clerk_legal(legal: str) -> dict | None:
+    """Extract {pin, lot, block, unit, subdivision} from a clerk legal-
+    description string. Returns None if the string is empty."""
+    if not legal:
+        return None
+    L = legal.upper().strip()
+    if L.startswith("PT "):
+        L = L[3:]
+    pin_m = _PIN_PAT.search(L)
+    lot_m = _CLERK_LOT_PAT.search(L)
+    block_m = _CLERK_BLOCK_PAT.search(L)
+    unit_m = _CLERK_UNIT_PAT.search(L)
+    sub = L
+    if lot_m:
+        sub = L[lot_m.end():].strip()
+    if block_m and lot_m and block_m.start() > lot_m.end():
+        sub = L[block_m.end():].strip()
+    for cut in (" U ", " UNIT ", " SEC ", " SECTION "):
+        if cut in sub:
+            sub = sub.split(cut)[0].strip()
+            break
+    sub = re.sub(r"\s+", " ", sub).strip()
+    return {
+        "pin":         pin_m.group(1) if pin_m else "",
+        "lot":         _norm_num(lot_m.group(1)) if lot_m else "",
+        "block":       _norm_num(block_m.group(1)) if block_m else "",
+        "unit":        _norm_num(unit_m.group(1)) if unit_m else "",
+        "subdivision": sub,
+    }
+
+
+def parse_pa_legal(legal: str) -> dict | None:
+    """Extract {lot, block, unit, subdivision} from a PA legal-description
+    string. Strips the plat-page / section-twp-rng / acreage preamble."""
+    if not legal:
+        return None
+    L = legal.upper().strip()
+    L = re.sub(r"^\d+-\d+\s+", "", L)               # plat-page
+    L = re.sub(r"^\d+-?\d+[SN]-?\d+[EW]\s+", "", L)  # sec-twp-rng
+    L = re.sub(r"^[\d\.]+\s+", "", L)               # acreage
+    lot_m = _PA_LOT_PAT.search(L)
+    block_m = _PA_BLOCK_PAT.search(L)
+    unit_m = _PA_UNIT_PAT.search(L)
+    sub = L
+    cuts = [m.start() for m in (lot_m, block_m, unit_m) if m]
+    if cuts:
+        sub = L[:min(cuts)].strip()
+    sub = re.sub(r"\s+", " ", sub).strip()
+    return {
+        "lot":         _norm_num(lot_m.group(1)) if lot_m else "",
+        "block":       _norm_num(block_m.group(1)) if block_m else "",
+        "unit":        _norm_num(unit_m.group(1)) if unit_m else "",
+        "subdivision": sub,
+    }
+
+
+_PHASE_SUFFIX_PAT = re.compile(
+    r"\s+(?:PHASE|SEC|SECTION|UNIT)\s+\S+\s*$", re.I)
+
+
+def _strip_phase_suffix(s: str) -> str:
+    """Strip trailing "PHASE X" / "SEC X" / "UNIT X" suffix from a
+    subdivision name. Used for the fuzzy fallback when the clerk says
+    "LEXINGTON PARK PHASE TWO" but PA records have it as "LEXINGTON PARK"
+    or vice-versa."""
+    prev = None
+    cur = s
+    while cur != prev:
+        prev = cur
+        cur = _PHASE_SUFFIX_PAT.sub("", cur).strip()
+    return cur
+
+
+def build_pa_legal_index(pa_by_pid: dict) -> tuple[dict, dict, dict]:
+    """Build three layered indexes over the PA tax-roll legal descriptions:
+
+      strict  : (subdivision, lot, unit) → [parcel_ids]
+      no_unit : (subdivision, lot, "")   → [parcel_ids]
+      condo   : (subdivision, "", unit)  → [parcel_ids]
+      fuzzy   : (subdivision_phase_stripped, lot) → [parcel_ids]
+
+    The resolver tries strict first, then no_unit, then condo, then fuzzy
+    — only accepting a hit when exactly one parcel matches the chosen key.
+    """
+    strict: dict = {}
+    no_unit: dict = {}
+    condo: dict = {}
+    fuzzy: dict = {}
+    for pid, p in pa_by_pid.items():
+        parsed = parse_pa_legal(p.get("legal_description") or "")
+        if not parsed or not parsed["subdivision"]:
+            continue
+        sub = parsed["subdivision"]
+        lot = parsed["lot"]
+        unit = parsed["unit"]
+        if lot:
+            strict.setdefault((sub, lot, unit), []).append(pid)
+            no_unit.setdefault((sub, lot, ""), []).append(pid)
+            fuzzy.setdefault((_strip_phase_suffix(sub), lot), []).append(pid)
+        if unit and not lot:
+            condo.setdefault((sub, "", unit), []).append(pid)
+    return strict, no_unit, condo, fuzzy
+
+
+def resolve_parcel_via_legal(
+    clerk_legal: str,
+    pa_legal_indexes: tuple[dict, dict, dict, dict],
+    pa_by_pid: dict,
+) -> tuple[str, str]:
+    """Resolve a clerk legal-description string to a single parcel_id.
+
+    Returns (parcel_id, resolution_method) where resolution_method is one of:
+      "pin"               — explicit PIN in the legal description
+      "lot_subdiv_unit"   — matched on subdivision + lot + unit (strict)
+      "lot_subdiv"        — matched on subdivision + lot (unit-less)
+      "condo_subdiv_unit" — subdivision + unit (condo / no-lot case)
+      "fuzzy_subdiv_lot"  — phase-stripped subdivision + lot
+      ""                  — no match
+    """
+    strict, no_unit, condo, fuzzy = pa_legal_indexes
+    parsed = parse_clerk_legal(clerk_legal)
+    if not parsed:
+        return "", ""
+    if parsed["pin"]:
+        pid = re.sub(r"[^0-9]", "", parsed["pin"])
+        if pid and pid in pa_by_pid:
+            return pid, "pin"
+    sub = parsed["subdivision"]
+    lot = parsed["lot"]
+    unit = parsed["unit"]
+    if sub and lot:
+        if unit:
+            hits = strict.get((sub, lot, unit), [])
+            if len(hits) == 1:
+                return hits[0], "lot_subdiv_unit"
+        hits = no_unit.get((sub, lot, ""), [])
+        if len(hits) == 1:
+            return hits[0], "lot_subdiv"
+    if sub and unit and not lot:
+        hits = condo.get((sub, "", unit), [])
+        if len(hits) == 1:
+            return hits[0], "condo_subdiv_unit"
+    if sub and lot:
+        # Phase-stripped fallback — clerk's "LEXINGTON PARK PHASE TWO"
+        # may resolve to PA's "LEXINGTON PARK" or vice-versa.
+        stripped = _strip_phase_suffix(sub)
+        if stripped and stripped != sub:
+            hits = fuzzy.get((stripped, lot), [])
+            if len(hits) == 1:
+                return hits[0], "fuzzy_subdiv_lot"
+    return "", ""
+
+
 def _owner_type_from_name(name: str) -> str:
     """Re-classify owner_type from a name string. Same rules the PA adapter
     uses for estate origination, mirrored here so enrichment-side owners
@@ -269,6 +467,20 @@ def main() -> int:
                 "instrument_number": (p.get("instrument_number") or "").strip(),
             }
 
+    # Build the PA legal-description → parcel_id index. The clerk feed
+    # provides 0% parcel_id but a legal description for distress
+    # instruments (LIEN 41%, CERTIFICATE OF TITLE DEED 100%, LIS PENDENS,
+    # PROBATE with embedded PIN). Parsing both sides into
+    # (subdivision, lot, unit) yields a deterministic join — same identity
+    # the JaxGIS Parcels MapServer would expose via its FREE_FORM_LEGAL /
+    # PARCEL_LEGAL search fields (we use the local PA copy to avoid 400+
+    # ArcGIS round trips).
+    pa_legal_indexes = build_pa_legal_index(pa_by_pid)
+    print(f"  pa_legal_index keys   : strict={len(pa_legal_indexes[0])}, "
+          f"no_unit={len(pa_legal_indexes[1])}, "
+          f"condo={len(pa_legal_indexes[2])}, "
+          f"fuzzy={len(pa_legal_indexes[3])}")
+
     records: list[dict] = []
     enriched_count = unenriched_count = review_count = approved_count = 0
     owner_enriched_via_pa = 0
@@ -290,15 +502,17 @@ def main() -> int:
         # to the PA tax roll by parcel_id and surface the owner of record
         # as ENRICHMENT. §17 stage boundary preserved: §17 still reads
         # only event-document parties; the resolved owner is tracked
-        # separately with owner_source = "pa_tax_roll".
+        # separately with owner_source recording the resolution path.
         owner_source = "event_document"
         is_placeholder = bool(PLACEHOLDER_OWNER_PAT.search(owner_name))
         if is_placeholder:
-            # Recover a parcel_id when the §19 aggregator dropped it
-            # (REVIEW_REQUIRED parcel_resolution forces aggregation_key.parcel_id
-            # to None). Pull from the raw event-doc via evidence_ids.
+            # Step A — recover parcel_id from the raw event-doc directly
+            # (RealAuction events carry parcel_id; most clerk records do
+            # not). When §19's aggregator dropped parcel_id from the lead,
+            # this re-recovers it for downstream enrichment, NOT for §17.
             recovered_pid_raw = ""
             recovered_situs = ""
+            recovered_legal = ""
             for ev_id in sl.get("evidence_ids") or []:
                 if ev_id in realauction_by_evidence:
                     r = realauction_by_evidence[ev_id]
@@ -315,7 +529,24 @@ def main() -> int:
                         recovered_pid_raw = c.get("parcel_id") or ""
                     if not recovered_situs:
                         recovered_situs = c.get("situs_address") or ""
+                    if not recovered_legal:
+                        recovered_legal = c.get("legal_description") or ""
             recovered_pid = _normalize_parcel_id(recovered_pid_raw)
+            resolution_method = "event_doc_parcel_id" if recovered_pid else ""
+
+            # Step B — fallback: legal-description → PA legal index match.
+            # The Acclaim clerk feed lacks parcel_id but carries a compact
+            # legal description ("L 359 WINCHESTER RIDGE PHASE 2 U 5") on
+            # the property-attached distress types (CERTIFICATE OF TITLE
+            # DEED 100%, LIEN 41%, PROBATE w/ embedded PIN). Parse +
+            # cross-join against the PA tax-roll legal_description index.
+            if not recovered_pid and recovered_legal:
+                resolved_pid, resolution_method = resolve_parcel_via_legal(
+                    recovered_legal, pa_legal_indexes, pa_by_pid)
+                if resolved_pid:
+                    recovered_pid = resolved_pid
+
+            # Step C — attach PA owner of record when we have any parcel_id.
             if recovered_pid:
                 if not parcel_id:
                     parcel_id = recovered_pid
@@ -324,12 +555,19 @@ def main() -> int:
                 if pa and pa.get("owner_name"):
                     owner_name = pa["owner_name"]
                     owner_type = _owner_type_from_name(owner_name)
-                    owner_source = "pa_tax_roll"
+                    method_to_source = {
+                        "event_doc_parcel_id": "pa_tax_roll",
+                        "pin":                 "pa_tax_roll_via_clerk_pin",
+                        "lot_subdiv_unit":     "pa_tax_roll_via_legal_strict",
+                        "lot_subdiv":          "pa_tax_roll_via_legal_lot",
+                        "condo_subdiv_unit":   "pa_tax_roll_via_legal_condo",
+                        "fuzzy_subdiv_lot":    "pa_tax_roll_via_legal_fuzzy",
+                    }
+                    owner_source = method_to_source.get(
+                        resolution_method,
+                        "pa_tax_roll_via_legal_description")
                     is_placeholder = False
                     owner_enriched_via_pa += 1
-                    # Promote PA address/mailing into parcel_display so the
-                    # card renders them (parcel_display is the seam's
-                    # interim shape; mutating it for this rec only).
                     if not parcel_display.get("situs_address"):
                         parcel_display["situs_address"] = pa.get("situs_address")
                         parcel_display["situs_city"] = pa.get("situs_city")
