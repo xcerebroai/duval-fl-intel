@@ -1,0 +1,149 @@
+[
+  {
+    "additional_owner_names": [],
+    "aggregation_key": {
+      "canonical_doc_type": "tax_deed",
+      "parcel_id": null,
+      "signal_type": "Tax Deed"
+    },
+    "base_record_id": "base_realtaxdeed_duval:2024-1257TD",
+    "canonical_doc_type": "tax_deed",
+    "confidence_status": "Confirmed",
+    "enrichment_status": "UNENRICHED",
+    "event_date": "2026-06-10",
+    "evidence_ids": [
+      "realtaxdeed_duval:2024-1257TD"
+    ],
+    "filer_entity": null,
+    "instrument_number": "2024-1257TD",
+    "multi_owner_status": "SINGLE_OWNER",
+    "owner_count": 1,
+    "owner_name": "tax_deed against unidentified party",
+    "owner_type": "UNKNOWN",
+    "owners": [
+      {
+        "confidence": null,
+        "is_primary": true,
+        "name": "tax_deed against unidentified party",
+        "name_type": null,
+        "notes": null,
+        "resolution_status": "REVIEW_REQUIRED",
+        "role": "unresolved",
+        "source_field": null
+      }
+    ],
+    "parcel_resolution_status": "REVIEW_REQUIRED",
+    "primary_owner_name": "tax_deed against unidentified party",
+    "property_refs": {
+      "case_number": "2024-1257TD",
+      "legal_description": null,
+      "parcel_id": "0157720060",
+      "situs_address": "7871 MORSE AVE"
+    },
+    "raw_event_id": "realtaxdeed_duval:2024-1257TD",
+    "recorded_date": "2026-06-10",
+    "review_reason": "owner_not_on_document",
+    "signal_type": "Tax Deed",
+    "source_id": "realtaxdeed_duval",
+    "source_role": "PRIMARY_EVENT_SOURCE",
+    "source_url": "https://www.duval.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AUCTIONDATE=06/10/2026"
+  },
+  {
+    "additional_owner_names": [],
+    "aggregation_key": {
+      "canonical_doc_type": "tax_deed",
+      "parcel_id": null,
+      "signal_type": "Tax Deed"
+    },
+    "base_record_id": "base_realtaxdeed_duval:2024-1429TD",
+    "canonical_doc_type": "tax_deed",
+    "confidence_status": "Confirmed",
+    "enrichment_status": "UNENRICHED",
+    "event_date": "2026-05-13",
+    "evidence_ids": [
+      "realtaxdeed_duval:2024-1429TD"
+    ],
+    "filer_entity": null,
+    "instrument_number": "2024-1429TD",
+    "multi_owner_status": "SINGLE_OWNER",
+    "owner_count": 1,
+    "owner_name": "tax_deed against unidentified party",
+    "owner_type": "UNKNOWN",
+    "owners": [
+      {
+        "confidence": null,
+        "is_primary": true,
+        "name": "tax_deed against unidentified party",
+        "name_type": null,
+        "notes": null,
+        "resolution_status": "REVIEW_REQUIRED",
+        "role": "unresolved",
+        "source_field": null
+      }
+    ],
+    "parcel_resolution_status": "REVIEW_REQUIRED",
+    "primary_owner_name": "tax_deed against unidentified party",
+    "property_refs": {
+      "case_number": "2024-1429TD",
+      "legal_description": null,
+      "parcel_id": "0425320000",
+      "situs_address": "10658 BISCAYNE BLVD"
+    },
+    "raw_event_id": "realtaxdeed_duval:2024-1429TD",
+    "recorded_date": "2026-05-13",
+    "review_reason": "owner_not_on_document",
+    "signal_type": "Tax Deed",
+    "source_id": "realtaxdeed_duval",
+    "source_role": "PRIMARY_EVENT_SOURCE",
+    "source_url": "https://www.duval.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AUCTIONDATE=05/13/2026"
+  },
+  {
+    "additional_owner_names": [],
+    "aggregation_key": {
+      "canonical_doc_type": "tax_deed",
+      "parcel_id": null,
+      "signal_type": "Tax Deed"
+    },
+    "base_record_id": "base_realtaxdeed_duval:2026-0006TD",
+    "canonical_doc_type": "tax_deed",
+    "confidence_status": "Confirmed",
+    "enrichment_status": "UNENRICHED",
+    "event_date": "2026-06-10",
+    "evidence_ids": [
+      "realtaxdeed_duval:2026-0006TD"
+    ],
+    "filer_entity": null,
+    "instrument_number": "2026-0006TD",
+    "multi_owner_status": "SINGLE_OWNER",
+    "owner_count": 1,
+    "owner_name": "tax_deed against unidentified party",
+    "owner_type": "UNKNOWN",
+    "owners": [
+      {
+        "confidence": null,
+        "is_primary": true,
+        "name": "tax_deed against unidentified party",
+        "name_type": null,
+        "notes": null,
+        "resolution_status": "REVIEW_REQUIRED",
+        "role": "unresolved",
+        "source_field": null
+      }
+    ],
+    "parcel_resolution_status": "REVIEW_REQUIRED",
+    "primary_owner_name": "tax_deed against unidentified party",
+    "property_refs": {
+      "case_number": "2026-0006TD",
+      "legal_description": null,
+      "parcel_id": "0203370000",
+      "situs_address": "4027 BESSENT RD"
+    },
+    "raw_event_id": "realtaxdeed_duval:2026-0006TD",
+    "recorded_date": "2026-06-10",
+    "review_reason": "owner_not_on_document",
+    "signal_type": "Tax Deed",
+    "source_id": "realtaxdeed_duval",
+    "source_role": "PRIMARY_EVENT_SOURCE",
+    "source_url": "https://www.duval.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AUCTIONDATE=06/10/2026"
+  }
+]

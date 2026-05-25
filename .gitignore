@@ -41,6 +41,11 @@ runs/*/.cache/
 # Transient config-builder / generator scripts (e.g. _build_config.py,
 # _gen_fingerprints.py) — scratch, regenerated per run, not committed.
 runs/*/_*.py
+# …but the staged pipeline driver + the dashboard renderer adapter ARE
+# part of the deployment surface (the daily-refresh GitHub Actions workflow
+# invokes them). Keep them committed.
+!runs/duval_fl/_run_county_pipeline.py
+!runs/duval_fl/_build_el_paso_data.py
 
 # Secrets — never commit
 .env

@@ -46,7 +46,8 @@
   var state = {
     search: "", saleWindow: "any", valMin: null, valMax: null,
     signals: {}, owners: {}, absentee: false, oos: false, review: false,
-    multiOnly: false, sort: "urgency", shown: 0, preset: "all"
+    multiOnly: false, sort: "urgency", shown: 0, preset: "all",
+    newOnly: false, last30Only: false
   };
   var PAGE = 60;
   var marked = loadMarked();   // Set of lead_id (localStorage)
@@ -89,6 +90,12 @@
     r._assessed = Number(r.assessed_value) || 0;
     r._review = r.parcel_resolution_status === "REVIEW_REQUIRED";
     r._filed = parseDate(r.latest_event_date);
+    // Recency — county recorded/event date, NOT the scrape clock. Server
+    // computed these once in the build step; they survive lead-card updates.
+    r._isNew = !!r.is_new;
+    r._within30d = !!r.recorded_within_30_days;
+    r._daysSinceEvent = (typeof r.days_since_event === "number")
+      ? r.days_since_event : null;
     r._tier = urgencyTier(r);
     var taxd = r.signal_types.indexOf("state_tax_lien") >= 0 ||
       r.signal_types.indexOf("federal_tax_lien") >= 0;
@@ -147,12 +154,20 @@
     var estates = records.filter(function (r) {
       return r.owner_type === "ESTATE";
     }).length;
+    var newCount = (typeof p.new_leads === "number") ? p.new_leads
+      : records.filter(function (r) { return r._isNew; }).length;
+    var last30 = (typeof p.last_30d_leads === "number") ? p.last_30d_leads
+      : records.filter(function (r) { return r._within30d; }).length;
     var act = p.actionable_leads != null ? p.actionable_leads : records.length;
     function st(n, l, cls) {
       return '<div class="topstat ' + (cls || "") + '"><div class="n">' +
         n + '</div><div class="l">' + l + "</div></div>";
     }
     return st(records.length.toLocaleString(), "leads") +
+      st(newCount.toLocaleString(),
+        "NEW today" + (p.refresh_date ? " (" + esc(p.refresh_date) + ")" : ""),
+        "new") +
+      st(last30.toLocaleString(), "filed last 30 days") +
       st(act.toLocaleString(), "actionable") +
       st(fclAddr, "foreclosures w/ addr") +
       st(soon, "sale &le;21 days", "urgent") +
@@ -161,6 +176,8 @@
 
   // ---------- sidebar ----------
   var PRESETS = [
+    { id: "new", label: "NEW today" },
+    { id: "last30", label: "Last 30 days" },
     { id: "fcl21", label: "Foreclosures — next 21 days" },
     { id: "estates", label: "Estate-titled properties" },
     { id: "oos", label: "Out-of-state absentees" },
@@ -255,6 +272,12 @@
     $("togReview").addEventListener("change", function (e) {
       state.review = e.target.checked; markPresetActive(""); render();
     });
+    $("togNew").addEventListener("change", function (e) {
+      state.newOnly = e.target.checked; markPresetActive(""); render();
+    });
+    $("togLast30").addEventListener("change", function (e) {
+      state.last30Only = e.target.checked; markPresetActive(""); render();
+    });
     $("sortMode").addEventListener("change", function (e) {
       state.sort = e.target.value; render();
     });
@@ -278,11 +301,19 @@
     state.absentee = false; $("togAbsentee").checked = false;
     state.oos = false; $("togOos").checked = false;
     state.review = false; $("togReview").checked = false;
+    state.newOnly = false; $("togNew").checked = false;
+    state.last30Only = false; $("togLast30").checked = false;
     state.multiOnly = false;
     setAllChecks("signalFilter", "sig", state.signals, true);
     setAllChecks("ownerFilter", "own", state.owners, true);
 
-    if (id === "fcl21") {
+    if (id === "new") {
+      state.newOnly = true; $("togNew").checked = true;
+      state.sort = "recent"; $("sortMode").value = "recent";
+    } else if (id === "last30") {
+      state.last30Only = true; $("togLast30").checked = true;
+      state.sort = "recent"; $("sortMode").value = "recent";
+    } else if (id === "fcl21") {
       state.saleWindow = "21"; $("saleWindow").value = "21";
       onlyChecks("signalFilter", "sig", state.signals, ["foreclosure_notice"]);
     } else if (id === "estates") {
@@ -331,6 +362,8 @@
       if (!allOwn && !state.owners[r.owner_type || "UNKNOWN"]) return false;
       if (state.absentee && !r.absentee_owner_flag) return false;
       if (state.oos && !r.out_of_state_owner_flag) return false;
+      if (state.newOnly && !r._isNew) return false;
+      if (state.last30Only && !r._within30d) return false;
       if (state.multiOnly && (r.signal_count || 0) < 2) return false;
       if (win != null) {
         if (!r._isFcl || r._days == null || r._days < 0 || r._days > win)
@@ -495,6 +528,8 @@
   }
   function badgeHtml(r) {
     var b = [];
+    if (r._isNew)
+      b.push('<span class="badge new">NEW</span>');
     if (r._review)
       b.push('<span class="badge warn">REVIEW REQUIRED</span>');
     if (r.absentee_owner_flag)
@@ -612,6 +647,8 @@
     if (state.absentee) parts.push("absentee");
     if (state.oos) parts.push("out-of-state");
     if (state.review) parts.push("review-required");
+    if (state.newOnly) parts.push("NEW today");
+    if (state.last30Only) parts.push("filed last 30d");
     if (state.multiOnly) parts.push("multi-signal");
     $("filterSummary").innerHTML = parts.length
       ? "Showing: " + parts.join(" · ")
