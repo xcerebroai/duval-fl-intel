@@ -569,9 +569,33 @@ def main() -> int:
         owner_name = sl.get("owner_name") or ""
         owner_type = sl.get("owner_type") or "UNKNOWN"
         parcel_id = sl.get("primary_parcel_id") or ""
-        parcel_display = sl.get("parcel_display") or {}
+        parcel_display = dict(sl.get("parcel_display") or {})
         attributes = sl.get("attributes") or []
         gis = gis_by_pid.get(parcel_id, {}) if parcel_id else {}
+        # Always promote the freshest PA tax-roll address / mailing /
+        # assessed-value onto parcel_display when the lead has a known
+        # parcel. The seam's cached parcel_display in scored_leads.json
+        # was built when the upstream PA adapter still dropped house
+        # numbers — the dashboard build always trusts the live PA file,
+        # so a re-run of the dashboard build (without a full pipeline
+        # re-run) still picks up the corrected addresses.
+        if parcel_id and parcel_id in pa_by_pid:
+            pa_live = pa_by_pid[parcel_id]
+            for src_k, dst_k in [
+                ("situs_address", "situs_address"),
+                ("situs_city", "situs_city"),
+                ("situs_state", "situs_state"),
+                ("situs_zip", "situs_zip"),
+                ("owner_mailing_addr1", "owner_mailing_address"),
+                ("owner_mailing_city", "owner_mailing_city"),
+                ("owner_mailing_state", "owner_mailing_state"),
+                ("owner_mailing_zip", "owner_mailing_zip"),
+                ("assessed_value", "assessed_value"),
+                ("year_built", "year_built"),
+            ]:
+                v = pa_live.get(src_k)
+                if v not in (None, ""):
+                    parcel_display[dst_k] = v
 
         # ENRICHMENT-side owner resolution. When §17 placed a placeholder
         # owner on the lead ("X against unidentified party" — i.e. the
