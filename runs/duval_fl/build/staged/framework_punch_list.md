@@ -72,3 +72,66 @@ build, not just Duval.
 `runs/duval_fl/build/staged/judgment_mapping_diagnostic.json`. The
 Duval `doc_type_synonyms` map intentionally omits these two labels —
 `config/counties/duval_fl.json` source `clerk_official_records.doc_type_synonyms`.
+
+---
+
+## FW-PL-002 — Registry has no `CERTIFICATE_OF_TITLE` canonical type
+
+**Status:** DEFERRED to a framework patch cycle. Do not fix in Duval.
+
+**What's missing.** Florida's judicial-foreclosure process culminates in the
+Clerk issuing a **Certificate of Title** to the auction purchaser ~10 days
+after the foreclosure sale closes (Fla. Stat. § 45.031). This is the
+post-sale title-conveyance instrument — the analog of a non-judicial
+state's `TRUSTEES_DEED_UPON_SALE`, but for judicial foreclosure. The
+registry has `TRUSTEES_DEED_UPON_SALE` and `FINAL_JUDGMENT_OF_FORECLOSURE`
+but **no `CERTIFICATE_OF_TITLE`** canonical.
+
+**Where it surfaced.** The Duval 30-day clerk feed (2026-04-25 →
+2026-05-24) contained **54 rows** with raw label `CERTIFICATE OF TITLE
+DEED`. Each represents a real foreclosure sale that just closed — a
+high-value primary distress signal. Without a canonical, the rows are
+unmapped → REVIEW_REQUIRED.
+
+**What the framework needs.** `CERTIFICATE_OF_TITLE` canonical
+(lead_generating, source_class lead_generating, fires the `foreclosure`
+pattern). The county synonym for Duval would then be `CERTIFICATE OF
+TITLE DEED` → `CERTIFICATE_OF_TITLE`.
+
+**Counties affected.** Every Florida county (judicial foreclosure state)
+and every other judicial-foreclosure state whose clerk records the
+post-sale title instrument under this label.
+
+---
+
+## FW-PL-003 — §17 picks filer-as-owner on a small subset of HOA / lender lis pendens rows
+
+**Status:** OBSERVATIONAL — deferred to a framework refinement cycle. Do not
+fix in Duval.
+
+**What was observed.** On a 25,412-event Duval clerk run with 240
+LIS_PENDENS lead-pattern rows, the filer-as-owner spot-check flagged 3
+suspicious cases:
+  - `BARTRAM SPRINGS HOMEOWNERS ASSOCIATION INC` (HOA foreclosure)
+  - `WESTLAKE ESTATES HOMEOWNERS ASSOCIATION INC` (HOA foreclosure)
+  - `ANDREWS FEDERAL CREDIT UNION` (possibly legitimate REO ownership)
+
+That's a 1.25% suspicious rate (3/240) on LIS_PENDENS — small but real.
+The two HOA cases are clear filer-as-owner inversions: in an HOA
+foreclosure suit, the HOA is the plaintiff/filer (PL) and the homeowner
+is the defendant/debtor (DF). The current Duval party mapping
+(LIS_PENDENS override: Direct→PL, Indirect→DF) should have §17 pick the
+DF side, but in these 3 cases the HOA name appears as resolved
+owner_name.
+
+**Likely cause.** Either the party fields in Acclaim are reversed for
+specific HOA-recorded instruments, OR §17's debtor rule for LIS_PENDENS
+has an edge case when the DF party is an individual and the PL party is
+an entity (LLC / INC / "ASSOCIATION") and filer-suppression matches both
+sides ambiguously.
+
+**Counties affected.** Every county whose clerk feed has HOA / association
+foreclosures. The rate is small (~1%) but real.
+
+**Not a halt.** Per operator rule "Gaps → punch-list", logged here.
+
