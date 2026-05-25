@@ -135,3 +135,117 @@ foreclosures. The rate is small (~1%) but real.
 
 **Not a halt.** Per operator rule "Gaps → punch-list", logged here.
 
+---
+
+## FW-PL-004 — RealAuction family (RealForeclose / RealTaxDeed / LienHub) requires bidder registration
+
+**Status:** PERMISSION blocker per §17/§01.13. Requires operator-provided credentials.
+
+**What was probed.** Playwright (authorized 2026-05-25) with browser-like UA,
+viewport, locale, timezone successfully bypassed the stdlib HTTP 403 and reached:
+
+  - https://duval.realforeclose.com/index.cfm    → 200 OK
+  - https://duval.realtaxdeed.com/index.cfm      → 200 OK
+  - https://lienhub.com/county/duval             → 200 OK
+  - https://duval.realforeclose.com/index.cfm?zaction=USER&zmethod=CALENDAR → 200 OK
+  - https://duval.realforeclose.com/index.cfm?zaction=AUCTION&zmethod=PREVIEW → 200 OK
+
+But every public-facing path the auction-calendar UI lives behind shows only
+the login chrome (`User Name / Password / Submit`) — the public-preview pages
+return zero `AID=N` deep-links without an authenticated session. Per the Duval
+clerk's own foreclosure-information page, "third-party bidders must register"
+(no fee). Phase 0 recon's `next_access_strategy: use_operator_login` is the
+operator-authorized resolution; Playwright alone is not enough.
+
+**To unblock.** Operator provides:
+  - RealForeclose Duval bidder account credentials (the same login covers
+    RealTaxDeed and LienHub Duval).
+  - OR an extracted session cookie from an authenticated browser session
+    that Playwright can replay (`use_seeded_session`).
+
+**Lead value if unblocked.**
+  - RealForeclose: live foreclosure-auction calendar with sale dates +
+    plaintiff + defendant + case number + opening bid + status (active /
+    cancelled / sold) — directly fuels the dashboard's "Foreclosure sale
+    window" filter.
+  - RealTaxDeed: tax-deed auction calendar with parcel_id + applicant +
+    status + assessed value (post-sale, surplus indicators).
+  - LienHub: annual delinquent-parcel certificate list (seasonal — May/June).
+
+---
+
+## FW-PL-005 — `taxdeed.duvalclerk.com` jqGrid endpoint not discovered
+
+**Status:** TECHNICAL blocker — could be cracked with Playwright in a follow-up.
+
+The Tax Deed File Search at `https://taxdeed.duvalclerk.com/` is a jQuery
+jqGrid client. Inline JS doesn't reference the data endpoint (config is in a
+bundled .js). Without an open browser to inspect Network XHRs, the AJAX URL
+(probably `/Grid/Read`, `/GetCases`, or `/Search/Records`) is undiscovered
+this turn.
+
+**To build.** Playwright probe: load the page, intercept the XHR fired by
+the grid's `loadComplete` event, capture the URL + POST body shape, then
+replay with stdlib (or Playwright route interception). One-session of
+20-30 min reverse-engineering.
+
+**Lead value.** The Clerk tax-deed case search yields per-parcel tax-deed
+events with status (`SALE` / `SOLD` / `UNSOLD` / `REDEEMED` / `REMOVESALE`
+/ `RESCHED` / `LANDS AVAILABLE` / `BANKRUPTCY` / `ESCHEATED`) keyed to
+parcel_id — primary distress events with property already attached.
+
+---
+
+## FW-PL-006 — `core.duvalclerk.com` (CORE court records) not built this pass
+
+**Status:** Stdlib-buildable in principle (ASP.NET WebForms with __VIEWSTATE),
+similar pattern to `or.duvalclerk.com` (which IS built). Deferred for time.
+
+Reaches HTTP 200 with stdlib + browser-UA; carries 9 tables and 41 td cells
+in the landing HTML. Has a captcha reference but in the disclaimer-acceptance
+gate (similar to OR portal, which accepts a one-line POST). The actual case
+search lives at `/CoreCms.aspx?mode=PublicAccess` and exposes civil,
+foreclosure, eviction, probate dockets.
+
+**Lead value.** Eviction filings (county civil) and probate-case dockets are
+not directly carried in `or.duvalclerk.com` — CORE is the canonical source.
+
+---
+
+## FW-PL-007 — `floridapublicnotices.com` (React SPA) not built this pass
+
+**Status:** Playwright-buildable, deferred for time.
+
+Statewide notice search; potentially redundant with `legals.jaxdailyrecord.com`
+for Duval but useful as a backup feed and for cross-county work. React app
+shell requires Playwright + post-render extraction (no server-rendered table).
+
+---
+
+## FW-PL-008 — `tclieninfo.coj.net` (Angular SPA) not built this pass
+
+**Status:** Playwright-buildable, deferred for time.
+
+Municipal lien info portal (nuisance / demolition / city liens). Angular
+`<app-root>` SPA. Distinct value: surfaces city-level distress events that
+aren't recorded as clerk liens until much later. Worth building on the next
+Playwright pass.
+
+---
+
+## FW-PL-009 — `jaxdailyrecord_foreclosures` parser quality
+
+**Status:** OPERATIONAL — heuristic regex, not a halt.
+
+The stdlib scraper at `scrapers/jaxdailyrecord_foreclosures.py` extracts
+publication_id + sale_date + property_address + case_no cleanly on most
+rows, but the plaintiff/defendant text-parse is best-effort and not always
+clean (about 25% of the 23 sampled rows have empty plaintiff/defendants).
+This causes §17 to mark some foreclosure-notice rows REVIEW_REQUIRED
+(`owner_name = "notice_of_sale against unidentified party"`) even though
+the sale_date and case_no are populated.
+
+**To fix.** Tighten the regex around the Florida courts' standard "Plaintiff,
+vs. Defendant(s), NOTICE IS HEREBY GIVEN" template (the template is
+predictable; current regex is too lenient).
+

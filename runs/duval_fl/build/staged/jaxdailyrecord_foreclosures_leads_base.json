@@ -1,0 +1,1129 @@
+[
+  {
+    "additional_owner_names": [],
+    "aggregation_key": {
+      "canonical_doc_type": "notice_of_sale",
+      "parcel_id": null,
+      "signal_type": "Notice of Sale"
+    },
+    "base_record_id": "base_jaxdailyrecord_foreclosures:26-00152N",
+    "canonical_doc_type": "notice_of_sale",
+    "confidence_status": "Confirmed",
+    "enrichment_status": "UNENRICHED",
+    "event_date": "2026-06-04",
+    "evidence_ids": [
+      "jaxdailyrecord_foreclosures:26-00152N"
+    ],
+    "filer_entity": null,
+    "instrument_number": "26-00152N",
+    "multi_owner_status": "SINGLE_OWNER",
+    "owner_count": 1,
+    "owner_name": "notice_of_sale against unidentified party",
+    "owner_type": "UNKNOWN",
+    "owners": [
+      {
+        "confidence": null,
+        "is_primary": true,
+        "name": "notice_of_sale against unidentified party",
+        "name_type": null,
+        "notes": null,
+        "resolution_status": "REVIEW_REQUIRED",
+        "role": "unresolved",
+        "source_field": null
+      }
+    ],
+    "parcel_resolution_status": "REVIEW_REQUIRED",
+    "primary_owner_name": "notice_of_sale against unidentified party",
+    "property_refs": {
+      "case_number": null,
+      "legal_description": null,
+      "parcel_id": null,
+      "situs_address": "16867 Oak Hill Rd., Hilliard, FL 32046"
+    },
+    "raw_event_id": "jaxdailyrecord_foreclosures:26-00152N",
+    "recorded_date": "2026-06-04",
+    "review_reason": "document_body_debtor_not_extractable",
+    "signal_type": "Notice of Sale",
+    "source_id": "jaxdailyrecord_foreclosures",
+    "source_role": "PRIMARY_EVENT_SOURCE",
+    "source_url": "https://legals.jaxdailyrecord.com/public_notices/publicnotices.php?Category=Notice+of+Sale+-+Foreclosure&mode=daily#notice-26-00152N"
+  },
+  {
+    "additional_owner_names": [],
+    "aggregation_key": {
+      "canonical_doc_type": "notice_of_sale",
+      "parcel_id": null,
+      "signal_type": "Notice of Sale"
+    },
+    "base_record_id": "base_jaxdailyrecord_foreclosures:26-00194C",
+    "canonical_doc_type": "notice_of_sale",
+    "confidence_status": "Confirmed",
+    "enrichment_status": "UNENRICHED",
+    "event_date": null,
+    "evidence_ids": [
+      "jaxdailyrecord_foreclosures:26-00194C"
+    ],
+    "filer_entity": null,
+    "instrument_number": "26-00194C",
+    "multi_owner_status": "SINGLE_OWNER",
+    "owner_count": 1,
+    "owner_name": "notice_of_sale against unidentified party",
+    "owner_type": "UNKNOWN",
+    "owners": [
+      {
+        "confidence": null,
+        "is_primary": true,
+        "name": "notice_of_sale against unidentified party",
+        "name_type": null,
+        "notes": null,
+        "resolution_status": "REVIEW_REQUIRED",
+        "role": "unresolved",
+        "source_field": null
+      }
+    ],
+    "parcel_resolution_status": "REVIEW_REQUIRED",
+    "primary_owner_name": "notice_of_sale against unidentified party",
+    "property_refs": {
+      "case_number": null,
+      "legal_description": null,
+      "parcel_id": null,
+      "situs_address": null
+    },
+    "raw_event_id": "jaxdailyrecord_foreclosures:26-00194C",
+    "recorded_date": "",
+    "review_reason": "document_body_debtor_not_extractable",
+    "signal_type": "Notice of Sale",
+    "source_id": "jaxdailyrecord_foreclosures",
+    "source_role": "PRIMARY_EVENT_SOURCE",
+    "source_url": "https://legals.jaxdailyrecord.com/public_notices/publicnotices.php?Category=Notice+of+Sale+-+Foreclosure&mode=daily#notice-26-00194C"
+  },
+  {
+    "additional_owner_names": [],
+    "aggregation_key": {
+      "canonical_doc_type": "notice_of_sale",
+      "parcel_id": null,
+      "signal_type": "Notice of Sale"
+    },
+    "base_record_id": "base_jaxdailyrecord_foreclosures:26-00325J",
+    "canonical_doc_type": "notice_of_sale",
+    "confidence_status": "Confirmed",
+    "enrichment_status": "UNENRICHED",
+    "event_date": "2026-06-18",
+    "evidence_ids": [
+      "jaxdailyrecord_foreclosures:26-00325J"
+    ],
+    "filer_entity": null,
+    "instrument_number": "26-00325J",
+    "multi_owner_status": "SINGLE_OWNER",
+    "owner_count": 1,
+    "owner_name": "notice_of_sale against unidentified party",
+    "owner_type": "UNKNOWN",
+    "owners": [
+      {
+        "confidence": null,
+        "is_primary": true,
+        "name": "notice_of_sale against unidentified party",
+        "name_type": null,
+        "notes": null,
+        "resolution_status": "REVIEW_REQUIRED",
+        "role": "unresolved",
+        "source_field": null
+      }
+    ],
+    "parcel_resolution_status": "REVIEW_REQUIRED",
+    "primary_owner_name": "notice_of_sale against unidentified party",
+    "property_refs": {
+      "case_number": null,
+      "legal_description": null,
+      "parcel_id": null,
+      "situs_address": "184 Oak Common Ave, Saint Augustine, FL 32095"
+    },
+    "raw_event_id": "jaxdailyrecord_foreclosures:26-00325J",
+    "recorded_date": "2026-06-18",
+    "review_reason": "document_body_debtor_not_extractable",
+    "signal_type": "Notice of Sale",
+    "source_id": "jaxdailyrecord_foreclosures",
+    "source_role": "PRIMARY_EVENT_SOURCE",
+    "source_url": "https://legals.jaxdailyrecord.com/public_notices/publicnotices.php?Category=Notice+of+Sale+-+Foreclosure&mode=daily#notice-26-00325J"
+  },
+  {
+    "additional_owner_names": [],
+    "aggregation_key": {
+      "canonical_doc_type": "notice_of_sale",
+      "parcel_id": null,
+      "signal_type": "Notice of Sale"
+    },
+    "base_record_id": "base_jaxdailyrecord_foreclosures:26-02840D",
+    "canonical_doc_type": "notice_of_sale",
+    "confidence_status": "Confirmed",
+    "enrichment_status": "UNENRICHED",
+    "event_date": "2026-06-16",
+    "evidence_ids": [
+      "jaxdailyrecord_foreclosures:26-02840D"
+    ],
+    "filer_entity": null,
+    "instrument_number": "16-2024-CA-003467",
+    "multi_owner_status": "SINGLE_OWNER",
+    "owner_count": 1,
+    "owner_name": "notice_of_sale against unidentified party",
+    "owner_type": "UNKNOWN",
+    "owners": [
+      {
+        "confidence": null,
+        "is_primary": true,
+        "name": "notice_of_sale against unidentified party",
+        "name_type": null,
+        "notes": null,
+        "resolution_status": "REVIEW_REQUIRED",
+        "role": "unresolved",
+        "source_field": null
+      }
+    ],
+    "parcel_resolution_status": "REVIEW_REQUIRED",
+    "primary_owner_name": "notice_of_sale against unidentified party",
+    "property_refs": {
+      "case_number": "16-2024-CA-003467",
+      "legal_description": "Lots 1, 2, Block 6, Springfield, Northwest Portion, according to the plat thereof as recorded in Plat Book 3, Page 15, of the Public Records of Duval County, Florida.",
+      "parcel_id": null,
+      "situs_address": "3226 Pearl Street, Jacksonville, FL 32219"
+    },
+    "raw_event_id": "jaxdailyrecord_foreclosures:26-02840D",
+    "recorded_date": "2026-06-16",
+    "review_reason": "document_body_debtor_not_extractable",
+    "signal_type": "Notice of Sale",
+    "source_id": "jaxdailyrecord_foreclosures",
+    "source_role": "PRIMARY_EVENT_SOURCE",
+    "source_url": "https://legals.jaxdailyrecord.com/public_notices/publicnotices.php?Category=Notice+of+Sale+-+Foreclosure&mode=daily#notice-26-02840D"
+  },
+  {
+    "additional_owner_names": [],
+    "aggregation_key": {
+      "canonical_doc_type": "notice_of_sale",
+      "parcel_id": null,
+      "signal_type": "Notice of Sale"
+    },
+    "base_record_id": "base_jaxdailyrecord_foreclosures:26-02843D",
+    "canonical_doc_type": "notice_of_sale",
+    "confidence_status": "Confirmed",
+    "enrichment_status": "UNENRICHED",
+    "event_date": null,
+    "evidence_ids": [
+      "jaxdailyrecord_foreclosures:26-02843D"
+    ],
+    "filer_entity": null,
+    "instrument_number": "16-2023-CA-008677",
+    "multi_owner_status": "SINGLE_OWNER",
+    "owner_count": 1,
+    "owner_name": "notice_of_sale against unidentified party",
+    "owner_type": "UNKNOWN",
+    "owners": [
+      {
+        "confidence": null,
+        "is_primary": true,
+        "name": "notice_of_sale against unidentified party",
+        "name_type": null,
+        "notes": null,
+        "resolution_status": "REVIEW_REQUIRED",
+        "role": "unresolved",
+        "source_field": null
+      }
+    ],
+    "parcel_resolution_status": "REVIEW_REQUIRED",
+    "primary_owner_name": "notice_of_sale against unidentified party",
+    "property_refs": {
+      "case_number": "16-2023-CA-008677",
+      "legal_description": "LOT 11, BLOCK 16, SPRING PARK MANOR, ACCORDING TO THE MAP OR PLAT THEREOF, AS RECORDED IN PLAT BOOK 17, PAGE(S) 62, OF THE PUBLIC RECORDS OF DUVAL COOUNTY, FLORIDA.",
+      "parcel_id": null,
+      "situs_address": null
+    },
+    "raw_event_id": "jaxdailyrecord_foreclosures:26-02843D",
+    "recorded_date": "",
+    "review_reason": "document_body_debtor_not_extractable",
+    "signal_type": "Notice of Sale",
+    "source_id": "jaxdailyrecord_foreclosures",
+    "source_role": "PRIMARY_EVENT_SOURCE",
+    "source_url": "https://legals.jaxdailyrecord.com/public_notices/publicnotices.php?Category=Notice+of+Sale+-+Foreclosure&mode=daily#notice-26-02843D"
+  },
+  {
+    "additional_owner_names": [],
+    "aggregation_key": {
+      "canonical_doc_type": "notice_of_sale",
+      "parcel_id": null,
+      "signal_type": "Notice of Sale"
+    },
+    "base_record_id": "base_jaxdailyrecord_foreclosures:26-02847D",
+    "canonical_doc_type": "notice_of_sale",
+    "confidence_status": "Confirmed",
+    "enrichment_status": "UNENRICHED",
+    "event_date": "2026-05-13",
+    "evidence_ids": [
+      "jaxdailyrecord_foreclosures:26-02847D"
+    ],
+    "filer_entity": null,
+    "instrument_number": "16-2025-CA-000251",
+    "multi_owner_status": "SINGLE_OWNER",
+    "owner_count": 1,
+    "owner_name": "notice_of_sale against unidentified party",
+    "owner_type": "UNKNOWN",
+    "owners": [
+      {
+        "confidence": null,
+        "is_primary": true,
+        "name": "notice_of_sale against unidentified party",
+        "name_type": null,
+        "notes": null,
+        "resolution_status": "REVIEW_REQUIRED",
+        "role": "unresolved",
+        "source_field": null
+      }
+    ],
+    "parcel_resolution_status": "REVIEW_REQUIRED",
+    "primary_owner_name": "notice_of_sale against unidentified party",
+    "property_refs": {
+      "case_number": "16-2025-CA-000251",
+      "legal_description": null,
+      "parcel_id": null,
+      "situs_address": "6525 Silk Leaf Lane, Jacksonville, FL 32244"
+    },
+    "raw_event_id": "jaxdailyrecord_foreclosures:26-02847D",
+    "recorded_date": "2026-05-13",
+    "review_reason": "document_body_debtor_not_extractable",
+    "signal_type": "Notice of Sale",
+    "source_id": "jaxdailyrecord_foreclosures",
+    "source_role": "PRIMARY_EVENT_SOURCE",
+    "source_url": "https://legals.jaxdailyrecord.com/public_notices/publicnotices.php?Category=Notice+of+Sale+-+Foreclosure&mode=daily#notice-26-02847D"
+  },
+  {
+    "additional_owner_names": [],
+    "aggregation_key": {
+      "canonical_doc_type": "notice_of_sale",
+      "parcel_id": null,
+      "signal_type": "Notice of Sale"
+    },
+    "base_record_id": "base_jaxdailyrecord_foreclosures:26-02862D",
+    "canonical_doc_type": "notice_of_sale",
+    "confidence_status": "Confirmed",
+    "enrichment_status": "UNENRICHED",
+    "event_date": null,
+    "evidence_ids": [
+      "jaxdailyrecord_foreclosures:26-02862D"
+    ],
+    "filer_entity": null,
+    "instrument_number": "16-2025-CA-006512",
+    "multi_owner_status": "SINGLE_OWNER",
+    "owner_count": 1,
+    "owner_name": "notice_of_sale against unidentified party",
+    "owner_type": "UNKNOWN",
+    "owners": [
+      {
+        "confidence": null,
+        "is_primary": true,
+        "name": "notice_of_sale against unidentified party",
+        "name_type": null,
+        "notes": null,
+        "resolution_status": "REVIEW_REQUIRED",
+        "role": "unresolved",
+        "source_field": null
+      }
+    ],
+    "parcel_resolution_status": "REVIEW_REQUIRED",
+    "primary_owner_name": "notice_of_sale against unidentified party",
+    "property_refs": {
+      "case_number": "16-2025-CA-006512",
+      "legal_description": "LOT 49, BLOCK 25, CEDAR HILLS ESTATES UNIT THREE, ACCORDING TO THE MAP OR PLAT THEREOF, AS RECORDED IN PLAT BOOK 28, PAGES 2 AND 2A, OF THE CURRENT PUBLIC RECORDS OF DUVAL COUNTY, FLORIDA.",
+      "parcel_id": null,
+      "situs_address": "4601 ANVERS BLVD, JACKSONVILLE, FL 32210"
+    },
+    "raw_event_id": "jaxdailyrecord_foreclosures:26-02862D",
+    "recorded_date": "",
+    "review_reason": "document_body_debtor_not_extractable",
+    "signal_type": "Notice of Sale",
+    "source_id": "jaxdailyrecord_foreclosures",
+    "source_role": "PRIMARY_EVENT_SOURCE",
+    "source_url": "https://legals.jaxdailyrecord.com/public_notices/publicnotices.php?Category=Notice+of+Sale+-+Foreclosure&mode=daily#notice-26-02862D"
+  },
+  {
+    "additional_owner_names": [],
+    "aggregation_key": {
+      "canonical_doc_type": "notice_of_sale",
+      "parcel_id": null,
+      "signal_type": "Notice of Sale"
+    },
+    "base_record_id": "base_jaxdailyrecord_foreclosures:26-02863D",
+    "canonical_doc_type": "notice_of_sale",
+    "confidence_status": "Confirmed",
+    "enrichment_status": "UNENRICHED",
+    "event_date": null,
+    "evidence_ids": [
+      "jaxdailyrecord_foreclosures:26-02863D"
+    ],
+    "filer_entity": null,
+    "instrument_number": "16-2025-CA-007817",
+    "multi_owner_status": "SINGLE_OWNER",
+    "owner_count": 1,
+    "owner_name": "notice_of_sale against unidentified party",
+    "owner_type": "UNKNOWN",
+    "owners": [
+      {
+        "confidence": null,
+        "is_primary": true,
+        "name": "notice_of_sale against unidentified party",
+        "name_type": null,
+        "notes": null,
+        "resolution_status": "REVIEW_REQUIRED",
+        "role": "unresolved",
+        "source_field": null
+      }
+    ],
+    "parcel_resolution_status": "REVIEW_REQUIRED",
+    "primary_owner_name": "notice_of_sale against unidentified party",
+    "property_refs": {
+      "case_number": "16-2025-CA-007817",
+      "legal_description": null,
+      "parcel_id": null,
+      "situs_address": null
+    },
+    "raw_event_id": "jaxdailyrecord_foreclosures:26-02863D",
+    "recorded_date": "",
+    "review_reason": "document_body_debtor_not_extractable",
+    "signal_type": "Notice of Sale",
+    "source_id": "jaxdailyrecord_foreclosures",
+    "source_role": "PRIMARY_EVENT_SOURCE",
+    "source_url": "https://legals.jaxdailyrecord.com/public_notices/publicnotices.php?Category=Notice+of+Sale+-+Foreclosure&mode=daily#notice-26-02863D"
+  },
+  {
+    "additional_owner_names": [],
+    "aggregation_key": {
+      "canonical_doc_type": "notice_of_sale",
+      "parcel_id": null,
+      "signal_type": "Notice of Sale"
+    },
+    "base_record_id": "base_jaxdailyrecord_foreclosures:26-02864D",
+    "canonical_doc_type": "notice_of_sale",
+    "confidence_status": "Confirmed",
+    "enrichment_status": "UNENRICHED",
+    "event_date": "2026-08-05",
+    "evidence_ids": [
+      "jaxdailyrecord_foreclosures:26-02864D"
+    ],
+    "filer_entity": null,
+    "instrument_number": "16-2025-CA-007972",
+    "multi_owner_status": "SINGLE_OWNER",
+    "owner_count": 1,
+    "owner_name": "notice_of_sale against unidentified party",
+    "owner_type": "UNKNOWN",
+    "owners": [
+      {
+        "confidence": null,
+        "is_primary": true,
+        "name": "notice_of_sale against unidentified party",
+        "name_type": null,
+        "notes": null,
+        "resolution_status": "REVIEW_REQUIRED",
+        "role": "unresolved",
+        "source_field": null
+      }
+    ],
+    "parcel_resolution_status": "REVIEW_REQUIRED",
+    "primary_owner_name": "notice_of_sale against unidentified party",
+    "property_refs": {
+      "case_number": "16-2025-CA-007972",
+      "legal_description": "LOT 8, BLOCK 8, SANS SOUCI SECTION TWO, ACCORDING TO THE PLAT THEREOF AS RECORDED IN PLAT BOOK 25, PAGE 39, PUBLIC RECORDS OF DUVAL COUNTY, FLORIDA.",
+      "parcel_id": null,
+      "situs_address": "2505 Hirsch Ave, Jacksonville, FL 32216"
+    },
+    "raw_event_id": "jaxdailyrecord_foreclosures:26-02864D",
+    "recorded_date": "2026-08-05",
+    "review_reason": "document_body_debtor_not_extractable",
+    "signal_type": "Notice of Sale",
+    "source_id": "jaxdailyrecord_foreclosures",
+    "source_role": "PRIMARY_EVENT_SOURCE",
+    "source_url": "https://legals.jaxdailyrecord.com/public_notices/publicnotices.php?Category=Notice+of+Sale+-+Foreclosure&mode=daily#notice-26-02864D"
+  },
+  {
+    "additional_owner_names": [],
+    "aggregation_key": {
+      "canonical_doc_type": "notice_of_sale",
+      "parcel_id": null,
+      "signal_type": "Notice of Sale"
+    },
+    "base_record_id": "base_jaxdailyrecord_foreclosures:26-02877D",
+    "canonical_doc_type": "notice_of_sale",
+    "confidence_status": "Confirmed",
+    "enrichment_status": "UNENRICHED",
+    "event_date": "2026-09-10",
+    "evidence_ids": [
+      "jaxdailyrecord_foreclosures:26-02877D"
+    ],
+    "filer_entity": null,
+    "instrument_number": "16-2025-CA-002586",
+    "multi_owner_status": "SINGLE_OWNER",
+    "owner_count": 1,
+    "owner_name": "notice_of_sale against unidentified party",
+    "owner_type": "UNKNOWN",
+    "owners": [
+      {
+        "confidence": null,
+        "is_primary": true,
+        "name": "notice_of_sale against unidentified party",
+        "name_type": null,
+        "notes": null,
+        "resolution_status": "REVIEW_REQUIRED",
+        "role": "unresolved",
+        "source_field": null
+      }
+    ],
+    "parcel_resolution_status": "REVIEW_REQUIRED",
+    "primary_owner_name": "notice_of_sale against unidentified party",
+    "property_refs": {
+      "case_number": "16-2025-CA-002586",
+      "legal_description": null,
+      "parcel_id": null,
+      "situs_address": "10304 Driftwood Hills Drive, Jacksonville, FL 32221"
+    },
+    "raw_event_id": "jaxdailyrecord_foreclosures:26-02877D",
+    "recorded_date": "2026-09-10",
+    "review_reason": "document_body_debtor_not_extractable",
+    "signal_type": "Notice of Sale",
+    "source_id": "jaxdailyrecord_foreclosures",
+    "source_role": "PRIMARY_EVENT_SOURCE",
+    "source_url": "https://legals.jaxdailyrecord.com/public_notices/publicnotices.php?Category=Notice+of+Sale+-+Foreclosure&mode=daily#notice-26-02877D"
+  },
+  {
+    "additional_owner_names": [],
+    "aggregation_key": {
+      "canonical_doc_type": "notice_of_sale",
+      "parcel_id": null,
+      "signal_type": "Notice of Sale"
+    },
+    "base_record_id": "base_jaxdailyrecord_foreclosures:26-02878D",
+    "canonical_doc_type": "notice_of_sale",
+    "confidence_status": "Confirmed",
+    "enrichment_status": "UNENRICHED",
+    "event_date": "2026-05-07",
+    "evidence_ids": [
+      "jaxdailyrecord_foreclosures:26-02878D"
+    ],
+    "filer_entity": null,
+    "instrument_number": "26-02878D",
+    "multi_owner_status": "SINGLE_OWNER",
+    "owner_count": 1,
+    "owner_name": "notice_of_sale against unidentified party",
+    "owner_type": "UNKNOWN",
+    "owners": [
+      {
+        "confidence": null,
+        "is_primary": true,
+        "name": "notice_of_sale against unidentified party",
+        "name_type": null,
+        "notes": null,
+        "resolution_status": "REVIEW_REQUIRED",
+        "role": "unresolved",
+        "source_field": null
+      }
+    ],
+    "parcel_resolution_status": "REVIEW_REQUIRED",
+    "primary_owner_name": "notice_of_sale against unidentified party",
+    "property_refs": {
+      "case_number": null,
+      "legal_description": null,
+      "parcel_id": null,
+      "situs_address": "7772 Playschool Lane, Jacksonville, FL 32210"
+    },
+    "raw_event_id": "jaxdailyrecord_foreclosures:26-02878D",
+    "recorded_date": "2026-05-07",
+    "review_reason": "document_body_debtor_not_extractable",
+    "signal_type": "Notice of Sale",
+    "source_id": "jaxdailyrecord_foreclosures",
+    "source_role": "PRIMARY_EVENT_SOURCE",
+    "source_url": "https://legals.jaxdailyrecord.com/public_notices/publicnotices.php?Category=Notice+of+Sale+-+Foreclosure&mode=daily#notice-26-02878D"
+  },
+  {
+    "additional_owner_names": [],
+    "aggregation_key": {
+      "canonical_doc_type": "notice_of_sale",
+      "parcel_id": null,
+      "signal_type": "Notice of Sale"
+    },
+    "base_record_id": "base_jaxdailyrecord_foreclosures:26-02879D",
+    "canonical_doc_type": "notice_of_sale",
+    "confidence_status": "Confirmed",
+    "enrichment_status": "UNENRICHED",
+    "event_date": "2026-06-11",
+    "evidence_ids": [
+      "jaxdailyrecord_foreclosures:26-02879D"
+    ],
+    "filer_entity": null,
+    "instrument_number": "16-2023-CA-010673",
+    "multi_owner_status": "SINGLE_OWNER",
+    "owner_count": 1,
+    "owner_name": "notice_of_sale against unidentified party",
+    "owner_type": "UNKNOWN",
+    "owners": [
+      {
+        "confidence": null,
+        "is_primary": true,
+        "name": "notice_of_sale against unidentified party",
+        "name_type": null,
+        "notes": null,
+        "resolution_status": "REVIEW_REQUIRED",
+        "role": "unresolved",
+        "source_field": null
+      }
+    ],
+    "parcel_resolution_status": "REVIEW_REQUIRED",
+    "primary_owner_name": "notice_of_sale against unidentified party",
+    "property_refs": {
+      "case_number": "16-2023-CA-010673",
+      "legal_description": "LOT 6, BLOCK 35, OAK HILL UNIT 22, AS PER PLAT THEREOF, RECORDED IN PLAT BOOK 34, PAGE 48, OF THE PUBLIC RECORDS OF DUVAL COUNTY, FLORIDA Property Address: 8382 FURY DR, JACKSONVILLE, FL 32244 Any person claiming an interest in the surplus from the sale, if any, other than the property owner as of the date of the lis pendens must file a claim in accordance with Florida Statutes, Section 45.",
+      "parcel_id": null,
+      "situs_address": "8382 FURY DR, JACKSONVILLE, FL 32244"
+    },
+    "raw_event_id": "jaxdailyrecord_foreclosures:26-02879D",
+    "recorded_date": "2026-06-11",
+    "review_reason": "document_body_debtor_not_extractable",
+    "signal_type": "Notice of Sale",
+    "source_id": "jaxdailyrecord_foreclosures",
+    "source_role": "PRIMARY_EVENT_SOURCE",
+    "source_url": "https://legals.jaxdailyrecord.com/public_notices/publicnotices.php?Category=Notice+of+Sale+-+Foreclosure&mode=daily#notice-26-02879D"
+  },
+  {
+    "additional_owner_names": [],
+    "aggregation_key": {
+      "canonical_doc_type": "notice_of_sale",
+      "parcel_id": null,
+      "signal_type": "Notice of Sale"
+    },
+    "base_record_id": "base_jaxdailyrecord_foreclosures:26-02903D",
+    "canonical_doc_type": "notice_of_sale",
+    "confidence_status": "Confirmed",
+    "enrichment_status": "UNENRICHED",
+    "event_date": "2026-05-12",
+    "evidence_ids": [
+      "jaxdailyrecord_foreclosures:26-02903D"
+    ],
+    "filer_entity": null,
+    "instrument_number": "16-2026-CA-001002",
+    "multi_owner_status": "SINGLE_OWNER",
+    "owner_count": 1,
+    "owner_name": "notice_of_sale against unidentified party",
+    "owner_type": "UNKNOWN",
+    "owners": [
+      {
+        "confidence": null,
+        "is_primary": true,
+        "name": "notice_of_sale against unidentified party",
+        "name_type": null,
+        "notes": null,
+        "resolution_status": "REVIEW_REQUIRED",
+        "role": "unresolved",
+        "source_field": null
+      }
+    ],
+    "parcel_resolution_status": "REVIEW_REQUIRED",
+    "primary_owner_name": "notice_of_sale against unidentified party",
+    "property_refs": {
+      "case_number": "16-2026-CA-001002",
+      "legal_description": null,
+      "parcel_id": null,
+      "situs_address": null
+    },
+    "raw_event_id": "jaxdailyrecord_foreclosures:26-02903D",
+    "recorded_date": "2026-05-12",
+    "review_reason": "document_body_debtor_not_extractable",
+    "signal_type": "Notice of Sale",
+    "source_id": "jaxdailyrecord_foreclosures",
+    "source_role": "PRIMARY_EVENT_SOURCE",
+    "source_url": "https://legals.jaxdailyrecord.com/public_notices/publicnotices.php?Category=Notice+of+Sale+-+Foreclosure&mode=daily#notice-26-02903D"
+  },
+  {
+    "additional_owner_names": [],
+    "aggregation_key": {
+      "canonical_doc_type": "notice_of_sale",
+      "parcel_id": null,
+      "signal_type": "Notice of Sale"
+    },
+    "base_record_id": "base_jaxdailyrecord_foreclosures:26-02925D",
+    "canonical_doc_type": "notice_of_sale",
+    "confidence_status": "Confirmed",
+    "enrichment_status": "UNENRICHED",
+    "event_date": null,
+    "evidence_ids": [
+      "jaxdailyrecord_foreclosures:26-02925D"
+    ],
+    "filer_entity": null,
+    "instrument_number": "16-2025-CA-004197",
+    "multi_owner_status": "SINGLE_OWNER",
+    "owner_count": 1,
+    "owner_name": "notice_of_sale against unidentified party",
+    "owner_type": "UNKNOWN",
+    "owners": [
+      {
+        "confidence": null,
+        "is_primary": true,
+        "name": "notice_of_sale against unidentified party",
+        "name_type": null,
+        "notes": null,
+        "resolution_status": "REVIEW_REQUIRED",
+        "role": "unresolved",
+        "source_field": null
+      }
+    ],
+    "parcel_resolution_status": "REVIEW_REQUIRED",
+    "primary_owner_name": "notice_of_sale against unidentified party",
+    "property_refs": {
+      "case_number": "16-2025-CA-004197",
+      "legal_description": "LOT 11, BLOCK 2, CEDAR OAKS ADDITION, ACCORDING TO PLAT THEREOF AS RECORDED IN PLAT BOOK 24, PAGE 24 OF THE CURRENT PUBLIC RECORDS OF DUVAL COUNTY, FLORIDA.",
+      "parcel_id": null,
+      "situs_address": null
+    },
+    "raw_event_id": "jaxdailyrecord_foreclosures:26-02925D",
+    "recorded_date": "",
+    "review_reason": "document_body_debtor_not_extractable",
+    "signal_type": "Notice of Sale",
+    "source_id": "jaxdailyrecord_foreclosures",
+    "source_role": "PRIMARY_EVENT_SOURCE",
+    "source_url": "https://legals.jaxdailyrecord.com/public_notices/publicnotices.php?Category=Notice+of+Sale+-+Foreclosure&mode=daily#notice-26-02925D"
+  },
+  {
+    "additional_owner_names": [],
+    "aggregation_key": {
+      "canonical_doc_type": "notice_of_sale",
+      "parcel_id": null,
+      "signal_type": "Notice of Sale"
+    },
+    "base_record_id": "base_jaxdailyrecord_foreclosures:26-02927D",
+    "canonical_doc_type": "notice_of_sale",
+    "confidence_status": "Confirmed",
+    "enrichment_status": "UNENRICHED",
+    "event_date": "2026-07-23",
+    "evidence_ids": [
+      "jaxdailyrecord_foreclosures:26-02927D"
+    ],
+    "filer_entity": null,
+    "instrument_number": "16-2023-CA-011101",
+    "multi_owner_status": "SINGLE_OWNER",
+    "owner_count": 1,
+    "owner_name": "notice_of_sale against unidentified party",
+    "owner_type": "UNKNOWN",
+    "owners": [
+      {
+        "confidence": null,
+        "is_primary": true,
+        "name": "notice_of_sale against unidentified party",
+        "name_type": null,
+        "notes": null,
+        "resolution_status": "REVIEW_REQUIRED",
+        "role": "unresolved",
+        "source_field": null
+      }
+    ],
+    "parcel_resolution_status": "REVIEW_REQUIRED",
+    "primary_owner_name": "notice_of_sale against unidentified party",
+    "property_refs": {
+      "case_number": "16-2023-CA-011101",
+      "legal_description": null,
+      "parcel_id": null,
+      "situs_address": null
+    },
+    "raw_event_id": "jaxdailyrecord_foreclosures:26-02927D",
+    "recorded_date": "2026-07-23",
+    "review_reason": "document_body_debtor_not_extractable",
+    "signal_type": "Notice of Sale",
+    "source_id": "jaxdailyrecord_foreclosures",
+    "source_role": "PRIMARY_EVENT_SOURCE",
+    "source_url": "https://legals.jaxdailyrecord.com/public_notices/publicnotices.php?Category=Notice+of+Sale+-+Foreclosure&mode=daily#notice-26-02927D"
+  },
+  {
+    "additional_owner_names": [],
+    "aggregation_key": {
+      "canonical_doc_type": "notice_of_sale",
+      "parcel_id": null,
+      "signal_type": "Notice of Sale"
+    },
+    "base_record_id": "base_jaxdailyrecord_foreclosures:26-02928D",
+    "canonical_doc_type": "notice_of_sale",
+    "confidence_status": "Confirmed",
+    "enrichment_status": "UNENRICHED",
+    "event_date": "2026-06-25",
+    "evidence_ids": [
+      "jaxdailyrecord_foreclosures:26-02928D"
+    ],
+    "filer_entity": null,
+    "instrument_number": "16-2025-CA-008109",
+    "multi_owner_status": "SINGLE_OWNER",
+    "owner_count": 1,
+    "owner_name": "notice_of_sale against unidentified party",
+    "owner_type": "UNKNOWN",
+    "owners": [
+      {
+        "confidence": null,
+        "is_primary": true,
+        "name": "notice_of_sale against unidentified party",
+        "name_type": null,
+        "notes": null,
+        "resolution_status": "REVIEW_REQUIRED",
+        "role": "unresolved",
+        "source_field": null
+      }
+    ],
+    "parcel_resolution_status": "REVIEW_REQUIRED",
+    "primary_owner_name": "notice_of_sale against unidentified party",
+    "property_refs": {
+      "case_number": "16-2025-CA-008109",
+      "legal_description": null,
+      "parcel_id": null,
+      "situs_address": null
+    },
+    "raw_event_id": "jaxdailyrecord_foreclosures:26-02928D",
+    "recorded_date": "2026-06-25",
+    "review_reason": "document_body_debtor_not_extractable",
+    "signal_type": "Notice of Sale",
+    "source_id": "jaxdailyrecord_foreclosures",
+    "source_role": "PRIMARY_EVENT_SOURCE",
+    "source_url": "https://legals.jaxdailyrecord.com/public_notices/publicnotices.php?Category=Notice+of+Sale+-+Foreclosure&mode=daily#notice-26-02928D"
+  },
+  {
+    "additional_owner_names": [],
+    "aggregation_key": {
+      "canonical_doc_type": "notice_of_sale",
+      "parcel_id": null,
+      "signal_type": "Notice of Sale"
+    },
+    "base_record_id": "base_jaxdailyrecord_foreclosures:26-02929D",
+    "canonical_doc_type": "notice_of_sale",
+    "confidence_status": "Confirmed",
+    "enrichment_status": "UNENRICHED",
+    "event_date": "2026-06-16",
+    "evidence_ids": [
+      "jaxdailyrecord_foreclosures:26-02929D"
+    ],
+    "filer_entity": null,
+    "instrument_number": "16-2025-CA-006229",
+    "multi_owner_status": "SINGLE_OWNER",
+    "owner_count": 1,
+    "owner_name": "notice_of_sale against unidentified party",
+    "owner_type": "UNKNOWN",
+    "owners": [
+      {
+        "confidence": null,
+        "is_primary": true,
+        "name": "notice_of_sale against unidentified party",
+        "name_type": null,
+        "notes": null,
+        "resolution_status": "REVIEW_REQUIRED",
+        "role": "unresolved",
+        "source_field": null
+      }
+    ],
+    "parcel_resolution_status": "REVIEW_REQUIRED",
+    "primary_owner_name": "notice_of_sale against unidentified party",
+    "property_refs": {
+      "case_number": "16-2025-CA-006229",
+      "legal_description": null,
+      "parcel_id": null,
+      "situs_address": null
+    },
+    "raw_event_id": "jaxdailyrecord_foreclosures:26-02929D",
+    "recorded_date": "2026-06-16",
+    "review_reason": "document_body_debtor_not_extractable",
+    "signal_type": "Notice of Sale",
+    "source_id": "jaxdailyrecord_foreclosures",
+    "source_role": "PRIMARY_EVENT_SOURCE",
+    "source_url": "https://legals.jaxdailyrecord.com/public_notices/publicnotices.php?Category=Notice+of+Sale+-+Foreclosure&mode=daily#notice-26-02929D"
+  },
+  {
+    "additional_owner_names": [],
+    "aggregation_key": {
+      "canonical_doc_type": "notice_of_sale",
+      "parcel_id": null,
+      "signal_type": "Notice of Sale"
+    },
+    "base_record_id": "base_jaxdailyrecord_foreclosures:26-02930D",
+    "canonical_doc_type": "notice_of_sale",
+    "confidence_status": "Confirmed",
+    "enrichment_status": "UNENRICHED",
+    "event_date": "2026-06-24",
+    "evidence_ids": [
+      "jaxdailyrecord_foreclosures:26-02930D"
+    ],
+    "filer_entity": null,
+    "instrument_number": "16-2025-CA-002503",
+    "multi_owner_status": "SINGLE_OWNER",
+    "owner_count": 1,
+    "owner_name": "notice_of_sale against unidentified party",
+    "owner_type": "UNKNOWN",
+    "owners": [
+      {
+        "confidence": null,
+        "is_primary": true,
+        "name": "notice_of_sale against unidentified party",
+        "name_type": null,
+        "notes": null,
+        "resolution_status": "REVIEW_REQUIRED",
+        "role": "unresolved",
+        "source_field": null
+      }
+    ],
+    "parcel_resolution_status": "REVIEW_REQUIRED",
+    "primary_owner_name": "notice_of_sale against unidentified party",
+    "property_refs": {
+      "case_number": "16-2025-CA-002503",
+      "legal_description": null,
+      "parcel_id": null,
+      "situs_address": null
+    },
+    "raw_event_id": "jaxdailyrecord_foreclosures:26-02930D",
+    "recorded_date": "2026-06-24",
+    "review_reason": "document_body_debtor_not_extractable",
+    "signal_type": "Notice of Sale",
+    "source_id": "jaxdailyrecord_foreclosures",
+    "source_role": "PRIMARY_EVENT_SOURCE",
+    "source_url": "https://legals.jaxdailyrecord.com/public_notices/publicnotices.php?Category=Notice+of+Sale+-+Foreclosure&mode=daily#notice-26-02930D"
+  },
+  {
+    "additional_owner_names": [],
+    "aggregation_key": {
+      "canonical_doc_type": "notice_of_sale",
+      "parcel_id": null,
+      "signal_type": "Notice of Sale"
+    },
+    "base_record_id": "base_jaxdailyrecord_foreclosures:26-02931D",
+    "canonical_doc_type": "notice_of_sale",
+    "confidence_status": "Confirmed",
+    "enrichment_status": "UNENRICHED",
+    "event_date": "2026-06-25",
+    "evidence_ids": [
+      "jaxdailyrecord_foreclosures:26-02931D"
+    ],
+    "filer_entity": null,
+    "instrument_number": "16-2018-CA-007777",
+    "multi_owner_status": "SINGLE_OWNER",
+    "owner_count": 1,
+    "owner_name": "notice_of_sale against unidentified party",
+    "owner_type": "UNKNOWN",
+    "owners": [
+      {
+        "confidence": null,
+        "is_primary": true,
+        "name": "notice_of_sale against unidentified party",
+        "name_type": null,
+        "notes": null,
+        "resolution_status": "REVIEW_REQUIRED",
+        "role": "unresolved",
+        "source_field": null
+      }
+    ],
+    "parcel_resolution_status": "REVIEW_REQUIRED",
+    "primary_owner_name": "notice_of_sale against unidentified party",
+    "property_refs": {
+      "case_number": "16-2018-CA-007777",
+      "legal_description": null,
+      "parcel_id": null,
+      "situs_address": null
+    },
+    "raw_event_id": "jaxdailyrecord_foreclosures:26-02931D",
+    "recorded_date": "2026-06-25",
+    "review_reason": "document_body_debtor_not_extractable",
+    "signal_type": "Notice of Sale",
+    "source_id": "jaxdailyrecord_foreclosures",
+    "source_role": "PRIMARY_EVENT_SOURCE",
+    "source_url": "https://legals.jaxdailyrecord.com/public_notices/publicnotices.php?Category=Notice+of+Sale+-+Foreclosure&mode=daily#notice-26-02931D"
+  },
+  {
+    "additional_owner_names": [],
+    "aggregation_key": {
+      "canonical_doc_type": "notice_of_sale",
+      "parcel_id": null,
+      "signal_type": "Notice of Sale"
+    },
+    "base_record_id": "base_jaxdailyrecord_foreclosures:26-02932D",
+    "canonical_doc_type": "notice_of_sale",
+    "confidence_status": "Confirmed",
+    "enrichment_status": "UNENRICHED",
+    "event_date": "2026-04-07",
+    "evidence_ids": [
+      "jaxdailyrecord_foreclosures:26-02932D"
+    ],
+    "filer_entity": null,
+    "instrument_number": "16-2024-CA-000313",
+    "multi_owner_status": "SINGLE_OWNER",
+    "owner_count": 1,
+    "owner_name": "notice_of_sale against unidentified party",
+    "owner_type": "UNKNOWN",
+    "owners": [
+      {
+        "confidence": null,
+        "is_primary": true,
+        "name": "notice_of_sale against unidentified party",
+        "name_type": null,
+        "notes": null,
+        "resolution_status": "REVIEW_REQUIRED",
+        "role": "unresolved",
+        "source_field": null
+      }
+    ],
+    "parcel_resolution_status": "REVIEW_REQUIRED",
+    "primary_owner_name": "notice_of_sale against unidentified party",
+    "property_refs": {
+      "case_number": "16-2024-CA-000313",
+      "legal_description": null,
+      "parcel_id": null,
+      "situs_address": "857 BENBOW ST, JACKSONVILLE, FL 32209-7452"
+    },
+    "raw_event_id": "jaxdailyrecord_foreclosures:26-02932D",
+    "recorded_date": "2026-04-07",
+    "review_reason": "document_body_debtor_not_extractable",
+    "signal_type": "Notice of Sale",
+    "source_id": "jaxdailyrecord_foreclosures",
+    "source_role": "PRIMARY_EVENT_SOURCE",
+    "source_url": "https://legals.jaxdailyrecord.com/public_notices/publicnotices.php?Category=Notice+of+Sale+-+Foreclosure&mode=daily#notice-26-02932D"
+  },
+  {
+    "additional_owner_names": [],
+    "aggregation_key": {
+      "canonical_doc_type": "notice_of_sale",
+      "parcel_id": null,
+      "signal_type": "Notice of Sale"
+    },
+    "base_record_id": "base_jaxdailyrecord_foreclosures:26-02933D",
+    "canonical_doc_type": "notice_of_sale",
+    "confidence_status": "Confirmed",
+    "enrichment_status": "UNENRICHED",
+    "event_date": null,
+    "evidence_ids": [
+      "jaxdailyrecord_foreclosures:26-02933D"
+    ],
+    "filer_entity": null,
+    "instrument_number": "26-02933D",
+    "multi_owner_status": "SINGLE_OWNER",
+    "owner_count": 1,
+    "owner_name": "notice_of_sale against unidentified party",
+    "owner_type": "UNKNOWN",
+    "owners": [
+      {
+        "confidence": null,
+        "is_primary": true,
+        "name": "notice_of_sale against unidentified party",
+        "name_type": null,
+        "notes": null,
+        "resolution_status": "REVIEW_REQUIRED",
+        "role": "unresolved",
+        "source_field": null
+      }
+    ],
+    "parcel_resolution_status": "REVIEW_REQUIRED",
+    "primary_owner_name": "notice_of_sale against unidentified party",
+    "property_refs": {
+      "case_number": null,
+      "legal_description": null,
+      "parcel_id": null,
+      "situs_address": null
+    },
+    "raw_event_id": "jaxdailyrecord_foreclosures:26-02933D",
+    "recorded_date": "",
+    "review_reason": "document_body_debtor_not_extractable",
+    "signal_type": "Notice of Sale",
+    "source_id": "jaxdailyrecord_foreclosures",
+    "source_role": "PRIMARY_EVENT_SOURCE",
+    "source_url": "https://legals.jaxdailyrecord.com/public_notices/publicnotices.php?Category=Notice+of+Sale+-+Foreclosure&mode=daily#notice-26-02933D"
+  },
+  {
+    "additional_owner_names": [],
+    "aggregation_key": {
+      "canonical_doc_type": "notice_of_sale",
+      "parcel_id": null,
+      "signal_type": "Notice of Sale"
+    },
+    "base_record_id": "base_jaxdailyrecord_foreclosures:26-02934D",
+    "canonical_doc_type": "notice_of_sale",
+    "confidence_status": "Confirmed",
+    "enrichment_status": "UNENRICHED",
+    "event_date": "2026-05-18",
+    "evidence_ids": [
+      "jaxdailyrecord_foreclosures:26-02934D"
+    ],
+    "filer_entity": null,
+    "instrument_number": "16-2025-CA-002895",
+    "multi_owner_status": "SINGLE_OWNER",
+    "owner_count": 1,
+    "owner_name": "notice_of_sale against unidentified party",
+    "owner_type": "UNKNOWN",
+    "owners": [
+      {
+        "confidence": null,
+        "is_primary": true,
+        "name": "notice_of_sale against unidentified party",
+        "name_type": null,
+        "notes": null,
+        "resolution_status": "REVIEW_REQUIRED",
+        "role": "unresolved",
+        "source_field": null
+      }
+    ],
+    "parcel_resolution_status": "REVIEW_REQUIRED",
+    "primary_owner_name": "notice_of_sale against unidentified party",
+    "property_refs": {
+      "case_number": "16-2025-CA-002895",
+      "legal_description": null,
+      "parcel_id": null,
+      "situs_address": "2319 Schumacher Ave., Jacksonville, FL 32207"
+    },
+    "raw_event_id": "jaxdailyrecord_foreclosures:26-02934D",
+    "recorded_date": "2026-05-18",
+    "review_reason": "document_body_debtor_not_extractable",
+    "signal_type": "Notice of Sale",
+    "source_id": "jaxdailyrecord_foreclosures",
+    "source_role": "PRIMARY_EVENT_SOURCE",
+    "source_url": "https://legals.jaxdailyrecord.com/public_notices/publicnotices.php?Category=Notice+of+Sale+-+Foreclosure&mode=daily#notice-26-02934D"
+  },
+  {
+    "additional_owner_names": [],
+    "aggregation_key": {
+      "canonical_doc_type": "notice_of_sale",
+      "parcel_id": null,
+      "signal_type": "Notice of Sale"
+    },
+    "base_record_id": "base_jaxdailyrecord_foreclosures:26-02935D",
+    "canonical_doc_type": "notice_of_sale",
+    "confidence_status": "Confirmed",
+    "enrichment_status": "UNENRICHED",
+    "event_date": "2026-02-02",
+    "evidence_ids": [
+      "jaxdailyrecord_foreclosures:26-02935D"
+    ],
+    "filer_entity": null,
+    "instrument_number": "16-2024-CA-006782",
+    "multi_owner_status": "SINGLE_OWNER",
+    "owner_count": 1,
+    "owner_name": "notice_of_sale against unidentified party",
+    "owner_type": "UNKNOWN",
+    "owners": [
+      {
+        "confidence": null,
+        "is_primary": true,
+        "name": "notice_of_sale against unidentified party",
+        "name_type": null,
+        "notes": null,
+        "resolution_status": "REVIEW_REQUIRED",
+        "role": "unresolved",
+        "source_field": null
+      }
+    ],
+    "parcel_resolution_status": "REVIEW_REQUIRED",
+    "primary_owner_name": "notice_of_sale against unidentified party",
+    "property_refs": {
+      "case_number": "16-2024-CA-006782",
+      "legal_description": "Lot 22, Block 2, Riverside Gardens, according to the map or plat thereof, as recorded in Plat Book 3, Page(s) 67, of the Public Records of Duval County, Florida, a/k/a 4815 Waller Street, Jacksonville, FL 32254.",
+      "parcel_id": null,
+      "situs_address": "4815 Waller Street, Jacksonville, FL 32254"
+    },
+    "raw_event_id": "jaxdailyrecord_foreclosures:26-02935D",
+    "recorded_date": "2026-02-02",
+    "review_reason": "document_body_debtor_not_extractable",
+    "signal_type": "Notice of Sale",
+    "source_id": "jaxdailyrecord_foreclosures",
+    "source_role": "PRIMARY_EVENT_SOURCE",
+    "source_url": "https://legals.jaxdailyrecord.com/public_notices/publicnotices.php?Category=Notice+of+Sale+-+Foreclosure&mode=daily#notice-26-02935D"
+  }
+]
