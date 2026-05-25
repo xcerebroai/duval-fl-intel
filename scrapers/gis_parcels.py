@@ -132,6 +132,29 @@ def _sale_date(a: dict):
     return f"{yy:04d}-{mm:02d}-{dd:02d}"
 
 
+def _resolve_assessed_value(a: dict):
+    """Pick the right COJ field for canonical `assessed_value`.
+
+    The Duval Parcels MapServer carries CAMA_VAL as the just-value on most
+    parcels, but uses CAMA_VAL=100 as a PLACEHOLDER on a non-trivial subset
+    (~24% of the matched-enrichment set in the 2026-05 sample: mobile homes,
+    hotels, certain single-family parcels). The real total for those rows
+    lives in TOT_LND_VA + TOT_IMPR_V (or + TOT_BLD_VA when TOT_IMPR_V is the
+    same as TOT_BLD_VA).
+
+    Rule: if CAMA_VAL is None or <= 100 (placeholder), fall back to the
+    land + improvement sum. Otherwise honor CAMA_VAL.
+    """
+    cama = _num(a.get("CAMA_VAL"))
+    land = _num(a.get("TOT_LND_VA"))
+    impr = _num(a.get("TOT_IMPR_V"))
+    if cama is None or cama <= 100:
+        if land is None and impr is None:
+            return cama  # all None — preserve absence
+        return (land or 0) + (impr or 0)
+    return cama
+
+
 def _owner_name(a: dict) -> str:
     primary = _clean(a.get("LNAMEOWNER"))
     secondary = _clean(a.get("LNAME2"))
@@ -183,7 +206,8 @@ def normalize_feature(feature: dict) -> dict:
         "situs_state": "FL",
         "situs_zip": zip_raw,
         "year_built": None,                       # not exposed by this layer
-        "assessed_value": _num(a.get("CAMA_VAL")),
+        "assessed_value": _resolve_assessed_value(a),
+        "cama_value": _num(a.get("CAMA_VAL")),    # raw COJ field, for audit
         "land_value": _num(a.get("TOT_LND_VA")),
         "improvement_value": _num(a.get("TOT_IMPR_V")),
         "building_value": _num(a.get("TOT_BLD_VA")),
