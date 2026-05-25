@@ -41,8 +41,10 @@ OUT_JS = REPO / "dashboard/data.js"
 DASHBOARD_SIGNAL_TYPE_ALIAS = {
     "notice_of_sale": "foreclosure_notice",
     "final_judgment_of_foreclosure": "foreclosure_notice",
-    "lis_pendens": "lis_pendens",   # keep distinct; not a sale itself
-    "tax_deed": "tax_deed",         # tax-deed auction (Ch. 197 Fla. Stat.)
+    "lis_pendens": "lis_pendens",            # keep distinct; not a sale itself
+    "tax_deed": "tax_deed",                  # tax-deed auction (Ch. 197 FS)
+    "tax_sale_certificate": "tax_default",   # TC baseline unpaid → cert next
+    "tax_foreclosure_notice": "tax_foreclosure",  # TC deed-app in progress
 }
 
 SIGNAL_LABELS = {
@@ -52,6 +54,8 @@ SIGNAL_LABELS = {
     "judgment_lien": "Judgment Lien", "abstract_of_judgment": "Abstract of Judgment",
     "tax_deed": "Tax Deed", "tax_foreclosure_notice": "Tax Foreclosure Notice",
     "tax_sale_certificate": "Tax Sale Certificate",
+    "tax_default": "Tax Default",            # baseline TC delinquency
+    "tax_foreclosure": "Tax Foreclosure",    # TC deed-app in progress
     "notice_of_sale": "Notice of Sale", "notice_of_default": "Notice of Default",
     "probate": "Probate", "affidavit_of_heirship": "Affidavit of Heirship",
     "executors_deed": "Executor's Deed",
@@ -149,6 +153,25 @@ def main() -> int:
             raw_doc_type_by_evidence[rid] = "ESTATE TITLED OWNER"
     print(f"  pa_tax_roll estate rows    : {len(pa_estate_evidence)}")
 
+    # Tax Collector delinquency index — same snapshot-event suppression
+    # applies (the file is a single-year tax-roll snapshot; NEW today would
+    # be misleading). Carry per-row balance / deed status / years floor so
+    # the dashboard renders + filters on them.
+    TC_RAW_PATHS = [
+        REPO / "data/raw/duval_tax_collector.jsonl",
+        REPO / "data/raw/duval_tax_collector_foreclosure.jsonl",
+        REPO / "data/raw/duval_tax_collector_sale.jsonl",
+    ]
+    tc_by_evidence: dict[str, dict] = {}
+    for path in TC_RAW_PATHS:
+        for rec in _read_jsonl(path):
+            rid = rec.get("raw_record_id")
+            if rid:
+                tc_by_evidence[rid] = rec.get("raw_payload") or {}
+                raw_doc_type_by_evidence[rid] = (
+                    rec.get("raw_payload") or {}).get("doc_type", "")
+    print(f"  tax_collector rows         : {len(tc_by_evidence)}")
+
     # RealAuction (foreclosure + tax deed) → sale_date + parcel_id + address +
     # case/cert # by evidence_id, so the foreclosure-window + tax-deed filters
     # have real sale_dates to filter on. Index doc_type_raw too.
@@ -238,6 +261,13 @@ def main() -> int:
             ra_status = ""
             ra_opening = None
             ra_assessed = None
+            tc_balance = None
+            tc_years_floor = None
+            tc_deed_status = ""
+            tc_deed_app_no = ""
+            tc_bankrupt = False
+            tc_litigation = False
+            tc_tax_year = ""
             for ev in evs:
                 if ev in raw_doc_type_by_evidence and not doc_type_raw:
                     doc_type_raw = raw_doc_type_by_evidence[ev]
@@ -259,6 +289,16 @@ def main() -> int:
                     ra_status = r.get("auction_status") or ""
                     ra_opening = r.get("opening_bid")
                     ra_assessed = r.get("assessed_value")
+                if ev in tc_by_evidence:
+                    t = tc_by_evidence[ev]
+                    if tc_balance is None:
+                        tc_balance = t.get("balance_amount")
+                        tc_years_floor = t.get("years_delinquent_floor")
+                        tc_deed_status = t.get("parcel_deed_status") or ""
+                        tc_deed_app_no = t.get("deed_application_no") or ""
+                        tc_bankrupt = bool(t.get("bankrupt"))
+                        tc_litigation = bool(t.get("litigation"))
+                        tc_tax_year = t.get("tax_year") or ""
             urls = s.get("source_urls") or []
             insts = s.get("instrument_numbers") or []
             signal_out = {
@@ -289,6 +329,18 @@ def main() -> int:
                 signal_out["opening_bid"] = ra_opening
             if ra_assessed is not None:
                 signal_out["assessed_value"] = ra_assessed
+            if tc_balance is not None:
+                signal_out["balance_amount"] = tc_balance
+                signal_out["years_delinquent_floor"] = tc_years_floor
+                signal_out["tax_year"] = tc_tax_year
+            if tc_deed_status:
+                signal_out["parcel_deed_status"] = tc_deed_status
+            if tc_deed_app_no:
+                signal_out["deed_application_no"] = tc_deed_app_no
+            if tc_bankrupt:
+                signal_out["bankrupt"] = True
+            if tc_litigation:
+                signal_out["litigation"] = True
             signals_out.append(signal_out)
             if rendered_type:
                 signal_types.append(rendered_type)
@@ -346,26 +398,27 @@ def main() -> int:
         # date exactly; recorded_within_30_days == within 30 days backward.
         # Future-dated sale notices are NOT "new" (they describe a future
         # event); they qualify on the sale-window filter instead.
+        snapshot_evidence = pa_estate_evidence | set(tc_by_evidence.keys())
         candidate_dates: list[date] = []
         for s in signals_out:
-            # PA estate-titled-owner signals are status, not events — their
-            # recorded_date is the snapshot date, which would falsely flag
-            # them NEW. Skip them in the recency compute; if the same lead
-            # ALSO carries a real recorded signal (e.g. lis_pendens), that
-            # signal's date drives NEW / last-30-days correctly.
+            # PA estate-titled-owner + Tax-Collector delinquency rows are
+            # status, not events — their dates are the snapshot date and
+            # would falsely flag NEW. Skip them in the recency compute; if
+            # the same lead ALSO carries a real recorded signal (lis_pendens,
+            # foreclosure_notice, judgment), that signal's date drives NEW
+            # / last-30-days correctly.
             ev_ids = s.get("evidence_ids") or []
-            if ev_ids and all(e in pa_estate_evidence for e in ev_ids):
+            if ev_ids and all(e in snapshot_evidence for e in ev_ids):
                 continue
             for k in ("recorded_date", "earliest_recorded_date"):
                 d_ = _parse_iso_date(s.get(k) or "")
                 if d_:
                     candidate_dates.append(d_)
         # latest_event_date carries the lead-level seam-derived primary date.
-        # When the lead is PA-estate-only, the seam set it to today (the
-        # snapshot) and we should skip it. When the lead has a non-PA
-        # primary, latest_event_date is the real event date.
+        # When the lead is snapshot-only, latest_event_date is the snapshot;
+        # when it has a non-snapshot primary, that real date drives recency.
         evs = sl.get("evidence_ids") or []
-        if not (evs and all(e in pa_estate_evidence for e in evs)):
+        if not (evs and all(e in snapshot_evidence for e in evs)):
             d_ = _parse_iso_date(latest_event_date)
             if d_:
                 candidate_dates.append(d_)
@@ -417,16 +470,68 @@ def main() -> int:
             "is_new": is_new,
             "recorded_within_30_days": recorded_within_30_days,
         }
+        # Tax-default surface — aggregate TC fields across all signals on
+        # the lead so the dashboard can render + filter on them.
+        tc_signals = [s for s in signals_out
+                      if s.get("balance_amount") is not None
+                      or s.get("years_delinquent_floor") is not None]
+        if tc_signals:
+            total_bal = sum((s.get("balance_amount") or 0) for s in tc_signals)
+            max_years = max(
+                (s.get("years_delinquent_floor") or 0) for s in tc_signals)
+            deed_statuses = {s.get("parcel_deed_status") for s in tc_signals
+                             if s.get("parcel_deed_status")}
+            rec.update({
+                "tax_default": True,
+                "tax_balance_due": total_bal,
+                "years_delinquent_floor": max_years,
+                "parcel_deed_status": (next(iter(deed_statuses))
+                                        if deed_statuses else None),
+                "tax_bankrupt": any(s.get("bankrupt") for s in tc_signals),
+                "tax_litigation": any(s.get("litigation") for s in tc_signals),
+            })
+        else:
+            rec.update({
+                "tax_default": False,
+                "tax_balance_due": None,
+                "years_delinquent_floor": None,
+            })
         records.append(rec)
 
     new_count = sum(1 for r in records if r.get("is_new"))
     last_30d_count = sum(1 for r in records if r.get("recorded_within_30_days"))
+
+    # Tax-default surface for top-stats + filters.
+    tax_default_count = sum(1 for r in records if r.get("tax_default"))
+    tax_balance_total = round(sum(
+        (r.get("tax_balance_due") or 0) for r in records if r.get("tax_default")
+    ), 2)
+    years_dist: dict = {}
+    for r in records:
+        if not r.get("tax_default"):
+            continue
+        y = r.get("years_delinquent_floor") or 0
+        bucket = "5+" if y >= 5 else str(y)
+        years_dist[bucket] = years_dist.get(bucket, 0) + 1
+    tax_fcl_count = sum(
+        1 for r in records
+        if any(s.get("signal_type") == "tax_foreclosure"
+               for s in (r.get("signals") or [])))
+    tax_sale_count = sum(
+        1 for r in records
+        if any(s.get("signal_type") == "tax_deed"
+               for s in (r.get("signals") or [])))
     payload = {
         "generated_at": datetime.now(timezone.utc).isoformat(
             timespec="seconds").replace("+00:00", "Z"),
         "refresh_date": refresh_date.isoformat(),
         "new_leads": new_count,
         "last_30d_leads": last_30d_count,
+        "tax_default_leads": tax_default_count,
+        "tax_balance_total_owed": tax_balance_total,
+        "tax_default_years_distribution": dict(sorted(years_dist.items())),
+        "tax_foreclosure_leads": tax_fcl_count,
+        "tax_sale_leads": tax_sale_count,
         "county": "Duval County",
         "state": "FL",
         "build_label": "PARTIAL_BUILD",
@@ -436,12 +541,13 @@ def main() -> int:
             "notices) + duval.realforeclose.com (Ch. 45 foreclosure auction "
             "calendar) + duval.realtaxdeed.com (Ch. 197 tax-deed auction "
             "calendar) + Duval Property Appraiser tax roll (estate-titled-"
-            "owner origination). Enrichment: PA tax roll (canonical) + JaxGIS "
-            "Parcels (fallback). KNOWN GAP — tax-delinquency status lives at "
-            "the Duval Tax Collector (jaxtaxcollector.com / Grant Street "
-            "Group); the PA data-offerings page does NOT carry delinquency, "
-            "so standalone tax-delinquent leads are not yet generated. Build "
-            "tax_collector adapter to unlock years-behind binning."
+            "owner origination) + Duval Tax Collector delinquency export "
+            "(county-taxes.net real-estate report — tax_default / "
+            "tax_foreclosure / tax_sale origination per the five-criteria "
+            "qualification gate). Enrichment: PA tax roll (canonical) + "
+            "JaxGIS Parcels (fallback). Delinquency export is a single-year "
+            "snapshot (Tax Yr 2025); years-delinquent floor is implied by "
+            "Parcel Deed Status (Applied/Sold ≥ 2 yr, Escheated ≥ 4 yr)."
         ),
         "lead_total": len(records),
         "actionable_leads": approved_count,
@@ -459,20 +565,27 @@ def main() -> int:
             "realtaxdeed_duval (duval.realtaxdeed.com — Ch. 197 tax-deed auctions)",
             "pa_tax_roll_estates (Duval PA tax roll — estate-titled owner origination)",
             "pa_tax_roll (Duval PA tax roll — canonical parcel enrichment)",
+            "duval_tax_collector (county-taxes.net — tax_default origination)",
+            "duval_tax_collector_foreclosure (county-taxes.net — tax-deed application in progress)",
+            "duval_tax_collector_sale (county-taxes.net — tax-deed certified / escheated)",
             "gis_parcels (JaxGIS Parcels MapServer — enrichment fallback)",
         ],
         "records": records,
     }
 
-    # Write data.json
+    # Write data.json — COMPACT (no whitespace). At Duval scale (~60K leads)
+    # the indented form crosses GitHub's 100 MB per-file limit; the compact
+    # JSON is ~25% smaller and the file is machine-loaded, not human-read.
     OUT_JSON.write_text(
-        json.dumps(payload, indent=2, ensure_ascii=False) + "\n",
+        json.dumps(payload, ensure_ascii=False,
+                   separators=(",", ":")) + "\n",
         encoding="utf-8"
     )
     # Write data.js for the renderer's `<script src=data.js>` first-path load.
     OUT_JS.write_text(
         "window.LEADS = " +
-        json.dumps(payload, ensure_ascii=False) + ";\n",
+        json.dumps(payload, ensure_ascii=False,
+                   separators=(",", ":")) + ";\n",
         encoding="utf-8"
     )
     print(f"\n  wrote {OUT_JSON.relative_to(REPO)} ({OUT_JSON.stat().st_size:,} bytes)")
@@ -484,6 +597,11 @@ def main() -> int:
     print(f"  UNENRICHED           : {unenriched_count}")
     print(f"  NEW (filed today)    : {new_count}")
     print(f"  filed last 30 days   : {last_30d_count}")
+    print(f"  tax_default leads    : {tax_default_count}")
+    print(f"  tax_foreclosure leads: {tax_fcl_count}")
+    print(f"  tax_sale leads       : {tax_sale_count}")
+    print(f"  total balance owed   : ${tax_balance_total:,.0f}")
+    print(f"  years-delinquent dist: {dict(sorted(years_dist.items()))}")
     return 0
 
 

@@ -73,6 +73,23 @@
       </section>
 
       <section class="side-block">
+        <h2>Tax delinquency</h2>
+        <label class="chk"><input type="checkbox" id="togTaxDefault"> Tax-default only</label>
+        <label class="chk"><input type="checkbox" id="togHideTinyBal"> Hide &lt; $100 balance &amp; 1-yr</label>
+        <select id="yearsDelinquent">
+          <option value="any">Any years delinquent</option>
+          <option value="1">1 year</option>
+          <option value="2">2+ years</option>
+          <option value="3">3+ years</option>
+          <option value="4">4+ years</option>
+          <option value="5">5+ years</option>
+        </select>
+        <div class="range-row" style="margin-top:6px">
+          <input type="number" id="balMin" placeholder="min balance $" min="0" step="100">
+        </div>
+      </section>
+
+      <section class="side-block">
         <h2>Enrichment</h2>
         <label class="chk"><input type="checkbox" id="togAbsentee"> Absentee owner only</label>
         <label class="chk"><input type="checkbox" id="togOos"> Out-of-state owner only</label>

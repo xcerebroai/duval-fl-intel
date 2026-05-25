@@ -161,10 +161,12 @@ main { display: flex; flex: 1; min-height: 0; }
   background: var(--chip-bg); color: var(--ink2); }
 .badge.warn { background: #33291f; color: #f0c98a; }
 .badge.good { background: #1f3324; color: #9be3a8; }
+.badge.tax  { background: #33291f; color: #f3b07a; border: 1px solid #5a3a1a; }
 .badge.new {
   background: var(--violet); color: #fff; font-weight: 700; letter-spacing: .5px;
   text-transform: uppercase; padding: 1px 7px;
 }
+.topstat.tax .n { color: var(--orange); }
 
 /* ---- detail panel (UI-4) ---- */
 .detail { margin-top: 9px; padding-top: 9px; border-top: 1px dashed var(--line);

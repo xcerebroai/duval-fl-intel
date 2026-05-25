@@ -1,7 +1,8 @@
 {
   "category_counts": {
     "UNKNOWN_DOC_TYPE": 19361,
-    "MATCHER_ARCGIS_BATCH_FAILED": 462
+    "MATCHER_ARCGIS_BATCH_FAILED": 792,
+    "MATCHER_ARCGIS_PARCEL_BATCH_FAILED": 1
   },
   "entries": [
     {
@@ -99117,6 +99118,1661 @@
     {
       "category": "MATCHER_ARCGIS_BATCH_FAILED",
       "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_BATCH_FAILED",
+      "detail": "ArcGIS LNAMEOWNER IN(...) batch raised HTTPError: HTTP Error 404: Not Found",
+      "sample": "batch_size=50"
+    },
+    {
+      "category": "MATCHER_ARCGIS_PARCEL_BATCH_FAILED",
+      "detail": "ArcGIS RE_NOSPACE IN(...) batch raised RuntimeError: ArcGIS fetch failed after 4 attempts: https://maps.coj.net/coj/rest/services/CityBiz/Parcels/MapServer/0/query?where=RE_NOSPACE+IN+%28%270199790005%27%2C%270199790020%27%2C%270199790060%27%2C%270199800000%27%2C%270199810000%27%2C%270199810100%27%2C%270199830020%27%2C%270199890000%27%2C%270199961175%27%2C%270199962775%27%2C%270199962780%27%2C%270200030000%27%2C%270200070560%27%2C%270200100000%27%2C%270200110000%27%2C%270200110010%27%2C%270200130000%27%2C%270200140100%27%2C%270200150050%27%2C%270200170000%27%2C%270200280315%27%2C%270200280465%27%2C%270200280770%27%2C%270200340000%27%2C%270200390000%27%2C%270200410655%27%2C%270200411010%27%2C%270200411050%27%2C%270200411070%27%2C%270200411125%27%2C%270200411205%27%2C%270200412205%27%2C%270200412300%27%2C%270200412345%27%2C%270200412370%27%2C%270200412455%27%2C%270200413450%27%2C%270200416075%27%2C%270200416730%27%2C%270200416925%27%2C%270200460040%27%2C%270200490875%27%2C%270200490955%27%2C%270200491730%27%2C%270200491765%27%2C%270200491895%27%2C%270200491940%27%2C%270200492465%27%2C%270200492580%27%2C%270201270000%27%29&outFields=OBJECTID%2CRE%2CRE_NOSPACE%2CLNAMEOWNER%2CLNAME2%2CLONGNAME%2CUNIT_NO%2CADDRCITY%2CZIPCODE%2CMAILADDR1%2CMAILADDR2%2CMAILADDR3%2CMAILCITY%2CMAILSTATE%2CMAILZIP%2CPUSE%2CDESCPU%2CACRES%2CCAMA_VAL%2CTOT_LND_VA%2CTOT_BLD_VA%2CTOT_IMPR_V%2CCURREXEMPT%2CSALESLDD%2CSALESLMM%2CSALESLYY%2CNBBLDGS%2CLEGAL1%2CLEGAL2%2CLEGAL3%2CLEGAL4%2CLEGAL5%2CLAT%2CLONG&returnGeometry=false&resultOffset=0&resultRecordCount=1000&f=json",
       "sample": "batch_size=50"
     }
   ]

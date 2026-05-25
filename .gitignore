@@ -60,3 +60,11 @@ secrets/
 htmlcov/
 .tox/
 data/leads_synthetic.json
+
+# Staged build receipts — regenerated each pipeline run, exceed GitHub's
+# 100 MB per-file limit at Duval scale. The per-source _leads_base.json
+# stays tracked (small + useful for audit); the merged matched_leads /
+# scored_leads / evidence_ledger do not.
+runs/*/build/staged/matched_leads.json
+runs/*/build/staged/scored_leads.json
+runs/*/build/staged/evidence_ledger.json

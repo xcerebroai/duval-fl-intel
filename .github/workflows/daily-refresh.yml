@@ -100,6 +100,23 @@ jobs:
           rm -f data/raw/pa_tax_roll_src.zip      # force re-download each run
           python scrapers/pa_tax_roll.py --url "$PA_TXT_ZIP_URL"
 
+      - name: Parse Duval Tax Collector delinquency export
+        # PUNCH-LIST — the county-taxes.net real-estate report download is
+        # NOT yet automated in CI (the page is JS-rendered behind
+        # Cloudflare; reverse-engineering the export endpoint is a separate
+        # build). The expected file is data/raw/duval_tax_collector_src.csv,
+        # committed manually by the operator after each refresh OR uploaded
+        # via gh release / repo artifact; the parser is idempotent and
+        # safely no-ops if the file is missing.
+        run: |
+          if [ -f data/raw/duval_tax_collector_src.csv ]; then
+            python scrapers/duval_tax_collector.py
+          else
+            echo "::warning::data/raw/duval_tax_collector_src.csv missing — \
+              tax_collector source will be stale until operator uploads. \
+              Skipping parser (existing JSONL outputs remain unchanged)."
+          fi
+
       # --------------------------------------------------------------
       # 2. Staged pipeline (§17 → §18 → §19 → §20 → seam → scoring)
       # --------------------------------------------------------------

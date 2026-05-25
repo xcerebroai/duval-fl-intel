@@ -47,7 +47,9 @@
     search: "", saleWindow: "any", valMin: null, valMax: null,
     signals: {}, owners: {}, absentee: false, oos: false, review: false,
     multiOnly: false, sort: "urgency", shown: 0, preset: "all",
-    newOnly: false, last30Only: false
+    newOnly: false, last30Only: false,
+    taxDefaultOnly: false, hideTinyBal: false,
+    yearsDelinquent: "any", balMin: null
   };
   var PAGE = 60;
   var marked = loadMarked();   // Set of lead_id (localStorage)
@@ -96,6 +98,11 @@
     r._within30d = !!r.recorded_within_30_days;
     r._daysSinceEvent = (typeof r.days_since_event === "number")
       ? r.days_since_event : null;
+    r._taxDefault = !!r.tax_default;
+    r._taxBalance = (typeof r.tax_balance_due === "number")
+      ? r.tax_balance_due : 0;
+    r._yearsDelinq = (typeof r.years_delinquent_floor === "number")
+      ? r.years_delinquent_floor : 0;
     r._tier = urgencyTier(r);
     var taxd = r.signal_types.indexOf("state_tax_lien") >= 0 ||
       r.signal_types.indexOf("federal_tax_lien") >= 0;
@@ -110,12 +117,14 @@
     var d = r._days;
     if (r._isFcl && d != null && d >= 0 && d <= 21) return 1;
     if (r._isFcl && d != null && d > 21 && d <= 60) return 2;
-    // tier 3: estate-titled property. The v5 spec floored this at a high
-    // assessed value, but Duval JaxGIS resolves ~0 estate-named owners, so a
-    // value floor would empty the tier — estate-titled property is itself
-    // a strong probate / motivated-heir lead signal, so it ranks here.
+    // tier 3: estate-titled property OR tax-deed-pipeline progression
+    // (Applied/Sold/Certified/Escheated — multi-year delinquent leads
+    // already moving through the tax-deed process).
     if (r.owner_type === "ESTATE") return 3;
+    if (r._taxDefault && (r._yearsDelinq || 0) >= 2) return 3;
     if ((r.signal_count || 0) >= 2) return 4;
+    // tier 5: stand-alone tax_default with meaningful balance.
+    if (r._taxDefault && (r._taxBalance || 0) >= 1000) return 5;
     var tax = (r.signal_types || []).indexOf("state_tax_lien") >= 0 ||
       (r.signal_types || []).indexOf("federal_tax_lien") >= 0;
     if (tax && r.out_of_state_owner_flag) return 5;
@@ -158,6 +167,11 @@
       : records.filter(function (r) { return r._isNew; }).length;
     var last30 = (typeof p.last_30d_leads === "number") ? p.last_30d_leads
       : records.filter(function (r) { return r._within30d; }).length;
+    var taxDef = (typeof p.tax_default_leads === "number")
+      ? p.tax_default_leads
+      : records.filter(function (r) { return r._taxDefault; }).length;
+    var taxBal = (typeof p.tax_balance_total_owed === "number")
+      ? p.tax_balance_total_owed : 0;
     var act = p.actionable_leads != null ? p.actionable_leads : records.length;
     function st(n, l, cls) {
       return '<div class="topstat ' + (cls || "") + '"><div class="n">' +
@@ -168,6 +182,9 @@
         "NEW today" + (p.refresh_date ? " (" + esc(p.refresh_date) + ")" : ""),
         "new") +
       st(last30.toLocaleString(), "filed last 30 days") +
+      st(taxDef.toLocaleString(),
+        "tax-default leads", "tax") +
+      st(money(taxBal), "owed to county", "tax") +
       st(act.toLocaleString(), "actionable") +
       st(fclAddr, "foreclosures w/ addr") +
       st(soon, "sale &le;21 days", "urgent") +
@@ -182,7 +199,9 @@
     { id: "estates", label: "Estate-titled properties" },
     { id: "oos", label: "Out-of-state absentees" },
     { id: "multi", label: "Multi-signal stacked" },
-    { id: "tax", label: "Tax delinquent" },
+    { id: "tax", label: "Tax delinquent (all)" },
+    { id: "tax2yr", label: "Tax delinquent 2+ yr" },
+    { id: "tax5yr", label: "Tax delinquent 5+ yr" },
     { id: "all", label: "Show all" }
   ];
   function buildPresets() {
@@ -278,6 +297,19 @@
     $("togLast30").addEventListener("change", function (e) {
       state.last30Only = e.target.checked; markPresetActive(""); render();
     });
+    $("togTaxDefault").addEventListener("change", function (e) {
+      state.taxDefaultOnly = e.target.checked; markPresetActive(""); render();
+    });
+    $("togHideTinyBal").addEventListener("change", function (e) {
+      state.hideTinyBal = e.target.checked; markPresetActive(""); render();
+    });
+    $("yearsDelinquent").addEventListener("change", function (e) {
+      state.yearsDelinquent = e.target.value; markPresetActive(""); render();
+    });
+    $("balMin").addEventListener("input", function (e) {
+      state.balMin = e.target.value === "" ? null : Number(e.target.value);
+      markPresetActive(""); render();
+    });
     $("sortMode").addEventListener("change", function (e) {
       state.sort = e.target.value; render();
     });
@@ -303,6 +335,10 @@
     state.review = false; $("togReview").checked = false;
     state.newOnly = false; $("togNew").checked = false;
     state.last30Only = false; $("togLast30").checked = false;
+    state.taxDefaultOnly = false; $("togTaxDefault").checked = false;
+    state.hideTinyBal = false; $("togHideTinyBal").checked = false;
+    state.yearsDelinquent = "any"; $("yearsDelinquent").value = "any";
+    state.balMin = null; $("balMin").value = "";
     state.multiOnly = false;
     setAllChecks("signalFilter", "sig", state.signals, true);
     setAllChecks("ownerFilter", "own", state.owners, true);
@@ -324,8 +360,17 @@
     } else if (id === "multi") {
       state.multiOnly = true;
     } else if (id === "tax") {
-      onlyChecks("signalFilter", "sig", state.signals,
-        ["state_tax_lien", "federal_tax_lien"]);
+      state.taxDefaultOnly = true; $("togTaxDefault").checked = true;
+      state.hideTinyBal = true;    $("togHideTinyBal").checked = true;
+      state.sort = "value"; $("sortMode").value = "value";
+    } else if (id === "tax2yr") {
+      state.taxDefaultOnly = true; $("togTaxDefault").checked = true;
+      state.yearsDelinquent = "2"; $("yearsDelinquent").value = "2";
+      state.sort = "value"; $("sortMode").value = "value";
+    } else if (id === "tax5yr") {
+      state.taxDefaultOnly = true; $("togTaxDefault").checked = true;
+      state.yearsDelinquent = "5"; $("yearsDelinquent").value = "5";
+      state.sort = "value"; $("sortMode").value = "value";
     }
     markPresetActive(id);
     render();
@@ -364,6 +409,17 @@
       if (state.oos && !r.out_of_state_owner_flag) return false;
       if (state.newOnly && !r._isNew) return false;
       if (state.last30Only && !r._within30d) return false;
+      if (state.taxDefaultOnly && !r._taxDefault) return false;
+      if (state.yearsDelinquent !== "any") {
+        var yMin = Number(state.yearsDelinquent);
+        if (!r._taxDefault || (r._yearsDelinq || 0) < yMin) return false;
+      }
+      if (state.balMin != null && (r._taxBalance || 0) < state.balMin) return false;
+      // Default-hide low-priority: <$100 balance AND 1-year only AND no
+      // other distress signal stacked. Keeps the board operator-grade.
+      if (state.hideTinyBal && r._taxDefault &&
+          (r._taxBalance || 0) < 100 && (r._yearsDelinq || 0) <= 1 &&
+          (r.signal_count || 0) <= 1) return false;
       if (state.multiOnly && (r.signal_count || 0) < 2) return false;
       if (win != null) {
         if (!r._isFcl || r._days == null || r._days < 0 || r._days > win)
@@ -530,6 +586,15 @@
     var b = [];
     if (r._isNew)
       b.push('<span class="badge new">NEW</span>');
+    if (r._taxDefault && (r._taxBalance || 0) > 0) {
+      var y = r._yearsDelinq || 1;
+      var ylabel = y >= 5 ? "5+ yr" : (y + (y === 1 ? " yr" : " yr"));
+      b.push('<span class="badge tax">$' +
+        Math.round(r._taxBalance).toLocaleString("en-US") +
+        " · " + esc(ylabel) + " delinquent</span>");
+      if (r.parcel_deed_status && r.parcel_deed_status !== "Paid Off")
+        b.push('<span class="badge tax">' + esc(r.parcel_deed_status) + "</span>");
+    }
     if (r._review)
       b.push('<span class="badge warn">REVIEW REQUIRED</span>');
     if (r.absentee_owner_flag)
@@ -577,6 +642,15 @@
         return fs[k] ? k + " " + fs[k] : "";
       }).filter(Boolean).join(", ");
       add("Plat", esc(legal));
+    }
+    if (r._taxDefault) {
+      add("Tax delinquency", money(r.tax_balance_due) + " — " +
+        (r.years_delinquent_floor || 1) +
+        ((r.years_delinquent_floor || 1) === 1 ? " yr" : "+ yr") +
+        (r.parcel_deed_status
+          ? " · " + esc(r.parcel_deed_status) : "") +
+        (r.tax_bankrupt ? " · BANKRUPTCY ON FILE" : "") +
+        (r.tax_litigation ? " · LITIGATION ON FILE" : ""));
     }
     r.signals.forEach(function (s) {
       var ins = (s.instrument_numbers || []).join(", ");
@@ -649,6 +723,11 @@
     if (state.review) parts.push("review-required");
     if (state.newOnly) parts.push("NEW today");
     if (state.last30Only) parts.push("filed last 30d");
+    if (state.taxDefaultOnly) parts.push("tax-default");
+    if (state.yearsDelinquent !== "any")
+      parts.push(state.yearsDelinquent + "+ yr delinquent");
+    if (state.balMin != null) parts.push("balance &ge; " + money(state.balMin));
+    if (state.hideTinyBal) parts.push("low-priority hidden");
     if (state.multiOnly) parts.push("multi-signal");
     $("filterSummary").innerHTML = parts.length
       ? "Showing: " + parts.join(" · ")

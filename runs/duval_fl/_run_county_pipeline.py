@@ -62,6 +62,9 @@ REALFORECLOSE_RAW = REPO / "data/raw/realforeclose_duval.jsonl"
 REALTAXDEED_RAW = REPO / "data/raw/realtaxdeed_duval.jsonl"
 PA_ENRICHMENT_RAW = REPO / "data/raw/pa_tax_roll.jsonl"
 PA_ESTATES_RAW = REPO / "data/raw/pa_tax_roll_estates.jsonl"
+TC_DEFAULT_RAW = REPO / "data/raw/duval_tax_collector.jsonl"
+TC_FORECLOSURE_RAW = REPO / "data/raw/duval_tax_collector_foreclosure.jsonl"
+TC_SALE_RAW = REPO / "data/raw/duval_tax_collector_sale.jsonl"
 GIS_RAW = REPO / "data/raw/gis_parcels.jsonl"
 WORKDIR = REPO / "runs/duval_fl/build/staged"
 DASHBOARD_DATA = REPO / "data/leads.json"
@@ -331,6 +334,88 @@ def map_realauction_row_to_raw_event(rec: dict) -> dict | None:
         "captured_at": rec.get("source_fetched_at") or
                        datetime.now(timezone.utc).isoformat(
                            timespec="seconds").replace("+00:00", "Z"),
+    }
+
+
+TC_CLASS_TO_CANONICAL = {
+    # The Florida Ch. 197 tax-deed progression:
+    #   Unpaid → certificate auctioned next cycle → if 2yr still unpaid, deed
+    #   APPLIED → CERTIFIED → SOLD or ESCHEATED. The canonical doc types are:
+    "tax_default":     ("tax_sale_certificate",   "TAX DEFAULT"),
+    "tax_foreclosure": ("tax_foreclosure_notice", "TAX FORECLOSURE NOTICE"),
+    "tax_sale":        ("tax_deed",               "TAX DEED SALE"),
+}
+
+
+def map_tax_collector_row_to_raw_event(rec: dict) -> dict | None:
+    """Duval Tax Collector delinquent row → §17 raw_event.
+
+    The Tax Collector row IS the event-doc: it carries the four hard proofs
+    (parcel + delinquent year + amount + owner) and is the official record.
+    §17 reads the named owner as TP — the universal STRUCTURED rule for
+    tax_sale_certificate / tax_foreclosure_notice / tax_deed all expect TP
+    and have no filer-name-type that would suppress the owner. The §17 stage
+    boundary holds: parties come from the event-doc itself, NOT from
+    enrichment.
+
+    Stage attribution preserved:
+      event_source      = duval_tax_collector*       (per classification)
+      §17 parties       = [{name: owner, name_type: TP, role: Direct}]
+      property_refs.parcel_id = from raw_payload.parcel_id (event-doc field)
+      enrichment_source = pa_tax_roll + gis_parcels  (downstream)
+    """
+    pay = rec.get("raw_payload", {}) or {}
+    owner = (pay.get("owner_name") or "").strip()
+    parcel_id = (pay.get("parcel_id") or "").strip()
+    lead_class = (pay.get("lead_classification") or "").strip()
+    balance = pay.get("balance_amount") or 0
+    if not owner or not parcel_id or not lead_class:
+        punch("DEGENERATE_ROW",
+              "TC row missing owner/parcel/classification — dropped",
+              rec.get("raw_record_id"))
+        return None
+    if lead_class not in TC_CLASS_TO_CANONICAL:
+        punch("TC_UNKNOWN_CLASS",
+              f"unknown lead_classification {lead_class!r}",
+              rec.get("raw_record_id"))
+        return None
+    canonical, raw_label = TC_CLASS_TO_CANONICAL[lead_class]
+
+    parties = [{
+        "name":      owner,
+        "name_type": "TP",
+        "raw_role":  "Direct",
+    }]
+    event_date = (pay.get("event_date") or "").strip()
+    return {
+        "raw_event_id":      rec.get("raw_record_id"),
+        "source_id":         rec.get("source_id"),
+        "source_role":       "PRIMARY_EVENT_SOURCE",
+        "canonical_doc_type": canonical,
+        "raw_doc_type":      raw_label,
+        "instrument_number": pay.get("deed_application_no") or "",
+        "recorded_date":     event_date or "",
+        "event_date":        event_date or None,
+        "source_url":        rec.get("source_url") or "",
+        "parties":           parties,
+        "document_body_text": None,
+        "property_refs": {
+            "parcel_id":         parcel_id,
+            "situs_address":     pay.get("property_address"),
+            "legal_description": pay.get("legal_description"),
+            "case_number":       None,
+        },
+        "amounts": [
+            {"kind": "balance_amount", "amount": balance,
+             "currency": "USD"},
+        ],
+        "evidence_ids":      [rec.get("raw_record_id")],
+        "parser_name":       rec.get("source_id"),
+        "parser_version":    "0.1.0",
+        "parser_confidence": rec.get("parser_confidence", 95),
+        "captured_at":       rec.get("source_fetched_at") or
+                             datetime.now(timezone.utc).isoformat(
+                                 timespec="seconds").replace("+00:00", "Z"),
     }
 
 
@@ -690,6 +775,28 @@ def main() -> int:
     print(f"  pa_tax_roll estates    : {len(pa_estates)} pulled, "
           f"{pa_estates_added} merged (source: "
           f"{PA_ESTATES_RAW.relative_to(REPO)})")
+
+    # Merge Duval Tax Collector delinquency rows — PRIMARY event source.
+    # Smith framework rule: an official Tax Collector record proving
+    # delinquency ORIGINATES a tax_default lead. The five-criteria gate
+    # was enforced by the adapter (parcel + year + balance + owner +
+    # source proof) — only Unpaid rows with balance > 0 were written.
+    tc_default = _read_jsonl(TC_DEFAULT_RAW)
+    tc_fcl = _read_jsonl(TC_FORECLOSURE_RAW)
+    tc_sale = _read_jsonl(TC_SALE_RAW)
+    tc_added = 0
+    for rec in tc_default + tc_fcl + tc_sale:
+        ev = map_tax_collector_row_to_raw_event(rec)
+        if ev is not None:
+            raw_events.append(ev)
+            tc_added += 1
+    print(f"  tax_collector default  : {len(tc_default)} rows "
+          f"({TC_DEFAULT_RAW.relative_to(REPO)})")
+    print(f"  tax_collector fcl      : {len(tc_fcl)} rows "
+          f"({TC_FORECLOSURE_RAW.relative_to(REPO)})")
+    print(f"  tax_collector sale     : {len(tc_sale)} rows "
+          f"({TC_SALE_RAW.relative_to(REPO)})")
+    print(f"  tax_collector merged   : {tc_added}")
     print(f"  raw_events TOTAL       : {len(raw_events)}")
 
     evidence_entries = [map_evidence(rec) for rec in clerk
@@ -701,6 +808,9 @@ def main() -> int:
         if rec.get("raw_record_id"):
             evidence_entries.append(map_evidence(rec))
     for rec in pa_estates:
+        if rec.get("raw_record_id"):
+            evidence_entries.append(map_evidence(rec))
+    for rec in tc_default + tc_fcl + tc_sale:
         if rec.get("raw_record_id"):
             evidence_entries.append(map_evidence(rec))
 
@@ -799,7 +909,9 @@ def main() -> int:
     )
     payload["event_source"] = (
         "clerk_official_records + jaxdailyrecord_foreclosures + "
-        "realforeclose_duval + realtaxdeed_duval + pa_tax_roll_estates"
+        "realforeclose_duval + realtaxdeed_duval + pa_tax_roll_estates + "
+        "duval_tax_collector + duval_tax_collector_foreclosure + "
+        "duval_tax_collector_sale"
     )
     payload["enrichment_source"] = "pa_tax_roll + gis_parcels"
     payload["enrichment_attach_mode"] = (
@@ -809,12 +921,15 @@ def main() -> int:
         "+ pa_tax_roll_supersede_gis"
     )
 
+    # Compact JSON — see _build_el_paso_data.py for the why (GitHub 100 MB cap).
     DASHBOARD_DATA.parent.mkdir(parents=True, exist_ok=True)
     DASHBOARD_DATA.write_text(
-        json.dumps(payload, indent=2, ensure_ascii=False) + "\n",
+        json.dumps(payload, ensure_ascii=False,
+                   separators=(",", ":")) + "\n",
         encoding="utf-8")
     (REPO / "dashboard/data.json").write_text(
-        json.dumps(payload, indent=2, ensure_ascii=False) + "\n",
+        json.dumps(payload, ensure_ascii=False,
+                   separators=(",", ":")) + "\n",
         encoding="utf-8")
 
     print(f"\n  dashboard payload     : data/leads.json + dashboard/data.json")
