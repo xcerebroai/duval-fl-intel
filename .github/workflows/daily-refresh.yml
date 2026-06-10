@@ -71,8 +71,18 @@ jobs:
       # 1. Pull primary event sources
       # --------------------------------------------------------------
       - name: Pull clerk_official_records (last 30 days)
+        # v5.5.0 §6.7 source resilience: or.duvalclerk.com (Acclaim) is a slow
+        # county portal — a single `URLError: timed out` used to kill the whole
+        # refresh. The scraper now retries each request 3× with an increasing
+        # timeout (120s → 240s → 360s) and exponential backoff. If the portal
+        # is genuinely down it still ultimately fails — so this step is
+        # continue-on-error: a clerk outage drops clerk leads only, the rest of
+        # the refresh proceeds, and the §6.4-style sanity gate below decides
+        # whether the remaining board is healthy enough to publish.
+        continue-on-error: true
         run: |
-          python scrapers/clerk_official_records.py --days-back 30
+          python scrapers/clerk_official_records.py --days-back 30 \
+            --retries 3 --timeout 120
 
       - name: Pull jaxdailyrecord foreclosure notices
         run: |
@@ -81,11 +91,16 @@ jobs:
           # listing on weekends. The pipeline will skip a missing file.
 
       - name: Pull RealAuction foreclosure calendar (Playwright + xvfb)
+        # Fragile by nature — stealth Chromium behind a RealAuction anti-bot
+        # WAF. One bad day on this portal must not sink the whole refresh, so
+        # continue-on-error and let the sanity gate judge the remaining board.
+        continue-on-error: true
         run: |
           xvfb-run -a python scrapers/realauction_duval.py \
             --portal realforeclose --days-back 14 --days-forward 90 --headed
 
       - name: Pull RealAuction tax-deed calendar (Playwright + xvfb)
+        continue-on-error: true
         run: |
           xvfb-run -a python scrapers/realauction_duval.py \
             --portal realtaxdeed --days-back 30 --days-forward 180 --headed
@@ -140,6 +155,14 @@ jobs:
       # rebuilt payload regresses against known-good baselines.
       # --------------------------------------------------------------
       - name: Verify lead-count + ENRICHMENT sanity thresholds
+        id: gate
+        # v5.5.0 §6.4 publish gate. continue-on-error so a gate FAIL does not
+        # abort the job at this step — instead we capture steps.gate.outcome
+        # and branch: PASS → publish (commit/push); FAIL → preserve last-good
+        # and fail the run loudly. This is what makes one dead source survivable
+        # (continue-on-error on the pull) WITHOUT ever publishing a dead board
+        # (the gate still has the final say on publishability).
+        continue-on-error: true
         # Standing rule against the Greene-NY failure mode: CI re-pulled
         # the primary event sources but did NOT re-run the parcel
         # enrichment, so every lead came out "Unknown — no owner — no
@@ -198,9 +221,11 @@ jobs:
           PY
 
       # --------------------------------------------------------------
-      # 4. Commit + push (Pages publishes on main).
+      # 4. Commit + push (Pages publishes on main) — ONLY if the publish
+      #    gate passed. v5.5.0 §6.5 publish-or-preserve-last-good.
       # --------------------------------------------------------------
       - name: Commit refreshed data
+        if: steps.gate.outcome == 'success'
         run: |
           git config user.name  "duval-fl-refresh[bot]"
           git config user.email "duval-fl-refresh@users.noreply.github.com"
@@ -219,3 +244,24 @@ jobs:
           fi
           git commit -m "duval-fl daily refresh $(date -u +%Y-%m-%dT%H:%MZ)"
           git push origin HEAD:${GITHUB_REF_NAME}
+
+      # --------------------------------------------------------------
+      # 4b. Publish gate FAILED — preserve last-good + fail loud.
+      #     We never committed/pushed, so the previous data/leads.json +
+      #     dashboard/ on main stay live on GitHub Pages untouched. We only
+      #     write a failure receipt and exit non-zero so the operator is
+      #     alerted (red run) rather than silently shipping a degraded board.
+      # --------------------------------------------------------------
+      - name: Preserve last-good + fail loud (publish gate FAIL)
+        if: steps.gate.outcome != 'success'
+        run: |
+          mkdir -p runs/duval_fl
+          {
+            echo "Daily refresh DID NOT PUBLISH at $(date -u +%Y-%m-%dT%H:%MZ)."
+            echo "The §6.4 sanity/enrichment gate failed — see the gate step log"
+            echo "for which threshold(s) regressed. The previously published"
+            echo "Duval board (last-good data/leads.json + dashboard/ on main)"
+            echo "remains live on GitHub Pages; nothing was overwritten."
+          } | tee runs/duval_fl/last_failed_refresh.txt
+          echo "::error::Duval daily refresh withheld — publish gate failed; last-good board preserved."
+          exit 1

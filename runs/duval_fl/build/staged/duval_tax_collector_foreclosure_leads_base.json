@@ -8823,7 +8823,7 @@
     "additional_owner_names": [],
     "aggregation_key": {
       "canonical_doc_type": "tax_foreclosure_notice",
-      "parcel_id": "0213160100",
+      "parcel_id": "0581160010",
       "signal_type": "Tax Foreclosure Notice"
     },
     "base_record_id": "base_duval_tax_collector_foreclosure:021316-0100:2025:78161",
@@ -8857,7 +8857,7 @@
     "property_refs": {
       "case_number": null,
       "legal_description": "5-98 19-1S-26E .21 LINCOLN VILLAS NWLY 35FT LOT 7, SELY 1/2 LOT 8 BLK 7",
-      "parcel_id": "0213160100",
+      "parcel_id": "0581160010",
       "situs_address": "7844 PIPIT AVE"
     },
     "raw_event_id": "duval_tax_collector_foreclosure:021316-0100:2025:78161",

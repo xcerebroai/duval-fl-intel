@@ -53364,7 +53364,7 @@
     "additional_owner_names": [],
     "aggregation_key": {
       "canonical_doc_type": "administrators_deed",
-      "parcel_id": "1601050000",
+      "parcel_id": "0323640005",
       "signal_type": "Administrator's Deed"
     },
     "base_record_id": "base_pa_tax_roll_estates:0323640005:5",
@@ -53398,7 +53398,7 @@
     "property_refs": {
       "case_number": null,
       "legal_description": "21-4     39-1S-26E  .02 FAIRVIEW GARDENS S 201FT OF W 34FT LOT 1  BLK 3 (EX PT RECD 18682-375)",
-      "parcel_id": "1601050000",
+      "parcel_id": "0323640005",
       "situs_address": null
     },
     "raw_event_id": "pa_tax_roll_estates:0323640005:5",
@@ -104177,7 +104177,7 @@
     "additional_owner_names": [],
     "aggregation_key": {
       "canonical_doc_type": "administrators_deed",
-      "parcel_id": "0697460000",
+      "parcel_id": "1561330000",
       "signal_type": "Administrator's Deed"
     },
     "base_record_id": "base_pa_tax_roll_estates:0697460000:3",
@@ -104211,7 +104211,7 @@
     "property_refs": {
       "case_number": null,
       "legal_description": "36-2S-26E  1.15 PT GOVT LOT 2 RECD O/R 14189-1686",
-      "parcel_id": "0697460000",
+      "parcel_id": "1561330000",
       "situs_address": null
     },
     "raw_event_id": "pa_tax_roll_estates:0697460000:3",
@@ -130931,7 +130931,7 @@
     "additional_owner_names": [],
     "aggregation_key": {
       "canonical_doc_type": "administrators_deed",
-      "parcel_id": "1015830000",
+      "parcel_id": "0613890000",
       "signal_type": "Administrator's Deed"
     },
     "base_record_id": "base_pa_tax_roll_estates:1015830000:1",
@@ -130965,7 +130965,7 @@
     "property_refs": {
       "case_number": null,
       "legal_description": "3-40      04-3S-26E  .305 ORTEGA PT LOTS 12,13 RECD O/R 4628-1008 BLK 29",
-      "parcel_id": "1015830000",
+      "parcel_id": "0613890000",
       "situs_address": null
     },
     "raw_event_id": "pa_tax_roll_estates:1015830000:1",
@@ -181842,7 +181842,7 @@
     "additional_owner_names": [],
     "aggregation_key": {
       "canonical_doc_type": "administrators_deed",
-      "parcel_id": "1561350000",
+      "parcel_id": "1561330000",
       "signal_type": "Administrator's Deed"
     },
     "base_record_id": "base_pa_tax_roll_estates:1561350000:2",
@@ -181876,7 +181876,7 @@
     "property_refs": {
       "case_number": null,
       "legal_description": "25-4     39-4S-27E              .427 MAN-DE-LOR PT TRACT B RECD O/R 20342-1949(EX O/RS 3820-755,3837-736,4209-387, 4212-664,4217-801,4267-333,4534-387, 4539-1080,5055-956,961,7678-96,110, PT IN R/W RECD O/R 8058-1045) BEING PARCEL 2",
-      "parcel_id": "1561350000",
+      "parcel_id": "1561330000",
       "situs_address": null
     },
     "raw_event_id": "pa_tax_roll_estates:1561350000:2",
@@ -186693,7 +186693,7 @@
     "additional_owner_names": [],
     "aggregation_key": {
       "canonical_doc_type": "administrators_deed",
-      "parcel_id": "1598620020",
+      "parcel_id": "1598620200",
       "signal_type": "Administrator's Deed"
     },
     "base_record_id": "base_pa_tax_roll_estates:1598620020:1",
@@ -186727,7 +186727,7 @@
     "property_refs": {
       "case_number": null,
       "legal_description": "32-1N-28E  1.35 PT N1/2 OF N1/2 OF SE1/4 OF NW1/4 RECD O/R 13285-1230(EX PT RECD O/R 9477-414,12880-887)",
-      "parcel_id": "1598620020",
+      "parcel_id": "1598620200",
       "situs_address": null
     },
     "raw_event_id": "pa_tax_roll_estates:1598620020:1",

@@ -50,7 +50,9 @@ from __future__ import annotations
 
 import argparse
 import json
+import socket
 import sys
+import time
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -66,7 +68,17 @@ USER_AGENT = (
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
     "(KHTML, like Gecko) Chrome/124.0 Safari/537.36"
 )
-DEFAULT_TIMEOUT = 60
+# County recorder portals (Acclaim under load) are routinely slow — a short
+# per-request timeout guarantees intermittent failures. The daily-refresh that
+# motivated this hardening died on a single `URLError: timed out` against a 60s
+# ceiling. Default to a generous per-request timeout, and on a transient
+# network/timeout/5xx error retry with an INCREASING timeout (v5.5.0 §6.7
+# source-resilience pattern). A hard block (403/401) is NOT transient and
+# fails fast.
+DEFAULT_TIMEOUT = 120
+DEFAULT_RETRIES = 3
+BACKOFF_BASE = 2.0          # seconds; doubles each retry (2s, 4s, 8s, ...)
+RETRYABLE_HTTP = frozenset({429, 500, 502, 503, 504})
 DEFAULT_PAGE_SIZE = 100
 
 REQUIRED_FIELDS = ("instrument_number", "doc_type", "record_date")
@@ -74,6 +86,11 @@ REQUIRED_FIELDS = ("instrument_number", "doc_type", "record_date")
 
 class SourceBlockedError(RuntimeError):
     """Raised when the portal loses the session / returns a blocked response."""
+
+
+def _log(msg: str) -> None:
+    """Diagnostic to stderr — stdout is reserved for the run-stats JSON."""
+    print(f"[{SOURCE_ID}] {msg}", file=sys.stderr)
 
 
 def _now_iso() -> str:
@@ -173,8 +190,9 @@ def _detect_block(text: str) -> None:
 class ClerkSession:
     """A disclaimer-accepted Acclaim Official Records browsing session."""
 
-    def __init__(self, timeout: int = DEFAULT_TIMEOUT):
+    def __init__(self, timeout: int = DEFAULT_TIMEOUT, retries: int = DEFAULT_RETRIES):
         self.timeout = timeout
+        self.retries = max(1, retries)
         cj = http.cookiejar.CookieJar()
         self._op = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(cj))
         self._op.addheaders = [("User-Agent", USER_AGENT)]
@@ -188,14 +206,42 @@ class ClerkSession:
         if ajax:
             headers["X-Requested-With"] = "XMLHttpRequest"
             headers["Referer"] = BASE + "/search/SearchTypeRecordDate"
-        req = urllib.request.Request(url, data=data, headers=headers)
-        try:
-            with self._op.open(req, timeout=self.timeout) as resp:
-                return resp.read().decode("utf-8", "replace")
-        except urllib.error.HTTPError as e:
-            if e.code in (403, 401):
-                raise SourceBlockedError(f"HTTP {e.code} from {url}") from e
-            raise
+
+        last_err: Exception | None = None
+        for attempt in range(1, self.retries + 1):
+            # Grow the per-request timeout on each retry — a portal that's slow
+            # right now is often just slow, not down, so give it more time
+            # rather than giving up. (HTTPError is a URLError subclass, so the
+            # HTTPError handler must come first.)
+            timeout = self.timeout * attempt
+            req = urllib.request.Request(url, data=data, headers=headers)
+            try:
+                with self._op.open(req, timeout=timeout) as resp:
+                    return resp.read().decode("utf-8", "replace")
+            except urllib.error.HTTPError as e:
+                # A hard block / auth wall is not transient — fail fast.
+                if e.code in (403, 401):
+                    raise SourceBlockedError(f"HTTP {e.code} from {url}") from e
+                if e.code in RETRYABLE_HTTP and attempt < self.retries:
+                    last_err = e
+                else:
+                    raise
+            except (urllib.error.URLError, TimeoutError, socket.timeout) as e:
+                # urllib wraps a socket timeout in URLError — this is the exact
+                # `URLError: timed out` that killed the daily refresh. Retry.
+                if attempt < self.retries:
+                    last_err = e
+                else:
+                    raise
+
+            sleep_s = BACKOFF_BASE * (2 ** (attempt - 1))
+            _log(f"{url} failed ({last_err}); retry "
+                 f"{attempt + 1}/{self.retries} in {sleep_s:.0f}s "
+                 f"(next timeout {self.timeout * (attempt + 1)}s)")
+            time.sleep(sleep_s)
+
+        # Unreachable — the final attempt re-raises — but keeps type-checkers happy.
+        raise last_err if last_err else RuntimeError(f"request to {url} failed")
 
     def open_session(self) -> None:
         """GET the landing page and POST the records-search disclaimer."""
@@ -290,19 +336,29 @@ def _record_dates(date: str | None, days_back: int) -> list[str]:
 
 def run(*, output_path: Path | None = None, date: str | None = None,
         days_back: int = 1, doc_type: str | None = None,
-        max_rows: int | None = None, page_size: int = DEFAULT_PAGE_SIZE) -> dict:
+        max_rows: int | None = None, page_size: int = DEFAULT_PAGE_SIZE,
+        timeout: int = DEFAULT_TIMEOUT, retries: int = DEFAULT_RETRIES) -> dict:
     """Pull recorded instruments and write wrapped records to data/raw/."""
     output_path = output_path or REPO_ROOT / "data" / "raw" / f"{SOURCE_ID}.jsonl"
     output_path.parent.mkdir(parents=True, exist_ok=True)
     dates = _record_dates(date, days_back)
     stats = {"source_id": SOURCE_ID, "portal": BASE, "dates": dates,
              "doc_type_filter": doc_type or "(all)",
+             "request_timeout_s": timeout, "max_retries": retries,
              "output_path": str(output_path.relative_to(REPO_ROOT))}
 
-    session = ClerkSession()
+    session = ClerkSession(timeout=timeout, retries=retries)
     tmp = output_path.with_suffix(".jsonl.tmp")
-    count = review = filtered = 0
+    count = review = filtered = deduped = 0
     by_doc_type: dict[str, int] = {}
+    # The Acclaim GridResults index returns the SAME instrument more than once
+    # when a document is cross-indexed under multiple parties — byte-identical
+    # rows that share an instrument number. Our raw_record_id (and the
+    # downstream evidence_id) is keyed on that instrument number, which must
+    # identify exactly one evidence object (evidence_ledger enforces this), so
+    # we collapse repeats here: one recorded instrument -> one wrapped record,
+    # as this adapter's §4.32 contract promises. First occurrence wins.
+    seen_ids: set[str] = set()
     try:
         session.open_session()
         with open(tmp, "w", encoding="utf-8") as fh:
@@ -314,6 +370,11 @@ def run(*, output_path: Path | None = None, date: str | None = None,
                     if doc_type and doc_type.upper() not in dt.upper():
                         filtered += 1
                         continue
+                    rid = rec["raw_record_id"]
+                    if rid in seen_ids:
+                        deduped += 1
+                        continue
+                    seen_ids.add(rid)
                     fh.write(json.dumps(rec, ensure_ascii=False) + "\n")
                     count += 1
                     by_doc_type[dt] = by_doc_type.get(dt, 0) + 1
@@ -329,9 +390,13 @@ def run(*, output_path: Path | None = None, date: str | None = None,
         return stats
 
     tmp.replace(output_path)
+    if deduped:
+        _log(f"collapsed {deduped} duplicate cross-indexed grid row(s) "
+             f"(same instrument number returned more than once).")
     stats.update({"status": "OK", "records_written": count,
                   "records_routed_to_review": review,
                   "records_filtered_out": filtered,
+                  "records_deduped": deduped,
                   "doc_type_distribution": dict(sorted(by_doc_type.items(),
                                                        key=lambda kv: -kv[1]))})
     return stats
@@ -351,12 +416,19 @@ def main() -> int:
                         help="Optional doc-type substring filter (e.g. 'LIS PENDENS').")
     parser.add_argument("--max-rows", type=int, default=None,
                         help="Cap on rows per date (bounded sample / testing).")
+    parser.add_argument("--timeout", type=int, default=DEFAULT_TIMEOUT,
+                        help=f"Per-request timeout in seconds (default {DEFAULT_TIMEOUT}; "
+                             "grows on each retry).")
+    parser.add_argument("--retries", type=int, default=DEFAULT_RETRIES,
+                        help=f"Attempts per request before giving up "
+                             f"(default {DEFAULT_RETRIES}, with exponential backoff).")
     args = parser.parse_args()
 
     try:
         stats = run(output_path=Path(args.out) if args.out else None,
                     date=args.date, days_back=args.days_back,
-                    doc_type=args.doc_type, max_rows=args.max_rows)
+                    doc_type=args.doc_type, max_rows=args.max_rows,
+                    timeout=args.timeout, retries=args.retries)
     except SourceBlockedError as e:
         print(json.dumps({"source_id": SOURCE_ID, "status": "BLOCKED",
                           "error": str(e)}, indent=2))
